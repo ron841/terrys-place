@@ -12,6 +12,7 @@ export const metadata: Metadata = (() => {
   return {
     title: s.title,
     description: s.description,
+    alternates: { canonical: "/about" },
     openGraph: { title: s.title, description: s.description, siteName: s.siteName, images: [{ url: s.ogImage }], type: "website" },
     twitter: { card: "summary_large_image", title: s.title, description: s.description, images: [s.ogImage] },
   };

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import "./home-page.css";
@@ -23,6 +24,7 @@ export const metadata: Metadata = (() => {
   return {
     title: s.title,
     description: s.description,
+    alternates: { canonical: "/" },
     openGraph: {
       title: s.title,
       description: s.description,
@@ -101,6 +103,17 @@ export default function HomePage() {
       <Header />
 
       <section className="hero" aria-label="Welcome">
+        {/* §LCP fix: real <Image priority> with fill so Next can serve a
+            responsive AVIF/WebP and emit a preload hint. The .hero-bg div
+            becomes the dark-overlay layer (no longer carries the photo). */}
+        <Image
+          src="/assets/photo-room-hero.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-bg-img"
+        />
         <div className="hero-bg" role="presentation"></div>
         <div className="hero-inner">
           <div>

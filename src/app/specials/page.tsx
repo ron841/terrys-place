@@ -11,6 +11,7 @@ export const metadata: Metadata = (() => {
   return {
     title: s.title,
     description: s.description,
+    alternates: { canonical: "/specials" },
     openGraph: { title: s.title, description: s.description, siteName: s.siteName, images: [{ url: s.ogImage }], type: "website" },
     twitter: { card: "summary_large_image", title: s.title, description: s.description, images: [s.ogImage] },
   };
@@ -43,9 +44,9 @@ export default function SpecialsPage() {
           <div style={{ display: "flex", alignItems: "end", justifyContent: "space-between", gap: "var(--space-6)", marginBottom: "var(--space-8)", flexWrap: "wrap" }}>
             <div>
               <p className="t-eyebrow">This week</p>
-              <h2 className="inner-display">
+              <h1 className="inner-display">
                 Daily <span className="green">Specials</span>
-              </h2>
+              </h1>
             </div>
             <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", color: "var(--on-dark-2)", maxWidth: "40ch" }}>
               Updated every week. The kitchen runs the specials Mon–Fri 11am–3pm, then weekend events take over.

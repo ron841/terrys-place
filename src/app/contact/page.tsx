@@ -14,6 +14,7 @@ export const metadata: Metadata = (() => {
   return {
     title: s.title,
     description: s.description,
+    alternates: { canonical: "/contact" },
     openGraph: { title: s.title, description: s.description, siteName: s.siteName, images: [{ url: s.ogImage }], type: "website" },
     twitter: { card: "summary_large_image", title: s.title, description: s.description, images: [s.ogImage] },
   };
@@ -42,9 +43,9 @@ export default function ContactPage() {
         <div className="contact-grid">
           <div>
             <p className="t-eyebrow">Drop a line</p>
-            <h2 className="inner-display">
+            <h1 className="inner-display">
               Got a <span className="green">Question?</span>
-            </h2>
+            </h1>
             <p className="t-body t-body--lg">
               For a fast answer, just call — we pick up the phone. For private parties, catering, or anything that needs a paper trail, drop a note and we&rsquo;ll reply by email within a day.
             </p>

@@ -11,6 +11,7 @@ export const metadata: Metadata = (() => {
   return {
     title: s.title,
     description: s.description,
+    alternates: { canonical: "/sports" },
     openGraph: { title: s.title, description: s.description, siteName: s.siteName, images: [{ url: s.ogImage }], type: "website" },
     twitter: { card: "summary_large_image", title: s.title, description: s.description, images: [s.ogImage] },
   };
@@ -33,9 +34,9 @@ export default function SportsPage() {
         <div className="sports-row">
           <div>
             <p className="t-eyebrow">{sports.tagline}</p>
-            <h2 className="inner-display">
+            <h1 className="inner-display">
               On the <span className="green">Screens.</span>
-            </h2>
+            </h1>
             <p className="t-body t-body--lg">
               If it&rsquo;s a game, it&rsquo;s on. NFL Sunday Ticket, ESPN+, Big Ten, SEC, MLB Extra Innings — the whole package. Tell us what you want to watch and we&rsquo;ll put it on the screen by your seat.
             </p>

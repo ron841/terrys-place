@@ -10,6 +10,7 @@ export const metadata: Metadata = (() => {
   return {
     title: s.title,
     description: s.description,
+    alternates: { canonical: "/visit" },
     openGraph: { title: s.title, description: s.description, siteName: s.siteName, images: [{ url: s.ogImage }], type: "website" },
     twitter: { card: "summary_large_image", title: s.title, description: s.description, images: [s.ogImage] },
   };
@@ -47,9 +48,9 @@ export default function VisitPage() {
 
       <section className="t-container" style={{ paddingBlock: "var(--space-12)" }}>
         <p className="t-eyebrow">Find us</p>
-        <h2 className="inner-display" style={{ marginBottom: "var(--space-8)" }}>
+        <h1 className="inner-display" style={{ marginBottom: "var(--space-8)" }}>
           Come <span className="green">Through.</span>
-        </h2>
+        </h1>
 
         <div className="visit-grid">
           <div>
