@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Terry's Place — CMS content model",
+  "description": "What Eli (or admin) can edit without a deploy. Maps cleanly to Sanity, Prismic, or any headless CMS. Field names are stable contracts — Code: do not rename without coordinating.",
+  "type": "object",
+  "properties": {
+    "site": {
+      "type": "object",
+      "description": "Site-wide constants. Edited rarely.",
+      "properties": {
+        "name":    { "type": "string", "default": "Terry's Place" },
+        "tagline": { "type": "string", "default": "A neighborhood roadhouse · Ocala, since 1980" },
+        "phone":   { "type": "string", "pattern": "^\\+1\\d{10}$", "default": "+13527323820" },
+        "phoneDisplay": { "type": "string", "default": "(352) 732-3820" },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": { "type": "string", "default": "4121 NE 36th Ave" },
+            "city":   { "type": "string", "default": "Ocala" },
+            "region": { "type": "string", "default": "FL" },
+            "postal": { "type": "string", "default": "34479" }
+          },
+          "required": ["street", "city", "region", "postal"]
+        },
+        "email": {
+          "type": "object",
+          "properties": {
+            "general": { "type": "string", "format": "email", "default": "hello@terrys.place" },
+            "events":  { "type": "string", "format": "email", "default": "events@terrys.place" },
+            "press":   { "type": "string", "format": "email", "default": "press@terrys.place" }
+          }
+        },
+        "social": {
+          "type": "object",
+          "description": "Confirm with Eli. Audit flagged FB on live site links to '#'. Empty string = hide.",
+          "properties": {
+            "instagram": { "type": "string", "default": "" },
+            "facebook":  { "type": "string", "default": "" }
+          }
+        },
+        "timezone": { "type": "string", "const": "America/New_York" }
+      },
+      "required": ["name", "phone", "address", "timezone"]
+    },
+
+    "hours": {
+      "type": "object",
+      "description": "Per-day hours. 24h, HH:MM. null = closed that day. Drives both display and live-status logic. Saturday MUST be set before launch.",
+      "properties": {
+        "0": { "$ref": "#/$defs/dayHours", "title": "Sunday" },
+        "1": { "$ref": "#/$defs/dayHours", "title": "Monday" },
+        "2": { "$ref": "#/$defs/dayHours", "title": "Tuesday" },
+        "3": { "$ref": "#/$defs/dayHours", "title": "Wednesday" },
+        "4": { "$ref": "#/$defs/dayHours", "title": "Thursday" },
+        "5": { "$ref": "#/$defs/dayHours", "title": "Friday" },
+        "6": { "$ref": "#/$defs/dayHours", "title": "Saturday" }
+      },
+      "default": {
+        "0": { "open": "11:00", "close": "21:00" },
+        "1": { "open": "11:00", "close": "21:00" },
+        "2": { "open": "11:00", "close": "24:00" },
+        "3": { "open": "11:00", "close": "22:00" },
+        "4": { "open": "11:00", "close": "22:00" },
+        "5": { "open": "11:00", "close": "25:00" },
+        "6": null
+      },
+      "happyHour": {
+        "type": "object",
+        "default": { "days": "Mon–Fri", "label": "3–7pm" }
+      }
+    },
+
+    "tonightStrip": {
+      "type": "array",
+      "description": "Home §02. 4 cells. Eli edits weekly. Order matters.",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag":   { "type": "string", "enum": ["Tonight", "This Week", "Kitchen", "Bar"] },
+          "title": { "type": "string", "description": "Two short lines max. <br> allowed.", "maxLength": 80 },
+          "meta":  { "type": "string", "description": "One mono line.", "maxLength": 60 }
+        },
+        "required": ["tag", "title"]
+      }
+    },
+
+    "menu": {
+      "type": "object",
+      "description": "Single source — used on /menu, on the home short-menu, and in Restaurant schema.",
+      "properties": {
+        "lastUpdated": { "type": "string", "format": "date" },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id":       { "type": "string", "pattern": "^[a-z-]+$", "description": "URL fragment, e.g. 'steaks-and-chops'." },
+              "title":    { "type": "string", "description": "Display title. Italic 'em' allowed via <em> tags." },
+              "intro":    { "type": "string", "description": "1–2 sentence section intro. Optional." },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name":  { "type": "string" },
+                    "note":  { "type": "string", "description": "Italic. Brief — under 12 words.", "maxLength": 90 },
+                    "price": { "type": "integer", "description": "USD, no $. Whole dollars only.", "minimum": 0 },
+                    "tags":  { "type": "array", "items": { "type": "string", "enum": ["GF", "VG", "V", "spicy", "house-favorite"] } },
+                    "featured": { "type": "boolean", "default": false, "description": "Surface in home short menu (max 8)." }
+                  },
+                  "required": ["name", "price"]
+                }
+              }
+            },
+            "required": ["id", "title", "items"]
+          }
+        }
+      },
+      "required": ["sections"]
+    },
+
+    "about": {
+      "type": "object",
+      "description": "About page — the audit identified this as the thinnest page on the live site. Names matter here.",
+      "properties": {
+        "lede":    { "type": "string", "description": "20–35 words, sets the scene." },
+        "story":   { "type": "string", "description": "Long-form, multi-paragraph. Markdown supported." },
+        "timeline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "year": { "type": "integer", "minimum": 1980, "maximum": 2100 },
+              "what": { "type": "string", "description": "Plain prose; <em> for the parenthetical." }
+            },
+            "required": ["year", "what"]
+          }
+        },
+        "family": {
+          "type": "array",
+          "description": "Three portraits. Names + role + photo. Required for launch.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name":  { "type": "string" },
+              "role":  { "type": "string" },
+              "photo": { "type": "string", "format": "uri-reference" },
+              "since": { "type": "integer" }
+            },
+            "required": ["name", "role"]
+          }
+        }
+      }
+    },
+
+    "events": {
+      "type": "object",
+      "description": "Per spec §09 — deferred from v1, but field present so it can light up later. Hide section when empty.",
+      "properties": {
+        "weekly": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "day":   { "type": "string", "enum": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"] },
+              "title": { "type": "string" },
+              "time":  { "type": "string" },
+              "note":  { "type": "string" }
+            }
+          }
+        },
+        "specialDates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date":  { "type": "string", "format": "date" },
+              "title": { "type": "string" },
+              "note":  { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "$defs": {
+    "dayHours": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "open":  { "type": "string", "pattern": "^([01]\\d|2[0-4]):[0-5]\\d$" },
+            "close": { "type": "string", "pattern": "^([01]\\d|2[0-5]):[0-5]\\d$", "description": "May exceed 24:00 to denote closing past midnight (e.g. '25:00' = 1am next day)." }
+          },
+          "required": ["open", "close"]
+        },
+        { "type": "null", "description": "Closed all day." }
+      ]
+    }
+  }
+}

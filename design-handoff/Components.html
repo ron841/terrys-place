@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Components — Terry's Place</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="stylesheet" href="css/terrys.css" />
+<style>
+  body { background: var(--navy); }
+  .doc-head { background: var(--navy-2); padding: var(--space-10) 0; border-bottom: 4px solid var(--green); }
+  .doc-head h1 { font-family: var(--font-display); font-size: clamp(48px, 7vw, 96px); color: var(--on-dark); margin: 0 0 var(--space-3); text-transform: uppercase; line-height: 0.95; }
+  .doc-head h1 .green { color: var(--green); }
+  .doc-head p { font-family: var(--font-body); font-style: italic; font-size: 20px; color: var(--on-dark-2); max-width: 60ch; margin: 0; }
+
+  .doc-section { padding-block: var(--space-12); border-bottom: 1px solid var(--navy-line); }
+  .doc-section h2 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 56px); text-transform: uppercase; color: var(--on-dark); margin: 0 0 var(--space-2); line-height: 1; }
+  .doc-section .number { font-family: var(--font-mono); color: var(--green); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: var(--space-3); }
+  .doc-section .desc { font-family: var(--font-body); color: var(--on-dark-2); font-size: 16px; max-width: 60ch; margin: 0 0 var(--space-7); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
+  @media (max-width: 800px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .swatch { background: var(--navy-3); border-radius: 6px; overflow: hidden; }
+  .swatch .chip { aspect-ratio: 4/3; }
+  .swatch .meta { padding: var(--space-4); font-family: var(--font-mono); font-size: 12px; }
+  .swatch .name { color: var(--on-dark); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+  .swatch .hex { color: var(--on-dark-3); }
+  .swatch .role { color: var(--green); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px; }
+
+  .specimen { background: var(--navy-3); border-radius: 6px; padding: var(--space-7); }
+  .specimen .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; margin-bottom: var(--space-3); }
+  .specimen .sample { color: var(--on-dark); }
+  .specimen .meta { font-family: var(--font-mono); font-size: 11px; color: var(--on-dark-3); margin-top: var(--space-3); letter-spacing: 0.06em; }
+
+  .demo-box { background: var(--navy-3); border-radius: 6px; padding: var(--space-7); display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+  .demo-box .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; }
+  .demo-box .row { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+
+  .spacing-bar { height: 28px; background: var(--green); border-radius: 2px; position: relative; }
+  .spacing-row { display: grid; grid-template-columns: 80px 1fr 80px; gap: var(--space-4); align-items: center; padding: var(--space-2) 0; border-bottom: 1px dashed rgba(255,255,255,0.1); font-family: var(--font-mono); font-size: 12px; color: var(--on-dark-2); }
+  .spacing-row .name { color: var(--on-dark); font-weight: 700; }
+  .spacing-row .px { color: var(--green); text-align: right; }
+
+  .nav-bar { background: var(--on-dark); padding: 0; border-radius: 4px; overflow: hidden; }
+  .nav-bar .nav-inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); padding: 14px var(--space-5); }
+  .nav-bar .nav-logo { height: 40px; width: auto; }
+  .nav-bar .nav-links { display: flex; gap: var(--space-5); justify-self: end; }
+  .nav-bar .nav-links a { font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-bar .nav-cta { background: var(--green); color: var(--ink); padding: 10px 16px; border-radius: 4px; font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
+
+  .icon-fb-demo { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--green); color: var(--ink); border-radius: 3px; font-size: 12px; font-weight: 800; }
+</style>
+</head>
+<body data-screen-label="04 Components">
+
+  <header class="doc-head">
+    <div class="t-container">
+      <p style="font-family:var(--font-cond);font-weight:700;font-size:13px;letter-spacing:0.14em;color:var(--green);text-transform:uppercase;margin:0 0 var(--space-3);">Component Library · v1.0</p>
+      <h1>The <span class="green">System.</span></h1>
+      <p>Every visual + interactive component used across Terry's Place site, with their CSS class names, semantic tokens, and copy-paste markup. Lifted directly from <code style="background:var(--navy-3);padding:2px 6px;border-radius:3px;color:var(--green);">css/terrys.css</code>.</p>
+    </div>
+  </header>
+
+  <!-- COLORS -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">01 · Colors</p>
+      <h2>Palette</h2>
+      <p class="desc">Sampled from the real wordmark and live site CSS. Navy is the primary surface — the page IS this color. Green carries every CTA. Red is reserved for emphasis (drop-shadows, "SPICY" stickers, today-indicators).</p>
+
+      <div class="grid-4" style="margin-bottom:var(--space-8);">
+        <div class="swatch"><div class="chip" style="background:#1E193D;"></div><div class="meta"><div class="name">Navy</div><div class="hex">#1E193D</div><div class="role">Primary surface</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#15112B;"></div><div class="meta"><div class="name">Navy 2</div><div class="hex">#15112B</div><div class="role">Footer / inset</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#2A2452;"></div><div class="meta"><div class="name">Navy 3</div><div class="hex">#2A2452</div><div class="role">Card / hover</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#3A3270;"></div><div class="meta"><div class="name">Navy line</div><div class="hex">#3A3270</div><div class="role">Hairlines on dark</div></div></div>
+      </div>
+      <div class="grid-4" style="margin-bottom:var(--space-8);">
+        <div class="swatch"><div class="chip" style="background:#49E26D;"></div><div class="meta"><div class="name">Green</div><div class="hex">#49E26D</div><div class="role">Brand · CTAs</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#2FBF52;"></div><div class="meta"><div class="name">Green 2</div><div class="hex">#2FBF52</div><div class="role">Hover / pressed</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#E04040;"></div><div class="meta"><div class="name">Red</div><div class="hex">#E04040</div><div class="role">Emphasis · spicy</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#C43030;"></div><div class="meta"><div class="name">Red 2</div><div class="hex">#C43030</div><div class="role">Hover / pressed</div></div></div>
+      </div>
+      <div class="grid-4">
+        <div class="swatch"><div class="chip" style="background:#F7F4EC;"></div><div class="meta"><div class="name">Paper</div><div class="hex">#F7F4EC</div><div class="role">Light surface (rare)</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#15112B;"></div><div class="meta"><div class="name">Ink</div><div class="hex">#15112B</div><div class="role">Type on paper</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#FFFFFF;"></div><div class="meta"><div class="name" style="color:var(--ink);">On Dark</div><div class="hex" style="color:var(--ink-2);">#FFFFFF</div><div class="role">Type on navy</div></div></div>
+        <div class="swatch"><div class="chip" style="background:rgba(255,255,255,0.12);"></div><div class="meta"><div class="name">On Dark Muted</div><div class="hex">rgba(255,255,255,.12)</div><div class="role">Subtle dividers</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">02 · Typography</p>
+      <h2>Type System</h2>
+      <p class="desc">Luckiest Guy for display (matches the wordmark face) — CAPS-only. Open Sans for body and UI (the live site uses it). Open Sans Condensed for compressed eyebrows + label rows. JetBrains Mono for hours, prices, status. Indie Flower for handwritten chalkboard accents.</p>
+
+      <div class="grid-2" style="margin-bottom:var(--space-6);">
+        <div class="specimen">
+          <p class="label">Display · t-hero · Luckiest Guy 110/0.92</p>
+          <p class="sample t-hero" style="margin:0;">OCALA'S BEST <span class="stacked">SPORTS BAR</span></p>
+          <p class="meta">Hero headlines · stacked variant for spotlight word</p>
+        </div>
+        <div class="specimen">
+          <p class="label">Display · t-display · Luckiest Guy 72/1.0</p>
+          <p class="sample t-display" style="margin:0;">Daily <span class="pop">Specials</span></p>
+          <p class="meta">Section headers · 1 word can pop in green</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:var(--space-6);">
+        <div class="specimen">
+          <p class="label">H1 / H2 / H3 · system steps</p>
+          <p class="t-h1 sample" style="margin:0;">H1 · The Belly Buster</p>
+          <p class="t-h2 sample" style="margin:var(--space-3) 0 0;">H2 · Today's Lineup</p>
+          <p class="t-h3 sample" style="margin:var(--space-3) 0 0;">H3 · Card title in Open Sans 800</p>
+        </div>
+        <div class="specimen">
+          <p class="label">Lede · t-lede · Open Sans Italic 22</p>
+          <p class="t-lede sample" style="margin:0;">Half-pound burgers, hand-tossed wings, 22 TVs, 11 sauces, three generations behind the bar.</p>
+          <p class="meta">Hero subhead · always italic</p>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:var(--space-6);">
+        <div class="specimen">
+          <p class="label">Eyebrow · t-eyebrow</p>
+          <p class="t-eyebrow sample" style="margin:0;">This Week · Updated Mon</p>
+          <p class="meta">Open Sans Condensed 700 · 13/0.14em CAPS</p>
+        </div>
+        <div class="specimen">
+          <p class="label">Mono · t-mono--caps</p>
+          <p class="t-mono t-mono--caps sample" style="margin:0;color:var(--green);">11AM – 12AM · 22 TVS</p>
+          <p class="meta">JetBrains Mono · hours, status, code-y bits</p>
+        </div>
+        <div class="specimen">
+          <p class="label">Hand · t-hand</p>
+          <p class="t-hand sample" style="margin:0;">"If a guy can't eat it all, you cooked it right."</p>
+          <p class="meta">Indie Flower · pull-quotes, chalkboard moments</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">03 · Buttons</p>
+      <h2>CTAs</h2>
+      <p class="desc">Always uppercase, weight 800, 4px radius. Primary green is reserved for THE single primary action per surface. Hot red for time-sensitive ("Last call!", "Ends Sunday"). Ghost for secondary on dark.</p>
+
+      <div class="grid-2">
+        <div class="demo-box">
+          <p class="label">.t-btn .t-btn--primary</p>
+          <a href="#" class="t-btn t-btn--primary">Call · (352) 732-3820</a>
+          <a href="#" class="t-btn t-btn--primary">Reserve a Booth →</a>
+        </div>
+        <div class="demo-box">
+          <p class="label">.t-btn .t-btn--ghost</p>
+          <a href="#" class="t-btn t-btn--ghost">View Full Menu</a>
+          <a href="#" class="t-btn t-btn--ghost">This Week's Lineup</a>
+        </div>
+        <div class="demo-box">
+          <p class="label">.t-btn .t-btn--hot</p>
+          <a href="#" class="t-btn t-btn--hot">Sunday Football · Pitcher + 20 wings $29.99</a>
+        </div>
+        <div class="demo-box">
+          <p class="label">.t-btn (default · white)</p>
+          <a href="#" class="t-btn">Download PDF Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE STATUS / STICKERS -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">04 · Status &amp; Stickers</p>
+      <h2>Live State</h2>
+      <p class="desc">Live status pill is computed at render-time from the hours JSON (see SLOTS.md § hours). Stickers are decorative comic-book labels — keep to 1–2 per surface, max.</p>
+
+      <div class="grid-2">
+        <div class="demo-box">
+          <p class="label">.t-live (open) / .t-live--lastcall / .t-live--closed</p>
+          <div class="row">
+            <span class="t-live">Open Now · Closes 10pm</span>
+            <span class="t-live t-live--lastcall">Last Call · 30 min</span>
+            <span class="t-live t-live--closed">Closed · Opens 11am</span>
+          </div>
+        </div>
+        <div class="demo-box">
+          <p class="label">.t-sticker / .t-sticker--green</p>
+          <div class="row">
+            <span class="t-sticker">SPICY</span>
+            <span class="t-sticker t-sticker--green">★ FAV</span>
+            <span class="t-sticker">NEW</span>
+            <span class="t-sticker t-sticker--green">$10.50</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU ROW -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">05 · Menu Row</p>
+      <h2>Dot-Leader Row</h2>
+      <p class="desc">The canonical menu list-item. Name + optional italic descriptor on the left, dotted leader, mono price on the right. Stickers tuck inline next to the name. Used on Menu page and the home "Signature Dishes" area.</p>
+
+      <div class="specimen">
+        <div class="t-menu-row">
+          <span class="name">The Belly Buster <em>1lb chuck, crisp bacon, Swiss + American</em><span class="t-sticker t-sticker--green" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">★ FAV</span></span>
+          <span class="dots"></span>
+          <span class="price">10.29</span>
+        </div>
+        <div class="t-menu-row">
+          <span class="name">Jalapeño Burger <em>American &amp; Swiss, grilled onions &amp; jalapeños</em><span class="t-sticker" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">SPICY</span></span>
+          <span class="dots"></span>
+          <span class="price">8.99</span>
+        </div>
+        <div class="t-menu-row">
+          <span class="name">Original Wings · 10</span>
+          <span class="dots"></span>
+          <span class="price">14.00</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAV / FOOTER -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">06 · Header &amp; Footer</p>
+      <h2>Site Chrome</h2>
+      <p class="desc">Header is a 2-row composition: navy top bar (contact / phone / FB) over white nav (logo, links, green phone CTA). Sticky on scroll. Footer reverses to the deepest navy with a green top border, organized into Visit / Hours / More columns.</p>
+
+      <p class="t-eyebrow" style="margin-bottom:var(--space-3);">Topbar</p>
+      <div style="background:var(--navy-2);color:var(--on-dark-2);padding:10px var(--gutter);font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-align:center;border-radius:4px;margin-bottom:var(--space-5);">
+        Contact Us · Home · Dial <span style="color:var(--green);">(352) 732-3820</span> Now! <span class="icon-fb-demo" style="margin-left:14px;">f</span>
+      </div>
+
+      <p class="t-eyebrow" style="margin-bottom:var(--space-3);">Primary nav</p>
+      <div class="nav-bar">
+        <div class="nav-inner">
+          <img src="assets/logo-wordmark.png" alt="Terry's Place" class="nav-logo" />
+          <div class="nav-links">
+            <a href="#">Home</a><a href="#">About</a><a href="#">Menu</a><a href="#">Specials</a><a href="#">Events</a><a href="#">Visit</a>
+          </div>
+          <a href="#" class="nav-cta">Call · (352) 732-3820</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">07 · Spacing</p>
+      <h2>Scale</h2>
+      <p class="desc">Custom step scale — multiples of 4 up to 24 (176px). Use vars never magic numbers. Section padding is typically <code style="color:var(--green);">--space-12</code> (72px). Content gutters are <code style="color:var(--green);">--gutter</code> (32px desktop, 20px mobile).</p>
+
+      <div>
+        <div class="spacing-row"><span class="name">--space-1</span><div class="spacing-bar" style="width:4px;"></div><span class="px">4px</span></div>
+        <div class="spacing-row"><span class="name">--space-2</span><div class="spacing-bar" style="width:8px;"></div><span class="px">8px</span></div>
+        <div class="spacing-row"><span class="name">--space-4</span><div class="spacing-bar" style="width:16px;"></div><span class="px">16px</span></div>
+        <div class="spacing-row"><span class="name">--space-6</span><div class="spacing-bar" style="width:24px;"></div><span class="px">24px</span></div>
+        <div class="spacing-row"><span class="name">--space-8</span><div class="spacing-bar" style="width:40px;"></div><span class="px">40px</span></div>
+        <div class="spacing-row"><span class="name">--space-12</span><div class="spacing-bar" style="width:72px;"></div><span class="px">72px</span></div>
+        <div class="spacing-row"><span class="name">--space-16</span><div class="spacing-bar" style="width:112px;"></div><span class="px">112px</span></div>
+        <div class="spacing-row"><span class="name">--space-24</span><div class="spacing-bar" style="width:176px;"></div><span class="px">176px</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDERS / MARQUEE -->
+  <section class="doc-section">
+    <div class="t-container">
+      <p class="number">08 · Misc</p>
+      <h2>Section Breaks</h2>
+      <p class="desc">The squiggle uses the actual divider asset from the live site. The marquee is the news ticker — green strip of running text at fixed velocity, with red star separators.</p>
+
+      <p class="t-eyebrow" style="margin-bottom:var(--space-3);">.t-squiggle</p>
+      <div class="t-squiggle" style="margin-bottom:var(--space-7);"></div>
+
+      <p class="t-eyebrow" style="margin-bottom:var(--space-3);">.t-marquee</p>
+      <div class="t-marquee" style="border-radius:4px;overflow:hidden;">
+        <div class="t-marquee-track">
+          <span>Pitcher + 20 wings · $29.99 Sundays</span>
+          <span>Lunch combo $10.50 weekdays</span>
+          <span>Karaoke Friday 9pm</span>
+          <span>Pitcher + 20 wings · $29.99 Sundays</span>
+          <span>Lunch combo $10.50 weekdays</span>
+          <span>Karaoke Friday 9pm</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:var(--navy-2);padding:var(--space-8) 0;text-align:center;font-family:var(--font-mono);font-size:11px;color:var(--on-dark-3);letter-spacing:0.1em;text-transform:uppercase;">
+    Component Library · Terry's Place · See css/terrys.css for all tokens · See SLOTS.md for data shapes
+  </footer>
+
+</body>
+</html>

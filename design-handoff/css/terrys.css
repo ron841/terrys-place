@@ -1,0 +1,436 @@
+/* ==========================================================================
+   Terry's Place — Design Tokens + Semantic Classes
+   --------------------------------------------------------------------------
+   Sampled from the live site (terrys.place) and the actual logo files.
+   Vibe: chunky comic-book sports bar. Deep navy room, spring-green wordmark,
+   comic red drop-shadow / supporting text. Loud when it matters, dark and
+   warm everywhere else. Luckiest Guy display (matches the wordmark face),
+   Open Sans body (live site uses it), Indie Flower for handwritten accents
+   on bulletin-board / specials moments.
+   ========================================================================== */
+
+/* ------------ Fonts ------------------------------------------------- */
+/* Self-host in production. CDN import is for the preview only. */
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Open+Sans+Condensed:wght@700&family=JetBrains+Mono:wght@400;500;700&family=Indie+Flower&display=swap");
+
+:root {
+  /* --------- Palette — sampled from real assets --------------------- */
+  /* Surfaces — deep navy/violet (the page IS this color) */
+  --navy:         #1E193D;   /* primary surface — the live site bg     */
+  --navy-2:       #15112B;   /* deeper inset surface, footer           */
+  --navy-3:       #2A2452;   /* card / hover surface, lifted from navy */
+  --navy-line:    #3A3270;   /* hairlines on dark, very subtle         */
+
+  /* Brand green — sampled from logo (CSS-declared #49e26d on live site) */
+  --green:        #49E26D;   /* primary brand color — wordmark + CTAs  */
+  --green-2:      #2FBF52;   /* hover / pressed                        */
+  --green-deep:   #228B3A;   /* deep accent, type on light surfaces    */
+
+  /* Brand red — sampled from logo drop-shadow + "SPORTS BAR & GRILL"   */
+  --red:          #E04040;   /* secondary brand — supporting type, hot */
+  --red-2:        #C43030;   /* hover / pressed                        */
+  --red-soft:     #F26060;   /* tints                                  */
+
+  /* Light surfaces — for the few times the site needs to invert       */
+  --paper:        #F7F4EC;   /* warm off-white for menu / printable     */
+  --paper-2:      #ECE6D6;   /* card surface on paper                   */
+  --paper-line:   #D9D2BC;   /* hairlines on paper                      */
+  --ink:          #15112B;   /* near-black for type on paper            */
+  --ink-2:        #4A4566;   /* secondary text on paper                 */
+
+  /* On-dark text */
+  --on-dark:      #FFFFFF;
+  --on-dark-2:    rgba(255, 255, 255, 0.78);
+  --on-dark-3:    rgba(255, 255, 255, 0.55);
+
+  /* --------- Type roles --------------------------------------------- */
+  --font-display: "Luckiest Guy", "Bagel Fat One", system-ui, sans-serif;
+                  /* matches the chunky face in the wordmark; CAPS-only */
+  --font-body:    "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+                  /* the live site uses Open Sans for body              */
+  --font-cond:    "Open Sans Condensed", "Open Sans", system-ui, sans-serif;
+                  /* compressed subheads — eyebrows, label rows         */
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+                  /* hours, prices, live status                         */
+  --font-hand:    "Indie Flower", "Marker Felt", cursive;
+                  /* live-site uses Indie Flower; chalkboard accents    */
+
+  --fs-mono:      13px;
+  --fs-mono-s:    11px;
+  --tracking-mono:        0.06em;
+  --tracking-mono-tight:  0.02em;
+
+  /* --------- Spacing scale ------------------------------------------ */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-7: 32px; --space-8: 40px;
+  --space-9: 48px; --space-10: 56px; --space-11: 64px; --space-12: 72px;
+  --space-14: 88px; --space-16: 112px; --space-20: 144px; --space-24: 176px;
+
+  /* Layout */
+  --max-w: 1200px;
+  --gutter: 32px;
+}
+
+/* ------------ Reset (minimal) ------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--on-dark);
+  background: var(--navy);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+
+/* =====================================================================
+   TYPOGRAPHY  —  semantic classes
+   --------------------------------------------------------------------
+   Luckiest Guy is CAPS-only and sits on a tight cap-height. It looks
+   right at large sizes with normal line-height; tighten only past 80px.
+   ===================================================================== */
+
+/* Massive display — site headlines like "OCALA'S BEST SPORTS BAR & GRILL" */
+.t-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 110px);
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  color: var(--on-dark);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.t-hero .pop  { color: var(--green); }
+.t-hero .hot  { color: var(--red); }
+/* Drop-shadow effect mimicking the wordmark — green text, red shadow offset */
+.t-hero .stacked {
+  display: inline-block;
+  color: var(--green);
+  text-shadow:
+    3px 3px 0 var(--red),
+    4px 4px 0 var(--red),
+    5px 5px 0 var(--red);
+}
+
+.t-display {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.0;
+  letter-spacing: 0.005em;
+  color: var(--on-dark);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.t-display .pop { color: var(--green); }
+.t-display .hot { color: var(--red); }
+
+.t-h1 { font-family: var(--font-display); font-size: 44px; line-height: 1.05; letter-spacing: 0.005em; text-transform: uppercase; }
+.t-h2 { font-family: var(--font-display); font-size: 32px; line-height: 1.1; letter-spacing: 0.005em; text-transform: uppercase; }
+.t-h3 { font-family: var(--font-body); font-weight: 800; font-size: 20px; line-height: 1.25; }
+
+/* Lede — the live site uses italic Open Sans for hero paragraphs. Keep it. */
+.t-lede {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.55;
+  color: var(--on-dark);
+  max-width: 60ch;
+}
+.t-body  { font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: var(--on-dark-2); }
+.t-body--lg  { font-size: 18px; line-height: 1.6; }
+.t-body--ink { color: var(--ink); }
+
+.t-eyebrow {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.t-eyebrow--red { color: var(--red); }
+.t-eyebrow--ink { color: var(--ink-2); }
+
+.t-mono { font-family: var(--font-mono); font-size: var(--fs-mono); letter-spacing: var(--tracking-mono-tight); }
+.t-mono--caps { letter-spacing: var(--tracking-mono); text-transform: uppercase; }
+
+.t-hand {
+  font-family: var(--font-hand);
+  font-size: 28px;
+  line-height: 1.1;
+  color: var(--green);
+  display: inline-block;
+}
+
+/* =====================================================================
+   COMPONENTS
+   ===================================================================== */
+
+/* --- Buttons: solid green primary (matches live "CONTACT US TODAY!") -- */
+.t-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--on-dark);
+  border: 0;
+  padding: 16px 26px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 80ms ease, background 120ms ease, box-shadow 120ms ease;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.25);
+}
+.t-btn:hover  { transform: translateY(-1px); }
+.t-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.25); }
+.t-btn--primary { background: var(--green); color: var(--ink); }
+.t-btn--primary:hover { background: var(--green-2); }
+.t-btn--hot     { background: var(--red); color: var(--on-dark); }
+.t-btn--hot:hover { background: var(--red-2); }
+.t-btn--ghost   { background: transparent; color: var(--on-dark); border: 2px solid var(--on-dark); padding: 14px 24px; box-shadow: none; }
+.t-btn--ghost:hover { background: var(--on-dark); color: var(--ink); }
+
+/* --- Live status pill ------------------------------------------------ */
+.t-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--fs-mono);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--green);
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+.t-live::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ink);
+  animation: t-pulse 1.6s ease-in-out infinite;
+}
+@keyframes t-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.t-live--closed   { background: rgba(255,255,255,0.12); color: var(--on-dark-2); }
+.t-live--closed::before { background: var(--on-dark-3); animation: none; }
+.t-live--lastcall { background: var(--red); color: var(--on-dark); }
+.t-live--lastcall::before { background: var(--on-dark); }
+
+/* --- Sticker / tag chip — comic-book label, slight tilt --------------- */
+.t-sticker {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  background: var(--red);
+  color: var(--on-dark);
+  padding: 6px 12px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+.t-sticker--green { background: var(--green); color: var(--ink); }
+.t-sticker--solid-dark { background: var(--navy-2); color: var(--green); }
+
+/* --- Menu row with dot leader --------------------------------------- */
+.t-menu-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.18);
+}
+.t-menu-row .name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--on-dark);
+}
+.t-menu-row .name em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--on-dark-2);
+  margin-left: 8px;
+  font-size: 14px;
+}
+.t-menu-row .dots {
+  border-bottom: 2px dotted rgba(255,255,255,0.22);
+  align-self: end;
+  margin-bottom: 6px;
+  min-width: 40px;
+}
+.t-menu-row .price {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--green);
+}
+.t-menu-row .price::before { content: "$"; color: var(--green); margin-right: 1px; opacity: 0.6; }
+.t-menu-row .badge {
+  font-family: var(--font-cond); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  background: var(--red); color: var(--on-dark);
+  padding: 3px 7px; border-radius: 3px; margin-left: 8px;
+}
+
+/* Menu row variant on paper surface (for the printable menu) */
+.t-menu-row--paper {
+  border-bottom-color: var(--paper-line);
+}
+.t-menu-row--paper .name { color: var(--ink); }
+.t-menu-row--paper .name em { color: var(--ink-2); }
+.t-menu-row--paper .price { color: var(--ink); }
+.t-menu-row--paper .price::before { color: var(--green-deep); opacity: 1; }
+.t-menu-row--paper .dots { border-bottom-color: var(--paper-line); }
+
+/* --- Photo placeholder (for missing imagery) ------------------------- */
+.t-photo-placeholder {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0px, transparent 22px,
+      rgba(255, 255, 255, 0.04) 22px, rgba(255, 255, 255, 0.04) 23px
+    ),
+    var(--navy-3);
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.t-photo-placeholder::after {
+  content: "PHOTO PENDING";
+  position: absolute;
+  top: 12px; left: 14px;
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--green);
+}
+.t-photo-placeholder span {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  color: var(--on-dark);
+  line-height: 1.15;
+}
+
+/* --- Polaroid (for staff / room snapshots) --------------------------- */
+.t-polaroid {
+  background: var(--on-dark);
+  padding: 10px 10px 36px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  position: relative;
+  border-radius: 2px;
+}
+.t-polaroid .img {
+  aspect-ratio: 1/1;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0px, transparent 18px,
+      rgba(0,0,0, 0.05) 18px, rgba(0,0,0, 0.05) 19px
+    ),
+    var(--paper-2);
+  background-size: cover;
+  background-position: center;
+}
+.t-polaroid .img--photo { background-image: var(--photo); background-size: cover; }
+.t-polaroid .cap {
+  position: absolute;
+  bottom: 8px; left: 12px; right: 12px;
+  font-family: var(--font-hand);
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1;
+}
+
+/* --- Rules ----------------------------------------------------------- */
+.t-rule         { border: 0; border-top: 1px solid var(--navy-line); margin: var(--space-8) 0; }
+.t-rule--dashed { border: 0; border-top: 2px dashed rgba(255,255,255,0.22); margin: var(--space-8) 0; }
+.t-rule--green  { border: 0; border-top: 4px solid var(--green); margin: var(--space-8) 0; }
+
+/* --- Squiggle divider — uses the actual brand asset ------------------ */
+.t-squiggle {
+  height: 28px;
+  background-image: url("../assets/divider-swoosh.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+/* Scaled down inline version */
+.t-squiggle--sm { height: 18px; }
+
+/* --- Marquee — for the live ticker ----------------------------------- */
+.t-marquee {
+  background: var(--green);
+  overflow: hidden;
+  position: relative;
+}
+.t-marquee-track {
+  display: inline-flex;
+  gap: var(--space-8);
+  padding: 14px 0;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  animation: t-marquee 40s linear infinite;
+}
+.t-marquee-track > span { display: inline-flex; align-items: center; gap: var(--space-8); }
+.t-marquee-track > span::after {
+  content: "★";
+  color: var(--red);
+  margin-left: var(--space-8);
+}
+@keyframes t-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* --- Cards — dark surface lift on navy page ------------------------- */
+.t-card {
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-6);
+}
+.t-card--bordered {
+  background: transparent;
+  border: 1px solid var(--navy-line);
+}
+
+/* --- Section utility ------------------------------------------------ */
+.t-section {
+  padding-block: var(--space-12);
+}
+.t-section--paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+.t-section--paper .t-body { color: var(--ink-2); }
+
+.t-container {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+@media (max-width: 720px) {
+  :root { --gutter: 20px; }
+}

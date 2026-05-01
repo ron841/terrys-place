@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Terry's Place — Ocala's Sports Bar &amp; Grill since 1980</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="stylesheet" href="css/terrys.css" />
+<style>
+  /* ============ Page-only styles =================================== */
+
+  /* --- Top utility bar (matches the live site's structure) --- */
+  .topbar {
+    background: var(--navy-2);
+    color: var(--on-dark-2);
+    padding: 10px var(--gutter);
+    font-family: var(--font-cond);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .topbar a { text-decoration: none; color: var(--on-dark); }
+  .topbar a:hover { color: var(--green); }
+  .topbar .sep { opacity: 0.3; margin: 0 14px; }
+  .topbar .phone { color: var(--green); }
+  .topbar .icon-fb {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px;
+    background: var(--green); color: var(--ink);
+    border-radius: 3px; margin-left: 14px;
+    font-size: 12px; font-weight: 800; vertical-align: middle;
+  }
+
+  /* --- Header / nav --- */
+  .nav {
+    background: var(--on-dark);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-6);
+    padding: 14px var(--gutter);
+  }
+  .nav-logo { display: block; height: 56px; width: auto; }
+  .nav-links {
+    display: flex;
+    gap: var(--space-7);
+    justify-self: end;
+  }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 4px;
+    border-bottom: 3px solid transparent;
+  }
+  .nav-links a:hover, .nav-links a[aria-current="page"] {
+    border-bottom-color: var(--green);
+    color: var(--ink);
+  }
+  .nav-cta {
+    background: var(--green);
+    color: var(--ink);
+    padding: 14px 24px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .nav-cta:hover { background: var(--green-2); }
+  .nav-cta::after {
+    content: "";
+    display: block;
+    width: 18px; height: 2px;
+    background: var(--ink);
+    box-shadow: 0 -5px 0 var(--ink), 0 5px 0 var(--ink);
+    margin-left: 4px;
+  }
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+  }
+
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    min-height: 720px;
+    background: var(--navy);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("assets/photo-room-hero.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(30,25,61,0.55) 0%, rgba(30,25,61,0.78) 70%, var(--navy) 100%),
+      radial-gradient(ellipse at 30% 20%, rgba(73,226,109,0.18) 0%, transparent 60%);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: var(--space-12) var(--gutter) var(--space-14);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-12);
+    align-items: end;
+  }
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: var(--space-8); padding-bottom: var(--space-10); }
+    .hero { min-height: auto; }
+  }
+
+  .hero-eyebrow-row {
+    display: flex; gap: var(--space-4); align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-5);
+  }
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 9vw, 130px);
+    line-height: 0.92;
+    letter-spacing: 0.005em;
+    color: var(--on-dark);
+    text-transform: uppercase;
+    text-wrap: balance;
+    margin: 0 0 var(--space-6);
+  }
+  .hero-headline .green {
+    display: inline-block;
+    color: var(--green);
+    text-shadow:
+      3px 3px 0 var(--red),
+      4px 4px 0 var(--red),
+      5px 5px 0 var(--red),
+      6px 6px 0 var(--red);
+  }
+  .hero-lede {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.55;
+    color: var(--on-dark);
+    max-width: 50ch;
+    margin: 0 0 var(--space-7);
+  }
+  .hero-cta-row { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+
+  /* Status card — the missing live signal */
+  .hero-status {
+    background: rgba(15, 14, 18, 0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: var(--space-6);
+    align-self: end;
+  }
+  .hero-status .row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3) var(--space-5);
+    align-items: baseline;
+    margin-top: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--on-dark-2);
+  }
+  .hero-status .row dt {
+    color: var(--on-dark-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    margin: 0;
+  }
+  .hero-status .row dd { margin: 0; color: var(--on-dark); }
+  .hero-status .label {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    color: var(--green);
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: var(--space-3);
+  }
+
+  /* --- Marquee under hero --- */
+  .ticker { border-block: 1px solid rgba(255,255,255,0.08); }
+
+  /* --- Event week section --- */
+  .events-section { padding: var(--space-12) 0; }
+  .events-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .events-header .title { margin: 0; }
+  .events-header .sub {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--on-dark-2);
+    max-width: 40ch;
+  }
+
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    background: var(--navy-line);
+    border: 1px solid var(--navy-line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  @media (max-width: 900px) {
+    .week-grid { grid-template-columns: 1fr; }
+  }
+  .day {
+    background: var(--navy);
+    padding: var(--space-5);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    position: relative;
+  }
+  .day.is-today { background: var(--navy-3); }
+  .day.is-today::before {
+    content: "TODAY";
+    position: absolute;
+    top: 0; right: 0;
+    background: var(--green);
+    color: var(--ink);
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    padding: 4px 8px;
+  }
+  .day .dow {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--on-dark);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .day .date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--on-dark-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .day .event {
+    margin-top: auto;
+    border-top: 1px dashed rgba(255,255,255,0.18);
+    padding-top: var(--space-3);
+  }
+  .day .event .kind {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .day .event .kind.is-hot { color: var(--red); }
+  .day .event .name {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--on-dark);
+    line-height: 1.2;
+  }
+  .day .event .when {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--on-dark-2);
+    margin-top: 4px;
+  }
+  .day .event--quiet { opacity: 0.55; }
+
+  /* --- "What you came for" food strip --- */
+  .food-strip { padding: var(--space-12) 0; }
+  .food-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: var(--space-5);
+  }
+  @media (max-width: 900px) {
+    .food-grid { grid-template-columns: 1fr 1fr; }
+    .food-grid > :first-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
+    .food-grid { grid-template-columns: 1fr; }
+  }
+  .food-card {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--navy-3);
+    aspect-ratio: 4 / 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .food-card.tall { aspect-ratio: 4 / 5.6; }
+  .food-card .img {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  .food-card::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(15,14,18,0.85) 100%);
+    z-index: 1;
+  }
+  .food-card .body {
+    position: relative; z-index: 2;
+    padding: var(--space-6);
+  }
+  .food-card .kicker {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: var(--space-2);
+  }
+  .food-card .name {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.0;
+    color: var(--on-dark);
+    text-transform: uppercase;
+    margin: 0 0 var(--space-2);
+  }
+  .food-card .price {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--on-dark-2);
+  }
+  .food-card .price strong {
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* --- Three generations --- */
+  .heritage { padding: var(--space-12) 0; }
+  .heritage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .heritage-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  }
+  .heritage-photo {
+    aspect-ratio: 4 / 5;
+    background-image: url("assets/photo-staff-group.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px;
+    position: relative;
+  }
+  .heritage-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 -120px 80px -60px rgba(15,14,18,0.6);
+    border-radius: 6px;
+    pointer-events: none;
+  }
+  .heritage-stat {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--navy-line);
+    padding-top: var(--space-6);
+  }
+  .heritage-stat .num {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 56px);
+    color: var(--green);
+    line-height: 1;
+  }
+  .heritage-stat .lbl {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--on-dark-2);
+    margin-top: var(--space-2);
+  }
+
+  /* --- News strip --- */
+  .news { padding: var(--space-12) 0; }
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+  @media (max-width: 800px) { .news-grid { grid-template-columns: 1fr; } }
+  .news-card {
+    background: var(--navy-3);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .news-card .img {
+    aspect-ratio: 16/9;
+    background-size: cover;
+    background-position: center;
+  }
+  .news-card .body { padding: var(--space-6); }
+  .news-card .date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: var(--space-3);
+  }
+  .news-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.05;
+    margin: 0 0 var(--space-3);
+    text-transform: uppercase;
+    color: var(--on-dark);
+  }
+
+  /* --- Footer --- */
+  .footer {
+    background: var(--navy-2);
+    padding: var(--space-12) 0 var(--space-8);
+    border-top: 4px solid var(--green);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: var(--space-8);
+  }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+  .footer h4 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0 0 var(--space-4);
+    letter-spacing: 0.04em;
+  }
+  .footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer li { font-size: 14px; color: var(--on-dark-2); margin-bottom: var(--space-2); }
+  .footer a { color: var(--on-dark-2); text-decoration: none; }
+  .footer a:hover { color: var(--green); }
+  .footer-mark { display: block; height: 64px; width: auto; margin-bottom: var(--space-4); }
+  .footer-bottom {
+    border-top: 1px solid var(--navy-line);
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--on-dark-3);
+  }
+
+  /* --- Designer notes (scaffolding for handoff readability) --- */
+  .note {
+    max-width: var(--max-w);
+    margin: 0 auto var(--space-4);
+    padding: var(--space-3) var(--gutter) 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .note::before { content: "// "; opacity: 0.6; }
+</style>
+</head>
+<body data-screen-label="01 Home">
+
+  <!-- Utility / contact bar (matches live site) -->
+  <div class="topbar">
+    <span><a href="#contact">Contact Us</a></span>
+    <span class="sep">·</span>
+    <span><a href="#menu">Our Menu</a></span>
+    <span class="sep">·</span>
+    <span>Dial <a href="tel:+13527323820" class="phone">(352) 732-3820</a> Now!</span>
+    <a href="#" aria-label="Facebook" class="icon-fb">f</a>
+  </div>
+
+  <!-- Header / nav -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#" aria-label="Terry's Place — home">
+        <img src="assets/logo-wordmark.png" alt="Terry's Place — Sports Bar &amp; Grill" class="nav-logo" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#" aria-current="page">Home</a>
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#specials">Specials</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Visit</a>
+      </nav>
+      <a href="#menu" class="nav-cta">Menu</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Welcome">
+    <div class="hero-bg" role="presentation"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow-row">
+          <span class="t-live">Open Now · Closes 10pm</span>
+          <span class="t-eyebrow">Ocala, Florida · Est. 1980</span>
+        </div>
+        <h1 class="hero-headline">
+          Ocala's <span class="green">Sports Bar</span><br />
+          &amp; Grill
+        </h1>
+        <p class="hero-lede">
+          For more than forty years, Terry's Place has been Ocala's
+          sports bar &amp; grill — king-size portions, a lively room,
+          and three generations of homegrown hospitality.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#menu" class="t-btn t-btn--primary">See the Menu</a>
+          <a href="#events" class="t-btn t-btn--ghost">What's on tonight</a>
+        </div>
+      </div>
+
+      <aside class="hero-status" aria-label="Tonight at Terry's">
+        <div class="label">Tonight at Terry's</div>
+        <p class="t-body t-body--lg" style="color: var(--on-dark); margin: 0 0 var(--space-2);">
+          🏈 NFL Sunday Ticket on every screen
+        </p>
+        <p class="t-body" style="margin:0;">
+          Wings &amp; pitcher special $29.99. Kitchen open till 9pm.
+        </p>
+        <dl class="row">
+          <dt>Now</dt>      <dd>Sunday · 6:42 PM</dd>
+          <dt>Crowd</dt>    <dd>Steady · ~30 min wait</dd>
+          <dt>Last call</dt><dd>8:30 PM (kitchen)</dd>
+          <dt>Hours</dt>    <dd>11:00 AM – 9:00 PM</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Marquee ticker -->
+  <div class="ticker t-marquee" aria-label="What's happening this week">
+    <div class="t-marquee-track">
+      <span>Sunday Football Special</span>
+      <span>$10.50 lunch Mon–Fri</span>
+      <span>Happy Hour 3–7 daily</span>
+      <span>Karaoke Friday Night</span>
+      <span>Trivia Tuesday 7pm</span>
+      <span>King-size portions since 1980</span>
+      <!-- Duplicate for seamless loop -->
+      <span>Sunday Football Special</span>
+      <span>$10.50 lunch Mon–Fri</span>
+      <span>Happy Hour 3–7 daily</span>
+      <span>Karaoke Friday Night</span>
+      <span>Trivia Tuesday 7pm</span>
+      <span>King-size portions since 1980</span>
+    </div>
+  </div>
+
+  <!-- Squiggle divider — the brand asset -->
+  <div class="t-container" style="padding-block: var(--space-8);">
+    <div class="t-squiggle" role="presentation"></div>
+  </div>
+
+  <!-- THIS WEEK -->
+  <p class="note">A homepage answer to "what's happening this week?" — the empty placeholder block on the live site, filled in.</p>
+  <section class="events-section t-container" id="events" aria-label="This week at Terry's">
+    <header class="events-header">
+      <div>
+        <p class="t-eyebrow">This Week at Terry's</p>
+        <h2 class="t-display title">Always Something Going On.</h2>
+      </div>
+      <p class="sub">
+        Game days, trivia, karaoke, and the lunch crowd that's been here for
+        forty years. Drop in.
+      </p>
+    </header>
+
+    <div class="week-grid">
+      <div class="day">
+        <div class="dow">Mon</div>
+        <div class="date">May 4</div>
+        <div class="event">
+          <div class="kind">Lunch Special</div>
+          <div class="name">Cheeseburger &amp; Fries</div>
+          <div class="when">11am–3pm · $10.50</div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="dow">Tue</div>
+        <div class="date">May 5</div>
+        <div class="event">
+          <div class="kind is-hot">Trivia Night</div>
+          <div class="name">Pub Trivia w/ Big Mike</div>
+          <div class="when">7:00 PM · Free to play</div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="dow">Wed</div>
+        <div class="date">May 6</div>
+        <div class="event">
+          <div class="kind">Lunch Special</div>
+          <div class="name">Any Small Sub &amp; Fries</div>
+          <div class="when">11am–3pm · $10.50</div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="dow">Thu</div>
+        <div class="date">May 7</div>
+        <div class="event">
+          <div class="kind">Lunch Special</div>
+          <div class="name">Chicken Tenders &amp; Fries</div>
+          <div class="when">11am–3pm · $10.50</div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="dow">Fri</div>
+        <div class="date">May 8</div>
+        <div class="event">
+          <div class="kind is-hot">Karaoke</div>
+          <div class="name">Karaoke Night</div>
+          <div class="when">8:00 PM – Late</div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="dow">Sat</div>
+        <div class="date">May 9</div>
+        <div class="event">
+          <div class="kind">Live Music</div>
+          <div class="name">Acoustic w/ JD Hayes</div>
+          <div class="when">8:00 PM · No cover</div>
+        </div>
+      </div>
+      <div class="day is-today">
+        <div class="dow">Sun</div>
+        <div class="date">May 10</div>
+        <div class="event">
+          <div class="kind is-hot">Football</div>
+          <div class="name">Sunday Football Special</div>
+          <div class="when">All day · $29.99 wings + pitcher</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Squiggle divider -->
+  <div class="t-container" style="padding-block: var(--space-6);">
+    <div class="t-squiggle" role="presentation"></div>
+  </div>
+
+  <!-- WHAT YOU CAME FOR -->
+  <p class="note">Three signature dishes pulled from the actual menu PDF. Big servings is the angle.</p>
+  <section class="food-strip t-container" id="menu" aria-label="What you came for">
+    <header class="events-header">
+      <div>
+        <p class="t-eyebrow">What You Came For</p>
+        <h2 class="t-display title">King-Size Portions.<br /><span style="color: var(--green);">Cooked to Order.</span></h2>
+      </div>
+      <p class="sub">
+        Half-pound burgers. Hand-tossed wings. Steaks that hang off the plate. Nothing pre-cooked, ever.
+      </p>
+    </header>
+
+    <div class="food-grid">
+      <article class="food-card tall">
+        <div class="img" style="background-image: url('assets/photo-staff-burger-wings.jpg');"></div>
+        <div class="body">
+          <div class="kicker">★ Terry's Favorite</div>
+          <h3 class="name">The Belly<br />Buster</h3>
+          <p class="price">1lb USDA Angus chuck · crisp bacon · Swiss + American · <strong>$10.29</strong></p>
+        </div>
+      </article>
+      <article class="food-card">
+        <div class="img" style="background-image: url('assets/photo-wings-cocktails.jpg');"></div>
+        <div class="body">
+          <div class="kicker">House Specialty</div>
+          <h3 class="name">Original<br />Wings</h3>
+          <p class="price">10 for <strong>$14.00</strong> · 50 for <strong>$70.00</strong></p>
+        </div>
+      </article>
+      <article class="food-card">
+        <div class="img" style="background-image: url('assets/photo-steak.jpg');"></div>
+        <div class="body">
+          <div class="kicker">Cooked to Order</div>
+          <h3 class="name">Steak<br />Night</h3>
+          <p class="price">Char-grilled, mushrooms &amp; onions · <strong>Market</strong></p>
+        </div>
+      </article>
+    </div>
+
+    <div style="margin-top: var(--space-8); display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: center;">
+      <a href="#" class="t-btn t-btn--primary">See the Full Menu</a>
+      <a href="assets/menu-2025.pdf" class="t-btn t-btn--ghost">Download PDF (1.2 MB)</a>
+      <span class="t-mono t-mono--caps" style="color: var(--on-dark-3);">Updated April 2025</span>
+    </div>
+  </section>
+
+  <!-- Squiggle divider -->
+  <div class="t-container" style="padding-block: var(--space-8);">
+    <div class="t-squiggle" role="presentation"></div>
+  </div>
+
+  <!-- THREE GENERATIONS -->
+  <p class="note">Family story made literal: real staff photo + 3 stats. Replaces the body-paragraph soup the live site has.</p>
+  <section class="heritage t-container" id="about" aria-label="Three generations">
+    <div class="heritage-grid">
+      <div class="heritage-photo" role="img" aria-label="Terry's Place staff in front of the brushed-metal Terry's wordmark"></div>
+      <div>
+        <p class="t-eyebrow t-eyebrow--red">Three Generations</p>
+        <h2 class="t-display" style="color: var(--on-dark);">Family-Run<br />Since <span class="pop">1980</span>.</h2>
+        <p class="t-body t-body--lg" style="color: var(--on-dark-2); max-width: 50ch; margin-top: var(--space-5);">
+          Terry's opened on NE 36th Avenue in 1980 with a simple promise: a
+          fair price, a big plate, and a place where neighbors run into
+          neighbors. Three generations later, that's still the whole job.
+        </p>
+        <p class="t-body" style="max-width: 50ch; margin-top: var(--space-4);">
+          You'll see the same faces behind the bar that you saw last
+          Sunday — and probably last Sunday a year ago.
+        </p>
+        <div class="heritage-stat">
+          <div>
+            <div class="num">45</div>
+            <div class="lbl">Years in Ocala</div>
+          </div>
+          <div>
+            <div class="num">3</div>
+            <div class="lbl">Generations</div>
+          </div>
+          <div>
+            <div class="num">7&nbsp;day</div>
+            <div class="lbl">Open week</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Squiggle divider -->
+  <div class="t-container" style="padding-block: var(--space-8);">
+    <div class="t-squiggle" role="presentation"></div>
+  </div>
+
+  <!-- LATEST NEWS -->
+  <p class="note">Kept the live site's "latest news" structure but executed cleanly. Each card has a real reason to click.</p>
+  <section class="news t-container" aria-label="Latest news">
+    <header class="events-header">
+      <div>
+        <p class="t-eyebrow">Get the Latest News</p>
+        <h2 class="t-display title">From the Bar.</h2>
+      </div>
+      <a href="#" class="t-btn t-btn--ghost">All updates</a>
+    </header>
+
+    <div class="news-grid">
+      <article class="news-card">
+        <div class="img" style="background-image: url('assets/photo-staff-poboy.jpg');"></div>
+        <div class="body">
+          <div class="date">Posted Apr 22 · 3 min read</div>
+          <h3>The Best Wings in Marion County</h3>
+          <p class="t-body">Why we hand-toss our wings and why Buffalo isn't the only flavor that matters. (Spoiler: Honey BBQ.)</p>
+        </div>
+      </article>
+      <article class="news-card">
+        <div class="img" style="background-image: url('assets/photo-camo-hats.jpg');"></div>
+        <div class="body">
+          <div class="date">Posted Apr 14 · 2 min read</div>
+          <h3>Looking for a Ladies' Night Out?</h3>
+          <p class="t-body">Wednesdays are quietly becoming the best night of the week. Here's what's on the bar program.</p>
+        </div>
+      </article>
+      <article class="news-card">
+        <div class="img" style="background-image: url('assets/photo-pool-room.jpg');"></div>
+        <div class="body">
+          <div class="date">Posted Apr 03 · 4 min read</div>
+          <h3>Looking for a Pool Hall in Ocala?</h3>
+          <p class="t-body">Two tables in the back. Cold beer. No cover. The most underrated room in the building.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="t-container">
+      <div class="footer-grid">
+        <div>
+          <img src="assets/logo-wordmark.png" alt="Terry's Place" class="footer-mark" />
+          <p class="t-body" style="color: var(--on-dark-2); max-width: 32ch;">
+            Ocala's sports bar &amp; grill since 1980. Three generations of king-size portions and homegrown hospitality.
+          </p>
+        </div>
+        <div>
+          <h4>Visit</h4>
+          <ul>
+            <li>4121 NE 36th Ave</li>
+            <li>Ocala, FL 34479</li>
+            <li><a href="tel:+13527323820">(352) 732-3820</a></li>
+            <li><a href="#">Get directions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Hours</h4>
+          <ul>
+            <li>Sun – Mon · 11a–9p</li>
+            <li>Tuesday · 11a–12a</li>
+            <li>Wed – Thu · 11a–10p</li>
+            <li>Friday · 11a–1a</li>
+            <li>Saturday · 11a–12a</li>
+            <li style="color: var(--green); margin-top: var(--space-3);">Happy Hour Mon–Fri 3–7p</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Menu &amp; More</h4>
+          <ul>
+            <li><a href="#">Full Menu</a></li>
+            <li><a href="assets/menu-2025.pdf">PDF Menu</a></li>
+            <li><a href="#">Daily Lunch ($10.50)</a></li>
+            <li><a href="#">Catering &amp; Parties</a></li>
+            <li><a href="#" aria-label="Facebook">Facebook ↗</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Terry's Place · Sports Bar &amp; Grill · Est. 1980</span>
+        <span>Designed by <a href="#" style="color: var(--green);">Get Rooted Media</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

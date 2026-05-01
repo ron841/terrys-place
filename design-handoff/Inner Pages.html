@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Inner Pages — Terry's Place</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="stylesheet" href="css/terrys.css" />
+<style>
+  /* Shared header (same as Home/Menu) */
+  .topbar { background: var(--navy-2); color: var(--on-dark-2); padding: 10px var(--gutter); font-family: var(--font-cond); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; }
+  .topbar a { text-decoration: none; color: var(--on-dark); }
+  .topbar a:hover { color: var(--green); }
+  .topbar .sep { opacity: 0.3; margin: 0 14px; }
+  .topbar .phone { color: var(--green); }
+  .topbar .icon-fb { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--green); color: var(--ink); border-radius: 3px; margin-left: 14px; font-size: 12px; font-weight: 800; vertical-align: middle; }
+  .nav { background: var(--on-dark); position: sticky; top: 0; z-index: 50; }
+  .nav-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-6); padding: 14px var(--gutter); }
+  .nav-logo { display: block; height: 56px; width: auto; }
+  .nav-links { display: flex; gap: var(--space-7); justify-self: end; }
+  .nav-links a { font-family: var(--font-body); font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 8px 4px; border-bottom: 3px solid transparent; }
+  .nav-links a:hover, .nav-links a[aria-current="page"] { border-bottom-color: var(--green); color: var(--ink); }
+  .nav-cta { background: var(--green); color: var(--ink); padding: 14px 24px; border-radius: 4px; font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* Page divider — labels which page each section represents */
+  .page-divider { background: var(--navy-2); padding: var(--space-4) 0; border-block: 4px solid var(--green); margin-block: var(--space-12) 0; }
+  .page-divider-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+  .page-divider .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
+  .page-divider .url { font-family: var(--font-mono); font-size: 11px; color: var(--on-dark-3); }
+
+  /* About hero */
+  .about-hero { background: var(--navy); padding: var(--space-12) 0; }
+  .about-hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-10); align-items: center; }
+  @media (max-width: 800px) { .about-hero-grid { grid-template-columns: 1fr; } }
+  .about-hero h1 { font-family: var(--font-display); font-size: clamp(56px, 8vw, 110px); line-height: 0.92; color: var(--on-dark); text-transform: uppercase; margin: 0 0 var(--space-5); }
+  .about-hero h1 .green { color: var(--green); text-shadow: 3px 3px 0 var(--red), 4px 4px 0 var(--red); display: inline-block; }
+  .about-hero img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 6px; }
+  .about-hero .est { font-family: var(--font-display); font-size: 28px; color: var(--red); letter-spacing: 0.04em; }
+
+  /* Story rows */
+  .story-section { padding-block: var(--space-12); }
+  .story-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: center; }
+  .story-row + .story-row { margin-top: var(--space-12); }
+  .story-row.flip { grid-template-columns: 1fr 1fr; }
+  .story-row.flip > :first-child { order: 2; }
+  @media (max-width: 800px) { .story-row, .story-row.flip { grid-template-columns: 1fr; } .story-row.flip > :first-child { order: 0; } }
+  .story-row h2 { font-family: var(--font-display); font-size: clamp(40px, 5vw, 72px); color: var(--on-dark); text-transform: uppercase; margin: 0 0 var(--space-5); line-height: 0.95; }
+  .story-row h2 .green { color: var(--green); }
+  .story-row .body { font-family: var(--font-body); font-size: 18px; line-height: 1.65; color: var(--on-dark-2); }
+  .story-row .body p + p { margin-top: var(--space-4); }
+  .story-row img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 6px; }
+  .story-pull { font-family: var(--font-hand); font-size: 28px; color: var(--green); border-left: 4px solid var(--green); padding-left: var(--space-5); margin-top: var(--space-5); }
+
+  /* Specials & events */
+  .specials-bg { background: var(--navy-2); }
+  .specials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+  @media (max-width: 800px) { .specials-grid { grid-template-columns: 1fr; } }
+  .special-card { background: var(--navy-3); border-radius: 6px; padding: var(--space-6); border-top: 4px solid var(--green); position: relative; }
+  .special-card.hot { border-top-color: var(--red); }
+  .special-card .day { font-family: var(--font-display); color: var(--green); font-size: 28px; text-transform: uppercase; margin: 0 0 var(--space-2); }
+  .special-card.hot .day { color: var(--red); }
+  .special-card h3 { font-family: var(--font-body); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 0 0 var(--space-2); color: var(--on-dark); }
+  .special-card .price { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: var(--green); margin: 0 0 var(--space-3); }
+  .special-card .desc { font-size: 14px; line-height: 1.55; color: var(--on-dark-2); margin: 0; }
+  .special-card .when { display: inline-block; margin-top: var(--space-4); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-dark-3); }
+
+  /* Sports / TV schedule */
+  .sports-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: start; }
+  @media (max-width: 800px) { .sports-row { grid-template-columns: 1fr; } }
+  .tv-list { background: var(--navy-3); border-radius: 6px; padding: var(--space-6); }
+  .tv-list h4 { font-family: var(--font-display); color: var(--green); font-size: 24px; text-transform: uppercase; margin: 0 0 var(--space-4); }
+  .tv-row { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-4); align-items: center; padding: var(--space-3) 0; border-bottom: 1px dashed rgba(255,255,255,0.15); font-family: var(--font-mono); }
+  .tv-row:last-child { border: 0; }
+  .tv-row .time { font-size: 13px; font-weight: 700; color: var(--green); width: 90px; }
+  .tv-row .matchup { font-family: var(--font-body); font-weight: 600; font-size: 15px; color: var(--on-dark); }
+  .tv-row .channel { font-size: 11px; color: var(--on-dark-3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* Visit / contact */
+  .visit-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-10); }
+  @media (max-width: 800px) { .visit-grid { grid-template-columns: 1fr; } }
+  .map-placeholder { background: var(--navy-3); aspect-ratio: 4/3; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: var(--space-3); position: relative; overflow: hidden; }
+  .map-placeholder::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent 0 22px, rgba(73,226,109,0.04) 22px 23px); }
+  .map-placeholder .pin { font-family: var(--font-display); font-size: 64px; color: var(--green); }
+  .map-placeholder .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; }
+  .info-list { display: grid; gap: var(--space-5); }
+  .info-block { background: var(--navy-3); border-radius: 6px; padding: var(--space-6); }
+  .info-block h4 { font-family: var(--font-display); color: var(--green); font-size: 20px; text-transform: uppercase; margin: 0 0 var(--space-3); }
+  .info-block .big { font-family: var(--font-display); font-size: 32px; color: var(--on-dark); line-height: 1.05; margin: 0 0 var(--space-2); }
+  .info-block p { font-family: var(--font-body); font-size: 15px; color: var(--on-dark-2); margin: 0; line-height: 1.55; }
+
+  /* Hours table */
+  .hours-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 14px; }
+  .hours-table tr { border-bottom: 1px dashed rgba(255,255,255,0.15); }
+  .hours-table tr:last-child { border: 0; }
+  .hours-table td { padding: 10px 0; }
+  .hours-table .day { color: var(--on-dark); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .hours-table .hrs { color: var(--green); text-align: right; font-weight: 600; }
+  .hours-table .today { background: rgba(73,226,109,0.08); }
+  .hours-table .today .hrs::after { content: " ← TODAY"; color: var(--red); font-size: 11px; letter-spacing: 0.1em; }
+
+  /* Contact form */
+  .contact-form { background: var(--navy-3); border-radius: 6px; padding: var(--space-7); }
+  .form-row { display: grid; gap: var(--space-2); margin-bottom: var(--space-5); }
+  .form-row label { font-family: var(--font-cond); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); }
+  .form-row input, .form-row textarea, .form-row select { font-family: var(--font-body); font-size: 16px; padding: 12px 14px; background: var(--navy); border: 1px solid var(--navy-line); border-radius: 4px; color: var(--on-dark); }
+  .form-row input:focus, .form-row textarea:focus, .form-row select:focus { outline: 2px solid var(--green); border-color: var(--green); }
+  .form-row textarea { min-height: 120px; resize: vertical; }
+  .form-row.split { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  @media (max-width: 600px) { .form-row.split { grid-template-columns: 1fr; } }
+
+  /* Footer */
+  .footer { background: var(--navy-2); padding: var(--space-12) 0 var(--space-8); border-top: 4px solid var(--green); }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-8); max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer h4 { font-family: var(--font-display); font-size: 16px; text-transform: uppercase; color: var(--green); margin: 0 0 var(--space-4); letter-spacing: 0.04em; }
+  .footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer li { font-size: 14px; color: var(--on-dark-2); margin-bottom: var(--space-2); }
+  .footer a { color: var(--on-dark-2); text-decoration: none; }
+  .footer-mark { display: block; height: 64px; width: auto; margin-bottom: var(--space-4); }
+  .footer-bottom { border-top: 1px solid var(--navy-line); margin-top: var(--space-8); padding: var(--space-5) var(--gutter) 0; max-width: var(--max-w); margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-dark-3); }
+
+  .note { max-width: var(--max-w); margin: 0 auto; padding: var(--space-3) var(--gutter) 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); }
+  .note::before { content: "// "; opacity: 0.6; }
+</style>
+</head>
+<body data-screen-label="03 Inner Pages">
+
+  <div class="topbar">
+    <span><a href="#">Contact Us</a></span><span class="sep">·</span>
+    <span><a href="Home.html">Home</a></span><span class="sep">·</span>
+    <span>Dial <a href="tel:+13527323820" class="phone">(352) 732-3820</a> Now!</span>
+    <a href="#" aria-label="Facebook" class="icon-fb">f</a>
+  </div>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="Home.html"><img src="assets/logo-wordmark.png" alt="Terry's Place" class="nav-logo" /></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="Home.html">Home</a>
+        <a href="#about" aria-current="page">About</a>
+        <a href="Menu.html">Menu</a>
+        <a href="#specials">Specials</a>
+        <a href="Home.html#events">Events</a>
+        <a href="#visit">Visit</a>
+      </nav>
+      <a href="tel:+13527323820" class="nav-cta">Call · (352) 732-3820</a>
+    </div>
+  </header>
+
+  <p class="note">This file shows ALL inner page templates stacked. Each section becomes a standalone WP page in build.</p>
+
+  <!-- =========================================================
+       PAGE 1 · ABOUT
+       ========================================================= -->
+  <div class="page-divider" id="about">
+    <div class="page-divider-inner">
+      <span class="label">PAGE · /about</span>
+      <span class="url">terrys.place/about</span>
+    </div>
+  </div>
+
+  <section class="about-hero">
+    <div class="t-container">
+      <div class="about-hero-grid">
+        <div>
+          <p class="t-eyebrow">About Terry's</p>
+          <h1>Three <span class="green">Generations</span> Strong.</h1>
+          <p class="t-lede">Terry's Place opened in 1980 with a simple promise: cook everything to order, never skimp on portions, and treat every customer like a regular. Forty-five years later, we're still doing it the same way — now run by Terry's son and grandson.</p>
+          <p class="est">EST. 1980</p>
+        </div>
+        <img src="assets/photo-staff-group.jpg" alt="Three generations of the Terry's Place family in front of the bar" />
+      </div>
+    </div>
+  </section>
+
+  <section class="story-section t-container">
+    <div class="story-row">
+      <div>
+        <p class="t-eyebrow">The Beginning</p>
+        <h2>Terry Built the <span class="green">Bar.</span></h2>
+        <div class="body">
+          <p>Terry Sr. opened the doors on NE 36th Ave in 1980 with a Frigidaire, a fryer, and a hand-painted sign. He'd worked the line at three Ocala restaurants before deciding to do it his way: half-pound burgers, hand-breaded wings, and never, ever a microwave.</p>
+          <p>The dining room sat 24. The bar sat 8. The first month, we sold 11 burgers a day. The second month, we sold 80.</p>
+        </div>
+        <p class="story-pull">"If a guy can't eat it all, you cooked it right."</p>
+      </div>
+      <img src="assets/photo-room-hero.jpg" alt="Terry's Place dining room" />
+    </div>
+
+    <div class="story-row flip">
+      <div>
+        <p class="t-eyebrow">Today</p>
+        <h2>His Son Runs the <span class="green">Kitchen.</span></h2>
+        <div class="body">
+          <p>Terry Jr. took over in 2003. Same recipes, same portions, same rule about pre-cooking nothing. He added the wing menu (now 11 sauces), expanded the bar, and put 22 TVs on the walls so nobody misses a Gators game.</p>
+          <p>His son — Terry III, but everybody calls him "Tre" — handles the front of house and runs the events. Three generations, one room, no shortcuts.</p>
+        </div>
+      </div>
+      <img src="assets/photo-staff-burger-wings.jpg" alt="Staff with burger and wings" />
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PAGE 2 · SPECIALS / EVENTS
+       ========================================================= -->
+  <div class="page-divider" id="specials">
+    <div class="page-divider-inner">
+      <span class="label">PAGE · /specials</span>
+      <span class="url">terrys.place/specials</span>
+    </div>
+  </div>
+
+  <section class="specials-bg">
+    <div class="t-container" style="padding-block: var(--space-12);">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:var(--space-6);margin-bottom:var(--space-8);flex-wrap:wrap;">
+        <div>
+          <p class="t-eyebrow">This week</p>
+          <h2 style="font-family:var(--font-display);font-size:clamp(48px,6vw,88px);color:var(--on-dark);text-transform:uppercase;margin:0;line-height:0.95;">Daily <span style="color:var(--green);">Specials</span></h2>
+        </div>
+        <p style="font-family:var(--font-body);font-style:italic;color:var(--on-dark-2);max-width:40ch;">Updated every week. The kitchen runs the specials Mon–Fri 11am–3pm, then weekend events take over.</p>
+      </div>
+
+      <div class="specials-grid">
+        <article class="special-card">
+          <p class="day">Monday</p>
+          <h3>Cheeseburger &amp; Fries</h3>
+          <p class="price">$10.50</p>
+          <p class="desc">Half-pound USDA Angus on a homemade bun, skin-on fries. The lunch that started it all.</p>
+          <span class="when">11am–3pm</span>
+        </article>
+        <article class="special-card">
+          <p class="day">Tuesday</p>
+          <h3>Chicken Sandwich &amp; Fries</h3>
+          <p class="price">$10.50</p>
+          <p class="desc">Hand-breaded boneless breast, lettuce, tomato, pickle, mayo. Switch the bread for a wrap, no charge.</p>
+          <span class="when">11am–3pm</span>
+        </article>
+        <article class="special-card">
+          <p class="day">Wednesday</p>
+          <h3>Any Small Sub &amp; Fries</h3>
+          <p class="price">$10.50</p>
+          <p class="desc">Italian, turkey, ham, roast beef, meatball, or veggie. Toasted on the panini press.</p>
+          <span class="when">11am–3pm</span>
+        </article>
+        <article class="special-card">
+          <p class="day">Thursday</p>
+          <h3>Chicken Tenders &amp; Fries</h3>
+          <p class="price">$10.50</p>
+          <p class="desc">Three jumbo strips, hand-breaded. Honey mustard, BBQ, ranch, or any of the 11 wing sauces.</p>
+          <span class="when">11am–3pm</span>
+        </article>
+        <article class="special-card">
+          <p class="day">Friday</p>
+          <h3>Fish or Shrimp Po Boy</h3>
+          <p class="price">$10.50</p>
+          <p class="desc">Beer-battered cod or 8 medium gulf shrimp on a hoagie, with fries. Goes fast.</p>
+          <span class="when">11am–3pm</span>
+        </article>
+        <article class="special-card hot">
+          <p class="day">Sunday</p>
+          <h3>Pitcher + 20 Wings</h3>
+          <p class="price">$29.99</p>
+          <p class="desc">Domestic pitcher and 20 jumbo wings, any flavor. Football all day, every Sunday during season.</p>
+          <span class="when">All day</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PAGE 3 · SPORTS / TV
+       ========================================================= -->
+  <div class="page-divider" id="sports">
+    <div class="page-divider-inner">
+      <span class="label">PAGE · /sports</span>
+      <span class="url">terrys.place/sports</span>
+    </div>
+  </div>
+
+  <section class="t-container" style="padding-block:var(--space-12);">
+    <div class="sports-row">
+      <div>
+        <p class="t-eyebrow">22 TVs · sound on the Gators</p>
+        <h2 style="font-family:var(--font-display);font-size:clamp(48px,6vw,88px);color:var(--on-dark);text-transform:uppercase;margin:0 0 var(--space-5);line-height:0.95;">On the <span style="color:var(--green);">Screens.</span></h2>
+        <p class="t-body t-body--lg">If it's a game, it's on. NFL Sunday Ticket, ESPN+, Big Ten, SEC, MLB Extra Innings — the whole package. Tell us what you want to watch and we'll put it on the screen by your seat.</p>
+        <div style="display:flex;gap:var(--space-3);margin-top:var(--space-6);flex-wrap:wrap;">
+          <a href="tel:+13527323820" class="t-btn t-btn--primary">Reserve a Booth</a>
+          <a href="#" class="t-btn t-btn--ghost">This Week's Lineup</a>
+        </div>
+      </div>
+      <div class="tv-list">
+        <h4>Saturday · Oct 12</h4>
+        <div class="tv-row"><span class="time">12:00P</span><span class="matchup">Florida vs. Tennessee</span><span class="channel">SEC</span></div>
+        <div class="tv-row"><span class="time">3:30P</span><span class="matchup">Alabama vs. South Carolina</span><span class="channel">CBS</span></div>
+        <div class="tv-row"><span class="time">3:30P</span><span class="matchup">Penn State vs. USC</span><span class="channel">CBS</span></div>
+        <div class="tv-row"><span class="time">7:30P</span><span class="matchup">Texas vs. Oklahoma</span><span class="channel">ABC</span></div>
+        <div class="tv-row"><span class="time">8:00P</span><span class="matchup">UCF vs. Cincinnati</span><span class="channel">FS1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PAGE 4 · VISIT / CONTACT
+       ========================================================= -->
+  <div class="page-divider" id="visit">
+    <div class="page-divider-inner">
+      <span class="label">PAGE · /visit</span>
+      <span class="url">terrys.place/visit</span>
+    </div>
+  </div>
+
+  <section class="t-container" style="padding-block:var(--space-12);">
+    <p class="t-eyebrow">Find us</p>
+    <h2 style="font-family:var(--font-display);font-size:clamp(48px,6vw,88px);color:var(--on-dark);text-transform:uppercase;margin:0 0 var(--space-8);line-height:0.95;">Come <span style="color:var(--green);">Through.</span></h2>
+
+    <div class="visit-grid">
+      <div>
+        <div class="map-placeholder">
+          <div class="pin">📍</div>
+          <p class="label">Map embed · Google Maps · slot in build</p>
+        </div>
+      </div>
+      <div class="info-list">
+        <div class="info-block">
+          <h4>Address</h4>
+          <p class="big">4121 NE 36th Ave</p>
+          <p>Ocala, FL 34479</p>
+        </div>
+        <div class="info-block">
+          <h4>Phone</h4>
+          <p class="big" style="color:var(--green);"><a href="tel:+13527323820" style="color:inherit;text-decoration:none;">(352) 732-3820</a></p>
+          <p>Call ahead for to-go orders or large parties.</p>
+        </div>
+        <div class="info-block">
+          <h4>Hours</h4>
+          <table class="hours-table">
+            <tr><td class="day">Sun</td><td class="hrs">11am – 9pm</td></tr>
+            <tr><td class="day">Mon</td><td class="hrs">11am – 9pm</td></tr>
+            <tr class="today"><td class="day">Tue</td><td class="hrs">11am – 12am</td></tr>
+            <tr><td class="day">Wed</td><td class="hrs">11am – 10pm</td></tr>
+            <tr><td class="day">Thu</td><td class="hrs">11am – 10pm</td></tr>
+            <tr><td class="day">Fri</td><td class="hrs">11am – 1am</td></tr>
+            <tr><td class="day">Sat</td><td class="hrs">11am – 12am</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PAGE 5 · CONTACT FORM
+       ========================================================= -->
+  <div class="page-divider" id="contact">
+    <div class="page-divider-inner">
+      <span class="label">PAGE · /contact</span>
+      <span class="url">terrys.place/contact</span>
+    </div>
+  </div>
+
+  <section class="t-container" style="padding-block:var(--space-12);">
+    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:var(--space-10);align-items:start;">
+      <div>
+        <p class="t-eyebrow">Drop a line</p>
+        <h2 style="font-family:var(--font-display);font-size:clamp(48px,6vw,88px);color:var(--on-dark);text-transform:uppercase;margin:0 0 var(--space-5);line-height:0.95;">Got a <span style="color:var(--green);">Question?</span></h2>
+        <p class="t-body t-body--lg">For a fast answer, just call — we pick up the phone. For private parties, catering, or anything that needs a paper trail, drop a note and we'll reply by email within a day.</p>
+        <p class="t-hand" style="margin-top:var(--space-6);">Or just walk in. We're not hard to find.</p>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault();">
+        <div class="form-row split">
+          <div class="form-row" style="margin:0;"><label for="fn">First Name</label><input type="text" id="fn" /></div>
+          <div class="form-row" style="margin:0;"><label for="ln">Last Name</label><input type="text" id="ln" /></div>
+        </div>
+        <div class="form-row"><label for="email">Email</label><input type="email" id="email" /></div>
+        <div class="form-row"><label for="phone">Phone (optional)</label><input type="tel" id="phone" /></div>
+        <div class="form-row">
+          <label for="topic">What's it about?</label>
+          <select id="topic">
+            <option>General question</option>
+            <option>Private party / room rental</option>
+            <option>Catering</option>
+            <option>Feedback on a recent visit</option>
+          </select>
+        </div>
+        <div class="form-row"><label for="msg">Message</label><textarea id="msg"></textarea></div>
+        <button type="submit" class="t-btn t-btn--primary" style="width:100%;justify-content:center;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/logo-wordmark.png" alt="Terry's Place" class="footer-mark" />
+        <p class="t-body" style="color:var(--on-dark-2);max-width:32ch;">Ocala's sports bar &amp; grill since 1980.</p>
+      </div>
+      <div><h4>Visit</h4><ul><li>4121 NE 36th Ave</li><li>Ocala, FL 34479</li><li><a href="tel:+13527323820">(352) 732-3820</a></li></ul></div>
+      <div><h4>Hours</h4><ul><li>Sun–Mon · 11a–9p</li><li>Tue · 11a–12a</li><li>Wed–Thu · 11a–10p</li><li>Fri · 11a–1a</li><li>Sat · 11a–12a</li></ul></div>
+      <div><h4>More</h4><ul><li><a href="Home.html">Home</a></li><li><a href="Menu.html">Menu</a></li><li><a href="assets/menu-2025.pdf">PDF Menu</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Terry's Place · Est. 1980</span>
+      <span>By <a href="#" style="color:var(--green);">Get Rooted Media</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>

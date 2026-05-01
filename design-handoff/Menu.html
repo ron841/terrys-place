@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Menu — Terry's Place</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="stylesheet" href="css/terrys.css" />
+<style>
+  /* Shared header — same as Home, kept inline for handoff readability */
+  .topbar { background: var(--navy-2); color: var(--on-dark-2); padding: 10px var(--gutter); font-family: var(--font-cond); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; }
+  .topbar a { text-decoration: none; color: var(--on-dark); }
+  .topbar a:hover { color: var(--green); }
+  .topbar .sep { opacity: 0.3; margin: 0 14px; }
+  .topbar .phone { color: var(--green); }
+  .topbar .icon-fb { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--green); color: var(--ink); border-radius: 3px; margin-left: 14px; font-size: 12px; font-weight: 800; vertical-align: middle; }
+  .nav { background: var(--on-dark); position: sticky; top: 0; z-index: 50; }
+  .nav-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-6); padding: 14px var(--gutter); }
+  .nav-logo { display: block; height: 56px; width: auto; }
+  .nav-links { display: flex; gap: var(--space-7); justify-self: end; }
+  .nav-links a { font-family: var(--font-body); font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 8px 4px; border-bottom: 3px solid transparent; }
+  .nav-links a:hover, .nav-links a[aria-current="page"] { border-bottom-color: var(--green); color: var(--ink); }
+  .nav-cta { background: var(--green); color: var(--ink); padding: 14px 24px; border-radius: 4px; font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* Menu hero */
+  .menu-hero { background: var(--navy); padding: var(--space-12) 0 var(--space-8); }
+  .menu-hero-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-10); align-items: end; }
+  @media (max-width: 800px) { .menu-hero-grid { grid-template-columns: 1fr; } }
+  .menu-hero h1 { font-family: var(--font-display); font-size: clamp(56px, 9vw, 130px); line-height: 0.92; color: var(--on-dark); text-transform: uppercase; margin: 0 0 var(--space-5); }
+  .menu-hero h1 .green { color: var(--green); text-shadow: 3px 3px 0 var(--red), 4px 4px 0 var(--red), 5px 5px 0 var(--red); display: inline-block; }
+  .menu-hero .lede { font-style: italic; font-size: 22px; line-height: 1.5; color: var(--on-dark-2); max-width: 50ch; }
+  .menu-hero-aside { background: var(--navy-3); border-radius: 6px; padding: var(--space-6); }
+  .menu-hero-aside h3 { font-family: var(--font-display); color: var(--green); font-size: 22px; text-transform: uppercase; margin: 0 0 var(--space-3); }
+  .menu-hero-aside ul { list-style: none; padding: 0; margin: 0; font-family: var(--font-mono); font-size: 13px; color: var(--on-dark-2); }
+  .menu-hero-aside li { padding: 4px 0; border-bottom: 1px dashed rgba(255,255,255,0.15); }
+  .menu-hero-aside li:last-child { border: 0; }
+  .menu-hero-aside .day { color: var(--on-dark); font-weight: 700; }
+  .menu-hero-aside .price-flag { display: inline-block; background: var(--green); color: var(--ink); font-family: var(--font-display); font-size: 32px; padding: 8px 14px; border-radius: 4px; line-height: 1; margin-bottom: var(--space-3); }
+
+  /* Anchor nav */
+  .anchor-nav { background: var(--navy-2); border-block: 1px solid var(--navy-line); padding: var(--space-4) 0; position: sticky; top: 84px; z-index: 40; }
+  .anchor-nav-inner { display: flex; gap: var(--space-6); flex-wrap: wrap; max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+  .anchor-nav a { font-family: var(--font-cond); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-dark-2); text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
+  .anchor-nav a:hover { color: var(--green); border-bottom-color: var(--green); }
+
+  /* Menu sections */
+  .menu-section { padding: var(--space-12) 0 var(--space-8); }
+  .menu-section-head { display: flex; align-items: end; justify-content: space-between; gap: var(--space-6); margin-bottom: var(--space-7); flex-wrap: wrap; }
+  .menu-section-head h2 { font-family: var(--font-display); font-size: clamp(40px, 5vw, 72px); color: var(--on-dark); text-transform: uppercase; margin: 0; line-height: 0.95; }
+  .menu-section-head h2 .green { color: var(--green); }
+  .menu-section-head .intro { font-family: var(--font-body); font-style: italic; color: var(--on-dark-2); max-width: 40ch; }
+  .menu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); }
+  @media (max-width: 800px) { .menu-cols { grid-template-columns: 1fr; gap: var(--space-6); } }
+
+  /* CTA strip */
+  .cta-strip { background: var(--green); color: var(--ink); padding: var(--space-10) 0; }
+  .cta-strip-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); flex-wrap: wrap; }
+  .cta-strip h2 { font-family: var(--font-display); font-size: clamp(36px, 5vw, 64px); margin: 0; line-height: 1; text-transform: uppercase; }
+  .cta-strip .actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+  .cta-strip .t-btn { background: var(--ink); color: var(--on-dark); }
+
+  /* Footer (shared) */
+  .footer { background: var(--navy-2); padding: var(--space-12) 0 var(--space-8); border-top: 4px solid var(--green); }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--space-8); max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer h4 { font-family: var(--font-display); font-size: 16px; text-transform: uppercase; color: var(--green); margin: 0 0 var(--space-4); letter-spacing: 0.04em; }
+  .footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer li { font-size: 14px; color: var(--on-dark-2); margin-bottom: var(--space-2); }
+  .footer a { color: var(--on-dark-2); text-decoration: none; }
+  .footer-mark { display: block; height: 64px; width: auto; margin-bottom: var(--space-4); }
+  .footer-bottom { border-top: 1px solid var(--navy-line); margin-top: var(--space-8); padding: var(--space-5) var(--gutter) 0; max-width: var(--max-w); margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-dark-3); }
+
+  .note { max-width: var(--max-w); margin: 0 auto var(--space-4); padding: var(--space-3) var(--gutter) 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); }
+  .note::before { content: "// "; opacity: 0.6; }
+</style>
+</head>
+<body data-screen-label="02 Menu">
+
+  <div class="topbar">
+    <span><a href="#">Contact Us</a></span><span class="sep">·</span>
+    <span><a href="Home.html">Home</a></span><span class="sep">·</span>
+    <span>Dial <a href="tel:+13527323820" class="phone">(352) 732-3820</a> Now!</span>
+    <a href="#" aria-label="Facebook" class="icon-fb">f</a>
+  </div>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="Home.html"><img src="assets/logo-wordmark.png" alt="Terry's Place" class="nav-logo" /></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="Home.html">Home</a>
+        <a href="Inner Pages.html">About</a>
+        <a href="#" aria-current="page">Menu</a>
+        <a href="Inner Pages.html#specials">Specials</a>
+        <a href="Home.html#events">Events</a>
+        <a href="Inner Pages.html#visit">Visit</a>
+      </nav>
+      <a href="tel:+13527323820" class="nav-cta">Call · (352) 732-3820</a>
+    </div>
+  </header>
+
+  <p class="note">Menu data per SLOTS.md § menuItems — initial seed parsed from assets/menu-2025.pdf, then editable via WP CPT.</p>
+
+  <section class="menu-hero">
+    <div class="t-container">
+      <div class="menu-hero-grid">
+        <div>
+          <p class="t-eyebrow">The Menu · Updated April 2025</p>
+          <h1>King-Size <span class="green">Portions</span>.<br />Cooked to Order.</h1>
+          <p class="lede">All burgers are 1/2 lb USDA Angus, ground fresh daily. Wings hand-tossed in your choice of 11 flavors. Nothing pre-cooked — ever.</p>
+          <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-6);">
+            <a href="assets/menu-2025.pdf" class="t-btn t-btn--primary">Download PDF Menu</a>
+            <a href="tel:+13527323820" class="t-btn t-btn--ghost">Call to Order · (352) 732-3820</a>
+          </div>
+        </div>
+        <aside class="menu-hero-aside">
+          <span class="price-flag">$10.50</span>
+          <h3>Daily Lunch</h3>
+          <p style="font-family:var(--font-mono);font-size:12px;color:var(--on-dark-3);text-transform:uppercase;letter-spacing:0.1em;margin:0 0 var(--space-4);">Mon–Fri · 11am–3pm</p>
+          <ul>
+            <li><span class="day">MON</span> · Cheeseburger &amp; Fries</li>
+            <li><span class="day">TUE</span> · Chicken Sandwich &amp; Fries</li>
+            <li><span class="day">WED</span> · Any Small Sub &amp; Fries</li>
+            <li><span class="day">THU</span> · Chicken Tenders &amp; Fries</li>
+            <li><span class="day">FRI</span> · Fish or Shrimp Po Boy &amp; Fries</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <nav class="anchor-nav" aria-label="Menu sections">
+    <div class="anchor-nav-inner">
+      <a href="#appetizers">Appetizers</a>
+      <a href="#salads">Salads</a>
+      <a href="#burgers">Burgers</a>
+      <a href="#chicken">Chicken &amp; Wings</a>
+      <a href="#specials">Daily Specials</a>
+      <a href="#drinks">Drinks &amp; Bar</a>
+    </div>
+  </nav>
+
+  <div class="t-container" style="padding-block:var(--space-6);"><div class="t-squiggle"></div></div>
+
+  <!-- APPETIZERS -->
+  <section class="menu-section t-container" id="appetizers">
+    <div class="menu-section-head">
+      <h2>Appe<span class="green">tizers</span></h2>
+      <p class="intro">Start the meal off right with one of our delicious appetizers.</p>
+    </div>
+    <div class="menu-cols">
+      <div>
+        <div class="t-menu-row"><span class="name">Fried Mushrooms</span><span class="dots"></span><span class="price">9.29</span></div>
+        <div class="t-menu-row"><span class="name">Onion Rings</span><span class="dots"></span><span class="price">8.49</span></div>
+        <div class="t-menu-row"><span class="name">Fried Okra</span><span class="dots"></span><span class="price">7.29</span></div>
+        <div class="t-menu-row"><span class="name">Jalapeño Cheese Poppers <span class="t-sticker" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">SPICY</span></span><span class="dots"></span><span class="price">10.99</span></div>
+        <div class="t-menu-row"><span class="name">Tater Puffs</span><span class="dots"></span><span class="price">7.25</span></div>
+      </div>
+      <div>
+        <div class="t-menu-row"><span class="name">Sampler Platter <em>Cheese stix, poppers, mushrooms or rings</em></span><span class="dots"></span><span class="price">14.49</span></div>
+        <div class="t-menu-row"><span class="name">Fried Shrimp Platter <em>10 medium gulf shrimp, hand-breaded</em></span><span class="dots"></span><span class="price">11.99</span></div>
+        <div class="t-menu-row"><span class="name">Cheese Stix <em>Wisconsin mozzarella, marinara</em><span class="t-sticker t-sticker--green" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">★ FAV</span></span><span class="dots"></span><span class="price">10.50</span></div>
+        <div class="t-menu-row"><span class="name">Basket of Fries <em>Skin-on, straight cut</em></span><span class="dots"></span><span class="price">5.79</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALADS -->
+  <section class="menu-section t-container" id="salads">
+    <div class="menu-section-head">
+      <h2>Salads</h2>
+      <p class="intro">All salads come with two cups of dressing. Ranch, Blue Cheese, Italian, Honey Mustard, French, 1000 Island, Raspberry Vinaigrette, Balsamic, or Oil &amp; Vinegar.</p>
+    </div>
+    <div class="menu-cols">
+      <div>
+        <div class="t-menu-row"><span class="name">House Salad</span><span class="dots"></span><span class="price">6.79</span></div>
+        <div class="t-menu-row"><span class="name">Chef Salad <em>Smoked ham, roast beef, turkey, American &amp; Swiss</em></span><span class="dots"></span><span class="price">13.49</span></div>
+        <div class="t-menu-row"><span class="name">Grilled Chicken Toss Salad</span><span class="dots"></span><span class="price">14.50</span></div>
+        <div class="t-menu-row"><span class="name">Fried Chicken Tender Toss</span><span class="dots"></span><span class="price">14.50</span></div>
+      </div>
+      <div>
+        <div class="t-menu-row"><span class="name">Romaine Caesar Salad</span><span class="dots"></span><span class="price">7.75</span></div>
+        <div class="t-menu-row"><span class="name">Grilled Chicken Caesar</span><span class="dots"></span><span class="price">14.99</span></div>
+        <div class="t-menu-row"><span class="name">Spicy Buffalo Style Chicken Salad <span class="t-sticker" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">SPICY</span></span><span class="dots"></span><span class="price">14.50</span></div>
+        <div class="t-menu-row"><span class="name">Beef Tip Toss <em>Sirloin tips, fresh house salad</em></span><span class="dots"></span><span class="price">14.50</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="t-container"><div class="t-squiggle"></div></div>
+
+  <!-- BURGERS -->
+  <section class="menu-section t-container" id="burgers">
+    <div class="menu-section-head">
+      <h2><span class="green">Burgers</span></h2>
+      <p class="intro">All burgers are 1/2 lb USDA Angus ground chuck patties topped with ketchup, mustard, mayo, lettuce, tomato &amp; onions — or just the way you like it. Cooked fresh when ordered. <strong style="color:var(--red);">Never pre-cooked!</strong></p>
+    </div>
+    <div class="menu-cols">
+      <div>
+        <div class="t-menu-row"><span class="name">Hamburger</span><span class="dots"></span><span class="price">7.99</span></div>
+        <div class="t-menu-row"><span class="name">Jalapeño Burger <em>American &amp; Swiss, grilled onions &amp; jalapeños</em><span class="t-sticker" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">SPICY</span></span><span class="dots"></span><span class="price">8.99</span></div>
+        <div class="t-menu-row"><span class="name">Cheeseburger</span><span class="dots"></span><span class="price">8.49</span></div>
+        <div class="t-menu-row"><span class="name">Bacon Cheeseburger</span><span class="dots"></span><span class="price">9.25</span></div>
+      </div>
+      <div>
+        <div class="t-menu-row"><span class="name">Mushroom Swiss Burger</span><span class="dots"></span><span class="price">8.99</span></div>
+        <div class="t-menu-row"><span class="name">The Belly Buster <em>1lb chuck, crisp bacon, Swiss + American</em><span class="t-sticker t-sticker--green" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">★ FAV</span></span><span class="dots"></span><span class="price">10.29</span></div>
+        <div class="t-menu-row"><span class="name">South West Burger <em>American, crisp bacon, Chipotle BBQ, fried O-rings</em></span><span class="dots"></span><span class="price">10.29</span></div>
+        <div class="t-menu-row"><span class="name">Hot Dog <em>1/2 lb all beef, homemade bun</em><span class="t-sticker" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">+0.75 cheese</span></span><span class="dots"></span><span class="price">8.99</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="t-container"><div class="t-squiggle"></div></div>
+
+  <!-- CHICKEN -->
+  <section class="menu-section t-container" id="chicken">
+    <div class="menu-section-head">
+      <h2>Chicken &amp; <span class="green">Wings</span></h2>
+      <p class="intro">11 Terry's flavors and sauces: Mild, Medium, Hot, Home Made XHot, Teriyaki, Bourbon Molasses, Garlic Parmesan, Buffalo Garlic Parmesan, Sriracha, Citrus Chipotle, Honey BBQ.</p>
+    </div>
+    <div class="menu-cols">
+      <div>
+        <div class="t-menu-row"><span class="name">Original Wings · 10</span><span class="dots"></span><span class="price">14.00</span></div>
+        <div class="t-menu-row"><span class="name">Original Wings · 20</span><span class="dots"></span><span class="price">28.00</span></div>
+        <div class="t-menu-row"><span class="name">Original Wings · 30</span><span class="dots"></span><span class="price">42.00</span></div>
+        <div class="t-menu-row"><span class="name">Original Wings · 50</span><span class="dots"></span><span class="price">70.00</span></div>
+        <div class="t-menu-row"><span class="name">Naked Wings <em>No breading — sauce on side</em></span><span class="dots"></span><span class="price">14.00</span></div>
+        <div class="t-menu-row"><span class="name">Jumbo Chicken Strips <em>Hand-breaded, golden brown</em><span class="t-sticker t-sticker--green" style="font-size:10px;padding:3px 8px;transform:rotate(-2deg);margin-left:8px;">★ FAV</span></span><span class="dots"></span><span class="price">13.99</span></div>
+      </div>
+      <div>
+        <div class="t-menu-row"><span class="name">Chicken Sampler Platter <em>5 wings, 5 naked, 5 strips</em></span><span class="dots"></span><span class="price">21.99</span></div>
+        <div class="t-menu-row"><span class="name">Boneless Chicken Wings <em>1lb white meat, hand-breaded</em></span><span class="dots"></span><span class="price">12.50</span></div>
+        <div style="margin-top:var(--space-4);padding:var(--space-4);background:var(--navy-3);border-left:3px solid var(--green);border-radius:4px;font-family:var(--font-cond);font-size:13px;color:var(--on-dark-2);">
+          <strong style="color:var(--green);font-size:14px;letter-spacing:0.1em;">EACH ADDITIONAL SAUCE</strong> · $0.75 each
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY SPECIALS CTA -->
+  <div class="cta-strip" id="specials">
+    <div class="cta-strip-inner">
+      <div>
+        <p style="font-family:var(--font-cond);font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin:0 0 var(--space-2);">$10.50 lunch · Mon–Fri · 11–3</p>
+        <h2>Daily Lunch<br />Hits Different.</h2>
+      </div>
+      <div class="actions">
+        <a href="assets/menu-2025.pdf" class="t-btn">Full PDF Menu</a>
+        <a href="tel:+13527323820" class="t-btn">Call to Order</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRINKS / BAR -->
+  <section class="menu-section t-container" id="drinks">
+    <div class="menu-section-head">
+      <h2>Drinks &amp; <span class="green">Bar</span></h2>
+      <p class="intro">A wide selection of draft and bottle beer, plus a fully stocked liquor selection. Wines: Merlot, Burgundy, White Zinfandel, Moscato, Pinot Grigio, Chardonnay.</p>
+    </div>
+    <div style="background:var(--navy-3);padding:var(--space-7);border-radius:6px;">
+      <p class="t-body t-body--lg" style="color:var(--on-dark);margin:0 0 var(--space-4);">
+        🍺 <strong style="color:var(--green);">Happy Hour</strong> · Mon–Fri · 3pm–7pm
+      </p>
+      <p class="t-body" style="margin:0;">Detailed bar menu, drink specials, and pitchers available in the printed menu — and we'll happily talk you through it at the bar. Pitcher of beer + 20 jumbo wings is $29.99 every Sunday during football.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/logo-wordmark.png" alt="Terry's Place" class="footer-mark" />
+        <p class="t-body" style="color:var(--on-dark-2);max-width:32ch;">Ocala's sports bar &amp; grill since 1980.</p>
+      </div>
+      <div><h4>Visit</h4><ul><li>4121 NE 36th Ave</li><li>Ocala, FL 34479</li><li><a href="tel:+13527323820">(352) 732-3820</a></li></ul></div>
+      <div><h4>Hours</h4><ul><li>Sun–Mon · 11a–9p</li><li>Tue · 11a–12a</li><li>Wed–Thu · 11a–10p</li><li>Fri · 11a–1a</li><li>Sat · 11a–12a</li></ul></div>
+      <div><h4>More</h4><ul><li><a href="Home.html">Home</a></li><li><a href="Inner Pages.html">About</a></li><li><a href="assets/menu-2025.pdf">PDF Menu</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Terry's Place · Est. 1980</span>
+      <span>By <a href="#" style="color:var(--green);">Get Rooted Media</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>

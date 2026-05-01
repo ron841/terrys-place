@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Terry's Place — Handoff Pack</title>
+<link rel="stylesheet" href="css/terrys.css" />
+<style>
+  body { background: var(--navy); color: var(--on-dark); }
+  .ix { max-width: 1100px; margin: 0 auto; padding: var(--space-12) var(--gutter) var(--space-16); }
+
+  /* Masthead */
+  .ix-mast { padding-bottom: var(--space-8); border-bottom: 4px solid var(--green); margin-bottom: var(--space-10); display: grid; grid-template-columns: 1fr auto; gap: var(--space-8); align-items: end; }
+  @media (max-width: 800px) { .ix-mast { grid-template-columns: 1fr; } }
+  .ix-mast img.wordmark { max-width: 320px; height: auto; margin-bottom: var(--space-6); }
+  .ix-mast h1 { font-family: var(--font-display); font-size: clamp(56px, 7vw, 96px); line-height: 0.92; margin: var(--space-4) 0 0; text-transform: uppercase; }
+  .ix-mast h1 .green { color: var(--green); text-shadow: 3px 3px 0 var(--red), 4px 4px 0 var(--red); display: inline-block; }
+  .ix-mast .lede { font-family: var(--font-body); font-style: italic; font-size: 20px; line-height: 1.55; color: var(--on-dark-2); max-width: 56ch; margin-top: var(--space-5); }
+  .ix-mast .stamp-block { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-dark-3); text-align: right; line-height: 1.7; }
+  .ix-mast .stamp-block b { color: var(--green); display: block; font-weight: 700; }
+
+  /* Status grid */
+  .status { background: var(--navy-2); border: 1px solid var(--navy-line); border-left: 4px solid var(--green); padding: var(--space-7); margin-bottom: var(--space-10); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-7); border-radius: 4px; }
+  @media (max-width: 700px) { .status { grid-template-columns: 1fr; } }
+  .status .stat-num { font-family: var(--font-display); font-size: 56px; line-height: 1; color: var(--green); margin-bottom: var(--space-2); }
+  .status .stat-lbl { font-family: var(--font-cond); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-dark-2); margin-bottom: var(--space-3); }
+  .status .stat-desc { font-family: var(--font-body); font-size: 13px; line-height: 1.5; color: var(--on-dark-3); }
+
+  /* Section heads */
+  .ix h2 { font-family: var(--font-display); font-size: clamp(36px, 4.5vw, 56px); line-height: 1; text-transform: uppercase; margin: var(--space-12) 0 var(--space-6); }
+  .ix h2 .green { color: var(--green); }
+  .ix h2 .num { font-family: var(--font-mono); font-size: 14px; color: var(--on-dark-3); display: block; letter-spacing: 0.14em; margin-bottom: var(--space-2); font-weight: 400; }
+
+  /* Page cards */
+  .pages { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+  @media (max-width: 700px) { .pages { grid-template-columns: 1fr; } }
+  .page-card { display: block; background: var(--navy-3); border-radius: 6px; padding: var(--space-6); text-decoration: none; color: inherit; border: 1px solid transparent; transition: all 120ms ease; }
+  .page-card:hover { border-color: var(--green); transform: translateY(-2px); }
+  .page-card .num { font-family: var(--font-mono); font-size: 11px; color: var(--green); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: var(--space-3); }
+  .page-card .title { font-family: var(--font-display); font-size: 28px; text-transform: uppercase; color: var(--on-dark); margin-bottom: var(--space-2); line-height: 1; }
+  .page-card .desc { font-family: var(--font-body); font-size: 14px; line-height: 1.55; color: var(--on-dark-2); margin: 0 0 var(--space-3); }
+  .page-card .arrow { font-family: var(--font-mono); font-size: 12px; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* Doc cards */
+  .docs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); }
+  @media (max-width: 700px) { .docs { grid-template-columns: 1fr; } }
+  .doc-card { background: var(--navy-3); border-radius: 6px; padding: var(--space-5); border-top: 3px solid var(--green); }
+  .doc-card.pending { border-top-color: var(--red); opacity: 0.65; }
+  .doc-card .name { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: var(--space-2); }
+  .doc-card.pending .name { color: var(--red); }
+  .doc-card .what { font-family: var(--font-body); font-size: 13px; line-height: 1.5; color: var(--on-dark-2); margin: 0; }
+
+  /* Quickstart */
+  .quickstart { background: var(--navy-2); border-left: 4px solid var(--green); padding: var(--space-7); border-radius: 4px; margin-block: var(--space-7); }
+  .quickstart ol { margin: 0; padding: 0 0 0 var(--space-5); font-family: var(--font-body); font-size: 15px; line-height: 1.7; color: var(--on-dark-2); }
+  .quickstart ol li { margin-bottom: var(--space-2); }
+  .quickstart code { background: var(--navy-3); color: var(--green); padding: 2px 6px; border-radius: 3px; font-family: var(--font-mono); font-size: 13px; }
+
+  /* What's not done */
+  .gaps { background: rgba(224,64,64,0.08); border-left: 4px solid var(--red); padding: var(--space-7); border-radius: 4px; margin-block: var(--space-7); }
+  .gaps h3 { font-family: var(--font-display); font-size: 22px; text-transform: uppercase; color: var(--red); margin: 0 0 var(--space-3); }
+  .gaps ul { margin: 0; padding-left: var(--space-5); font-family: var(--font-body); font-size: 14px; line-height: 1.7; color: var(--on-dark-2); }
+
+  /* Foot */
+  .foot { margin-top: var(--space-16); padding-top: var(--space-7); border-top: 1px solid var(--navy-line); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-dark-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); }
+  .foot a { color: var(--green); text-decoration: none; }
+</style>
+</head>
+<body data-screen-label="00 Index">
+
+<div class="ix">
+
+  <header class="ix-mast">
+    <div>
+      <img src="assets/logo-wordmark.png" alt="Terry's Place" class="wordmark" />
+      <p style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.14em;color:var(--green);text-transform:uppercase;margin:0;">Design + Dev Handoff Pack · v1.0</p>
+      <h1>Built by <span class="green">Get Rooted.</span></h1>
+      <p class="lede">Everything Code needs to ship the new terrys.place site: visual comps for every page, a CSS token system lifted from the real brand, and the data contracts (slots + content inventory) that bridge design and build.</p>
+    </div>
+    <div class="stamp-block">
+      <b>Client</b>Terry's Place · Ocala, FL<br />
+      <b>Agency</b>Get Rooted Media<br />
+      <b>Stack</b>WordPress + Custom Theme<br />
+      <b>Updated</b>Apr 2026
+    </div>
+  </header>
+
+  <!-- STATUS -->
+  <section class="status">
+    <div>
+      <div class="stat-num">5</div>
+      <div class="stat-lbl">Hi-fi page comps</div>
+      <p class="stat-desc">Home, Menu, Inner pages (About / Specials / Sports / Visit / Contact), Components library, Index.</p>
+    </div>
+    <div>
+      <div class="stat-num">12</div>
+      <div class="stat-lbl">Real photo assets</div>
+      <p class="stat-desc">Lifted from the live site &amp; Facebook page. See <code style="color:var(--green);">assets/</code> + IMAGE-USAGE.md.</p>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-lbl">Contract docs</div>
+      <p class="stat-desc">SLOTS.md (data shapes), CONTENT-INVENTORY.md (what exists / pending), HANDOFF.md (engineer onramp).</p>
+    </div>
+  </section>
+
+  <!-- QUICKSTART -->
+  <section class="quickstart">
+    <h3 style="font-family:var(--font-display);font-size:22px;text-transform:uppercase;color:var(--green);margin:0 0 var(--space-3);">For the Engineer · Read These First</h3>
+    <ol>
+      <li>Open <code>HANDOFF.md</code> — 60-second onramp, stack notes, audit of the live site.</li>
+      <li>Read <code>SLOTS.md</code> — every dynamic slot in the design with its data shape, source, and fallback.</li>
+      <li>Skim <code>CONTENT-INVENTORY.md</code> — which photos exist, which are placeholder, who provides what.</li>
+      <li>Open <code>Components.html</code> — the visual + class-name reference.</li>
+      <li>Open <code>Home.html</code> + <code>Menu.html</code> + <code>Inner Pages.html</code> — the comps to build against.</li>
+      <li>Lift tokens from <code>css/terrys.css</code> — already structured for use as the theme's base CSS.</li>
+    </ol>
+  </section>
+
+  <!-- PAGE COMPS -->
+  <h2><span class="num">01 · The comps</span>Page <span class="green">Designs</span></h2>
+  <div class="pages">
+    <a href="Home.html" class="page-card">
+      <div class="num">01 · /index</div>
+      <div class="title">Home</div>
+      <p class="desc">Hero with live status, this-week marquee, signature dishes, three-generations story, news, footer.</p>
+      <span class="arrow">View comp →</span>
+    </a>
+    <a href="Menu.html" class="page-card">
+      <div class="num">02 · /menu</div>
+      <div class="title">Menu</div>
+      <p class="desc">Real menu items + prices from the April 2025 PDF. Anchor nav, $10.50 lunch panel, sticky section nav.</p>
+      <span class="arrow">View comp →</span>
+    </a>
+    <a href="Inner Pages.html" class="page-card">
+      <div class="num">03 · /about, /specials, /sports, /visit, /contact</div>
+      <div class="title">Inner Pages</div>
+      <p class="desc">Five secondary pages stacked on one document with page-divider labels. Same patterns Code applies to each.</p>
+      <span class="arrow">View comp →</span>
+    </a>
+    <a href="Components.html" class="page-card">
+      <div class="num">04 · System</div>
+      <div class="title">Components</div>
+      <p class="desc">Color, type, buttons, status pills, stickers, menu rows, header / footer chrome, spacing scale, marquee.</p>
+      <span class="arrow">View comp →</span>
+    </a>
+  </div>
+
+  <!-- DOCS -->
+  <h2><span class="num">02 · The contracts</span>Handoff <span class="green">Docs</span></h2>
+  <div class="docs">
+    <div class="doc-card">
+      <p class="name">SLOTS.md</p>
+      <p class="what">Every dynamic slot in the design — data shape, source, what UI it feeds, fallback when empty. The bridge between design and Code.</p>
+    </div>
+    <div class="doc-card">
+      <p class="name">CONTENT-INVENTORY.md</p>
+      <p class="what">Triage of every photo, copy block, and data field: what we have, what's placeholder, who provides what's missing.</p>
+    </div>
+    <div class="doc-card pending">
+      <p class="name">HANDOFF.md ⚠</p>
+      <p class="what">Engineer onramp + audit of the live site. Currently references old direction — pending rewrite.</p>
+    </div>
+    <div class="doc-card pending">
+      <p class="name">IMAGE-USAGE.md ⚠</p>
+      <p class="what">Per-photo crop, alt text, where each asset is used. Pending — see CONTENT-INVENTORY.md as the interim source.</p>
+    </div>
+    <div class="doc-card">
+      <p class="name">CMS_SCHEMA.json</p>
+      <p class="what">Proposed WordPress CPT + ACF field structure for events, menu items, specials, hours.</p>
+    </div>
+    <div class="doc-card">
+      <p class="name">css/terrys.css</p>
+      <p class="what">Token system + semantic component classes lifted from the real brand. Drop into the theme as-is.</p>
+    </div>
+  </div>
+
+  <!-- KNOWN GAPS -->
+  <section class="gaps">
+    <h3>Known gaps · still owing</h3>
+    <ul>
+      <li><strong style="color:var(--red);">HANDOFF.md</strong> still references the old (cream) direction — needs rewrite to match the real brand build.</li>
+      <li><strong style="color:var(--red);">IMAGE-USAGE.md</strong> not yet written — interim guidance lives in CONTENT-INVENTORY.md.</li>
+      <li><strong style="color:var(--red);">Mobile comps</strong> — only Home has been designed at mobile; Menu/Inner respond via CSS but no per-page mobile spec.</li>
+      <li><strong style="color:var(--red);">Empty + loading + error states</strong> — described in SLOTS.md fallback fields, not yet illustrated.</li>
+      <li><strong style="color:var(--red);">404 / search / category archives</strong> — out of scope for v1; Code can adapt the inner-page pattern.</li>
+    </ul>
+  </section>
+
+  <footer class="foot">
+    <span>Terry's Place · Est. 1980 · 4121 NE 36th Ave, Ocala FL</span>
+    <span>By <a href="#">Get Rooted Media</a></span>
+  </footer>
+
+</div>
+
+</body>
+</html>
