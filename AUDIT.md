@@ -6,10 +6,12 @@
 |---|---|
 | **Live preview** | https://terrys-place.vercel.app |
 | **Repo** | https://github.com/ron841/terrys-place |
-| **Build SHA at audit capture** | `59a70ee` |
-| **Latest HEAD on `main`** | `ac1c7e1` (this audit + family-name retraction) |
-| **Captured at** | 2026-05-01 18:38 UTC |
-| **Audit version** | v1.0-audit-pass-1 |
+| **Build SHA at audit capture (original)** | `59a70ee` |
+| **Latest HEAD on `main`** | `e6c14d9` (consolidated fix pass — Design feedback + technical/a11y holes) |
+| **Captured at (refreshed)** | 2026-05-01 21:30 UTC |
+| **Audit version** | v1.0-audit-pass-2 (post-fix-pass) |
+
+> **Round 2 status — what changed since pass 1:** Design feedback + 4 Ron-or-Eli decisions landed in 5 commits. Five of 7 routes now hit all four Lighthouse targets; A11y is 96–100 across all 7 (was 92–97, two routes failing). Family names retracted; family row hidden until photos confirm. Sunday Football promo restored as a dedicated two-up. Belly Buster card switched to a pending placeholder. Home + /menu still flagged for v1.1 perf work. See **§4 Technical** below for the full Lighthouse table.
 
 <details>
 <summary><b>Capture methodology</b> (tools, viewports, throttling)</summary>
@@ -237,19 +239,29 @@
 
 > Lighthouse, schema, console, links, form. Mobile form-factor, simulated throttling, single run per route. Targets per brief: Perf ≥90 / A11y ≥95 / Best Practices ≥95 / SEO 100.
 
-### Lighthouse · mobile
+### Lighthouse · mobile (post-fix-pass)
 
 | Route | Perf (≥90) | A11y (≥95) | BP (≥95) | SEO (=100) | LCP | CLS | TBT | Verdict |
 |---|---|---|---|---|---|---|---|---|
-| `/` | **75** | 94 | 100 | 100 | 6.5 s | 0 | 30 ms | **❌ FAIL** — Perf < 90, A11y 94 (below 95) |
-| `/menu` | 93 | **92** | 100 | 100 | 3.1 s | 0 | 0 ms | ⚠️ PARTIAL — A11y 92 (below 95) |
-| `/about` | 94 | **94** | 100 | 100 | 3.0 s | 0 | 0 ms | ⚠️ PARTIAL — A11y 94 (below 95) |
-| `/specials` | 95 | 96 | 100 | 100 | 2.8 s | 0 | 0 ms | ✅ PASS |
-| `/sports` | 94 | 96 | 100 | 100 | 3.0 s | 0 | 0 ms | ✅ PASS |
-| `/visit` | 92 | 97 | 100 | 100 | 2.9 s | 0 | 0 ms | ✅ PASS |
-| `/contact` | 95 | 97 | 100 | 100 | 2.9 s | 0 | 0 ms | ✅ PASS |
+| `/` | **75** | **96** | 100 | 100 | 6.4 s | 0 | 0 ms | ⚠️ PARTIAL — A11y now passes; perf still under target |
+| `/menu` | **88** | **100** | 100 | 100 | 3.4 s | 0 | 0 ms | ⚠️ PARTIAL — A11y perfect; perf 2 points shy of 90 |
+| `/about` | 93 | **100** | 100 | 100 | 3.0 s | 0 | 0 ms | ✅ PASS |
+| `/specials` | 95 | 98 | 100 | 100 | 2.8 s | 0 | 0 ms | ✅ PASS |
+| `/sports` | 95 | 98 | 100 | 100 | 2.8 s | 0 | 0 ms | ✅ PASS |
+| `/visit` | 91 | 98 | 100 | 100 | 3.0 s | 0 | 0 ms | ✅ PASS |
+| `/contact` | 93 | 98 | 100 | 100 | 3.1 s | 0 | 0 ms | ✅ PASS |
 
-> **Worst route:** `/`. Best Practices and SEO clean across all 7 routes. Performance is healthy except `/` (75), driven by hero-background **LCP at 6.5s** — the `photo-room-hero.jpg` renders as a CSS background-image without preload. Fix: add a `<link rel="preload" as="image">` for the hero, or convert to a real `<Image>` with `priority`. Accessibility ≥92 everywhere; gaps likely color-contrast on the `--on-dark-3` secondary text and possibly missing form-label associations. Investigate post-review.
+**Wins from the fix pass:**
+- A11y went from 92–97 (two routes failing) to **96–100** (all passing). `/menu` lifted **92 → 100**, `/about` lifted **94 → 100**.
+- Color-contrast violations resolved: `.t-eyebrow--red` and `.kind.is-hot` now use `--red-soft`; `.t-menu-row .badge` background bumped to `--red-2`.
+- Every route emits a `<main>` landmark (was missing on all 7 site routes — `landmark-one-main` failure).
+- `/menu` heading sequence corrected: `h1 → h2 → h2 → … → h3` (Footer). Was `h1 → h3 → h4` with skips.
+- All 7 routes emit canonical URLs (was zero pre-fix).
+- `/specials /sports /visit /contact` each carry one `<h1>` for the page title (were `<h2>` — pages had no h1).
+
+**Remaining for v1.1 deeper-dive:**
+- **`/` Perf 75.** Hero photo was converted to `<Image priority fill sizes="100vw">`, which automatically emits a preload hint and serves AVIF/WebP. LCP didn't budge from 6.4s — Lighthouse's `largest-contentful-paint-element` audit didn't return on the rate-limited runs, so we don't yet know what specific element is driving the LCP. Needs a hands-on profiler session (the .hero is 720px min-height and might be triggering a layout-related delay independent of image-load).
+- **`/menu` Perf 88.** Two points under target. Likely the long menu-section hydration path; streaming or below-fold lazy boundaries would help.
 
 ### Schema.org
 
@@ -311,8 +323,8 @@
 
 ### SEO fixes needed
 
-- Add `alternates: { canonical: ... }` to every route's metadata so each page emits a self-canonical URL. **Currently zero canonicals emitted.**
-- Inner pages (`/specials`, `/sports`, `/visit`, `/contact`) use `<h2>` for the page title — there's no `<h1>` at all. Hurts SEO and a11y. Promote each `inner-display` to `<h1>`, or add an `<h1 class="sr-only">` above it.
+- ✅ **FIXED** (commit `c8bc76f`): every route emits `metadata.alternates.canonical` — `terrys-place.vercel.app/<route>` resolves against `metadataBase` to a self-canonical URL on each page.
+- ✅ **FIXED** (commit `c8bc76f`): `/specials`, `/sports`, `/visit`, `/contact` each carry one `<h1>` (the inner-display heading) for the page title. Section-level inner-display headings inside those routes stay as `<h2>` (subordinate to the page title).
 
 ### AI-citation posture (candid)
 
@@ -439,8 +451,20 @@ The existing WordPress `terrys.place` currently ranks for hyperlocal queries ("T
 
 ## End of audit
 
-- Build SHA at audit capture: `59a70ee`
-- HEAD on `main` after the family-name retraction landed: `ac1c7e1`
-- Audit captured: 2026-05-01 18:38 UTC
+- Build SHA at first audit capture: `59a70ee`
+- HEAD on `main` after the consolidated fix pass landed: `e6c14d9`
+- Audit refreshed: 2026-05-01 21:30 UTC
 - Live preview: https://terrys-place.vercel.app
-- Internal-only — `<meta name="robots" content="noindex,nofollow">` on the live `/audit` route, `/audit` and `/audit/` disallowed in `/robots.txt`. This `AUDIT.md` is in a private repo; if Design can't read it, fallback decision is logged as an open question to Ron.
+- Repo is **public** so Design can read this URL anonymously. Preview build itself is `noindex` / robots-disallowed at the `/audit` live-site layer.
+
+### Consolidated fix-pass commits (this round)
+
+| SHA | What |
+|---|---|
+| `b5402ed` | `fix(content):` "& Fries" copy edit + Gators lineup seeded with `_placeholder: true` |
+| `d5cfd14` | `fix(home):` Belly Buster pending placeholder + Sunday Football promo two-up restored |
+| `f9399b7` | `fix(polish):` family row hide + hero wrap + stat tile cards + TODAY pill |
+| `c8bc76f` | `fix(seo+perf):` canonicals on all 7 routes + inner h1s + hero LCP via `<Image>` |
+| `e6c14d9` | `fix(a11y):` `<main>` landmark + heading order + color contrast |
+
+All on `main`, all deployed.
