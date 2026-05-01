@@ -15,9 +15,9 @@
     { "name": "Patio",         "note": "Outdoor screens, smoking-friendly, buckets of beer." }
   ],
   "lineup": [
-    { "time": "12:00 PM", "matchup": "Florida vs. Long Island",       "league": "SEC",  "_placeholder": true },
-    { "time": "3:30 PM",  "matchup": "Alabama vs. Georgia",           "league": "CBS",  "_placeholder": true },
-    { "time": "3:30 PM",  "matchup": "LSU vs. Texas A&M",             "league": "CBS",  "_placeholder": true },
+    { "time": "12:00 PM", "matchup": "Florida vs. Georgia",           "league": "CBS",  "_placeholder": true },
+    { "time": "3:30 PM",  "matchup": "Alabama vs. Ole Miss",          "league": "CBS",  "_placeholder": true },
+    { "time": "3:30 PM",  "matchup": "LSU vs. Texas A&M",             "league": "ESPN", "_placeholder": true },
     { "time": "7:00 PM",  "matchup": "Ohio State vs. Texas",          "league": "FOX",  "_placeholder": true },
     { "time": "7:30 PM",  "matchup": "Tennessee vs. Auburn",          "league": "ABC",  "_placeholder": true }
   ],

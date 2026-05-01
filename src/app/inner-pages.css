@@ -252,6 +252,43 @@
   line-height: 1.55;
 }
 
+/* Visit — exterior banner above the map+info grid.
+   Shows the actual building, mural-side. The mural's green/red 'Terry's'
+   reads as the brand walked off the wall onto the page. */
+.visit-exterior {
+  margin: 0 0 var(--space-10) 0;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.4);
+}
+.visit-exterior img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* native is 1015×878 (~1.16:1). Cap height on tall viewports so it
+     stays banner-shaped instead of dominating the fold. */
+  max-height: 540px;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.visit-exterior figcaption {
+  position: absolute;
+  bottom: var(--space-4);
+  left: var(--space-5);
+  background: rgba(15, 14, 18, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--green);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+@media (max-width: 700px) {
+  .visit-exterior img { max-height: 360px; }
+  .visit-exterior figcaption { font-size: 10px; padding: 5px 10px; }
+}
+
 /* Visit / contact */
 .visit-grid {
   display: grid;

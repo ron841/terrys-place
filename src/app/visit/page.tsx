@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import "../inner-pages.css";
 
@@ -50,9 +51,23 @@ export default function VisitPage() {
 
       <section className="t-container" style={{ paddingBlock: "var(--space-12)" }}>
         <p className="t-eyebrow">Find us</p>
-        <h1 className="inner-display" style={{ marginBottom: "var(--space-8)" }}>
+        <h1 className="inner-display" style={{ marginBottom: "var(--space-7)" }}>
           Come <span className="green">Through.</span>
         </h1>
+
+        <figure className="visit-exterior">
+          <Image
+            src="/assets/photo-exterior.jpg"
+            alt="The side of Terry's Place — yellow building with a hand-painted Terry's mural in green and red graffiti style, a tropical cocktail with '5 5 5' running down it, palm trees, and the words 'It's 5 o'clock here!' painted in teal."
+            width={1015}
+            height={878}
+            sizes="(max-width: 800px) 100vw, 1136px"
+            priority
+          />
+          <figcaption>
+            <span className="t-mono t-mono--caps">{site.address.street} · {site.address.city}, {site.address.region}</span>
+          </figcaption>
+        </figure>
 
         <div className="visit-grid">
           <div>
