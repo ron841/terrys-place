@@ -19,6 +19,7 @@ import newsJson from "@content/news.json";
 import formsJson from "@content/forms.json";
 import seoJson from "@content/seo.json";
 import legalJson from "@content/legal.json";
+import auditJson from "@content/audit.json";
 
 // ---------- Types ---------------------------------------------------
 
@@ -204,6 +205,19 @@ export const news = newsJson as unknown as { recent: NewsItem[] };
 export const forms = formsJson as unknown as Forms;
 export const seo = seoJson as unknown as Seo;
 export const legal = legalJson as unknown as Legal;
+
+// Audit content is structured but the shape is flat/data-y — typed loosely
+// to keep the audit page rendering free-form without dragging the whole
+// shape into the type system.
+export const audit = auditJson as unknown as {
+  meta: Record<string, unknown>;
+  visualFidelity: { _note?: string; routes: unknown[] };
+  photoAudit: { _note?: string; inventory: unknown[]; halfDayShootWishlist: unknown[]; filenameContentNote: string };
+  contentStatus: { _note?: string; items: unknown[] };
+  technical: Record<string, unknown>;
+  seo: Record<string, unknown>;
+  editorialDrift: unknown[];
+};
 
 /** SEO entry helper with merge to defaults. */
 export function seoFor(route: string): SeoEntry & {

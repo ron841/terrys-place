@@ -1,0 +1,257 @@
+{
+  "meta": {
+    "version": "v1.0-audit-pass-1",
+    "capturedAt": "2026-05-01T18:38:00Z",
+    "buildSha": "59a70ee",
+    "previewUrl": "https://terrys-place.vercel.app",
+    "tooling": {
+      "screenshots": "Playwright 1.59.1 / Chromium headless. Viewport 1280×800 (desktop), 375×812 (mobile). networkidle wait + 800ms settle.",
+      "comp": "Inner Pages.html captured fullPage then cropped per .page-divider anchor via sharp 0.34.5.",
+      "lighthouse": "Lighthouse 13.2.0 / form-factor=mobile / throttling=simulate / Chromium headless. Single run per route. Re-ran failed routes once.",
+      "linkCrawl": "Python urllib over the 7 routes; HEAD-style GET for every internal href found across all pages.",
+      "schema": "JSON-LD blocks read directly from emitted HTML. Run https://search.google.com/test/rich-results manually for the official validator pass."
+    }
+  },
+
+  "visualFidelity": {
+    "_note": "Each route lists what's faithful to the comp and what diverged. Comp source for inner pages is the corresponding section in Inner Pages.html.",
+    "routes": [
+      {
+        "name": "home",
+        "label": "Home / —",
+        "compSource": "Home.html (full)",
+        "notes": [
+          { "kind": "ok", "text": "Topbar / sticky white nav / hero photo + green-and-red text-shadow stack on the wordmark / Tonight strip aside / marquee / squiggle dividers all lift faithfully." },
+          { "kind": "ok", "text": "Week grid renders today's date highlight client-side (Friday at capture time)." },
+          { "kind": "drift", "text": "Comp's static \"Tonight at Terry's\" is a single info card with 4 manual rows; build renders the CMS_SCHEMA tonightStrip[] (4 cells of tag/title/meta). Different shape, similar visual weight. Per SLOT_RECONCILIATION." },
+          { "kind": "drift", "text": "Hero background photo: comp uses photo-room-hero.jpg as a wide interior; the file at that name in the handoff was actually a server-with-poboy + dining-room-background shot (post-rename it stays at photo-room-hero.jpg). The hero with overlay still works as a sense-of-room shot; flag if Design wants a true wide interior." },
+          { "kind": "drift", "text": "Heritage stat row: comp shows 45 / 3 / 7-day; build mirrors. Confirmed in /about hero for full picture." }
+        ]
+      },
+      {
+        "name": "menu",
+        "label": "Menu / /menu",
+        "compSource": "Menu.html (full)",
+        "notes": [
+          { "kind": "ok", "text": "Hero, anchor nav, two-column section layout, dot-leader rows with prices all lifted faithfully." },
+          { "kind": "ok", "text": "Daily Lunch aside (price flag + 5-day list) renders from menu.lunchSpecial." },
+          { "kind": "drift", "text": "Comp shows ~30 items hand-curated across 4 sections; build lifts ~50 items across 8 sections from the actual PDF (Sandwiches, Subs, Dinners added — the comp omitted them). Result: longer page, more complete coverage; visually the same component pattern." },
+          { "kind": "drift", "text": "Wing/sub tier pricing (10/20/30/50, Sm/Lg) renders inline as a single line; comp had multi-row entries for wings. Single-line is denser; flag if Design wants stacked rows." },
+          { "kind": "ok", "text": "Drinks card + happy-hour callout + cash-discount footnote + consumer notice all rendered." }
+        ]
+      },
+      {
+        "name": "about",
+        "label": "About / /about",
+        "compSource": "Inner Pages.html § #about",
+        "notes": [
+          { "kind": "ok", "text": "Hero with right-rail group photo, two flipped story rows with green pull quote, family row of three cards." },
+          { "kind": "ok", "text": "Family-card portraits render <DraftField> red-dashed pending boxes per CONTENT-INVENTORY 🔴." },
+          { "kind": "drift", "text": "Family names ship as Design-drafted placeholders (\"Terry Sr.\", \"Jr.\", \"III (Tre)\") with _placeholder=true flag and a small DraftField indicator next to each. Real names per client pending." },
+          { "kind": "ok", "text": "Pull-quote text matches comp verbatim: \"If a guy can't eat it all, you cooked it right.\"" }
+        ]
+      },
+      {
+        "name": "specials",
+        "label": "Specials / /specials",
+        "compSource": "Inner Pages.html § #specials",
+        "notes": [
+          { "kind": "ok", "text": "6-card grid (5 weekday + Sunday Football hot card) lifted faithfully. Per-day descriptions match comp." },
+          { "kind": "drift", "text": "Comp has descriptions inline in HTML. Build keeps them inline in the page.tsx via WEEKDAY_DESC map (not in content JSON). Future client-edit means a code change. Worth promoting to specials.json if Eli wants to own those descriptions." },
+          { "kind": "ok", "text": "Happy-hour mention with placeholder narrative below the grid; pour list flagged as pending." }
+        ]
+      },
+      {
+        "name": "sports",
+        "label": "Sports / /sports",
+        "compSource": "Inner Pages.html § #sports",
+        "notes": [
+          { "kind": "ok", "text": "\"22 TVs · sound on the Gators\" tagline, On-the-Screens copy, two CTAs (call to reserve + private game-day bookings)." },
+          { "kind": "drift", "text": "Comp shows a sample TV list with 5 specific games (Florida vs Tennessee, Alabama vs South Carolina, etc.). Build renders an empty-state card (\"Lineup posted weekly during football season\") because content/sports.json:lineup[] is empty. v1 is correct per brief out-of-scope decision; flag for client to populate weekly." },
+          { "kind": "added", "text": "Build adds a \"Pick the Room\" 4-card section (Bar / Dining / Billiards / Patio) — implicit in the brief but not drawn in the comp. Editorial drift; rule from Design wanted." }
+        ]
+      },
+      {
+        "name": "visit",
+        "label": "Visit / /visit",
+        "compSource": "Inner Pages.html § #visit",
+        "notes": [
+          { "kind": "ok", "text": "Map placeholder replaced with a real Google Maps iframe (no API key, q= search). Address + phone + hours table all rendered." },
+          { "kind": "ok", "text": "Hours table highlights today via a tiny inline script (`tr.today` class)." },
+          { "kind": "drift", "text": "Comp's hours-table placeholder used Tuesday as today; build computes actual today (NY tz). Not a fidelity break — same component, real data." },
+          { "kind": "added", "text": "Build adds two CTAs below the map (Get Directions / Open in Maps). Comp had nothing under the map. Editorial add — rule from Design wanted." }
+        ]
+      },
+      {
+        "name": "contact",
+        "label": "Contact / /contact",
+        "compSource": "Inner Pages.html § #contact",
+        "notes": [
+          { "kind": "ok", "text": "Two-column layout, drop-a-line copy, hand-script accent line, contact form panel." },
+          { "kind": "drift", "text": "Form fields differ slightly: comp had First Name / Last Name split; build has single Name. Cleaner UX, same data shape (all flows into Static Forms anyway). Flag if Design wants the split." },
+          { "kind": "drift", "text": "Topic dropdown options match CMS_SCHEMA forms.contact.topics: General / Catering / Private Event / Press. Comp's options were Private party / Catering / Feedback / General — superset overlapping ~70%. Used CMS_SCHEMA values as canonical." },
+          { "kind": "drift", "text": "Pending-recipient DraftField surfaces below the copy when env recipient is the placeholder. Visible in the live preview (Eli should see a red pill labeled \"PENDING: Real contact recipient email\")." }
+        ]
+      }
+    ]
+  },
+
+  "photoAudit": {
+    "_note": "All photos in public/assets/, with judgment + best-current-use. Filename-vs-content fix happened mid-build (see editorial drift). All current names match contents.",
+    "inventory": [
+      { "filename": "photo-room-hero.jpg",         "dimensions": "1366×768",  "bytes": 216102, "judgment": "adequate", "use": "Home hero background", "notes": "Server with po-boy in foreground; dining-room booths visible in background. With navy overlay it reads as 'inside Terry's' but isn't a true wide interior. Replace with a clean wide-shot if a shoot happens." },
+      { "filename": "photo-staff-group.jpg",       "dimensions": "1000×791",  "bytes": 181405, "judgment": "strong",   "use": "About hero right rail · Home heritage section", "notes": "8 staff in front of brushed-metal Terry's wordmark. Real, on-brand, and the closest thing we have to the three-generations photo. Keep, but commission a real owner+family portrait alongside it." },
+      { "filename": "photo-staff-burger-wings.jpg","dimensions": "750×1000",  "bytes": 145216, "judgment": "strong",   "use": "About story-row 2 · Home Belly Buster card", "notes": "Server holding burger and wings basket in front of the Terry's metal sign. Clean, on-brand. Vertical orientation works for both portrait crops." },
+      { "filename": "photo-wings-cocktails.jpg",   "dimensions": "750×1000",  "bytes": 173302, "judgment": "strong",   "use": "Home Original Wings card · /menu wings hero (when added)", "notes": "Wings basket with three cocktails on the bar. Bar-program shot, doubles as wings hero. The one drink shot we have." },
+      { "filename": "photo-steak.jpg",             "dimensions": "1500×650",  "bytes": 211670, "judgment": "adequate", "use": "Home Steak Night card", "notes": "Steak with mushrooms and onion rings — close-crop, low-light. Reads as a steak photo but the lighting and angle are diner-style; would benefit from professional food photography." },
+      { "filename": "photo-chicken-sandwich.jpg",  "dimensions": "1500×650",  "bytes": 247266, "judgment": "adequate", "use": "Menu chicken section thumbnail (when wired)", "notes": "Chicken sandwich + fries in basket. Same diner-photography style. Wide aspect (1500×650) limits use as a square card thumbnail." },
+      { "filename": "photo-pool-room.jpg",         "dimensions": "1500×650",  "bytes": 110574, "judgment": "strong",   "use": "Home news card · /sports rooms (when wired)", "notes": "Pool tables and air hockey, dim warm light, includes the Terry's hat shelf in background. Genuine room atmosphere." },
+      { "filename": "photo-sunday-football.jpg",   "dimensions": "1000×1000", "bytes": 226172, "judgment": "weak",     "use": "/specials Sunday card · /sports section header (when wired)", "notes": "Promotional graphic (text overlay + product shot), not a candid photo. Reads as marketing collateral, not editorial. A real game-day room photo would be a step-change improvement." },
+      { "filename": "photo-camo-hats.jpg",         "dimensions": "1500×650",  "bytes": 237789, "judgment": "strong",   "use": "Home news card · merch story", "notes": "Two camo Terry's hats with leather patch. Sharp, distinct, branded. Best of the merch shots." },
+      { "filename": "photo-merch-hats.jpg",        "dimensions": "1000×750",  "bytes": 191227, "judgment": "adequate", "use": "Footer merch column · merch callout", "notes": "Hats on shelves, low light, slightly soft focus. Works as supporting imagery but not as a hero." },
+      { "filename": "menu-page-1.jpg",             "dimensions": "900×1332",  "bytes": 266317, "judgment": "ok",       "use": "Reference only — not published", "notes": "Raster of menu PDF page 1. Used to seed menu.json; should NOT be embedded on the live site." }
+    ],
+    "halfDayShootWishlist": [
+      { "rank": 1, "subject": "Owner / family portrait — three generations, named", "why": "Biggest content gap. The three-generations narrative on /about has no faces attached, currently leaning on the staff-group photo as a stand-in. A staged owner portrait (or three small portraits) would fill the family[] slots and unblock the launch.", "ref": "/about § Three Terrys family row (currently rendering DraftField boxes)" },
+      { "rank": 2, "subject": "Sunday game-day room shot — packed crowd watching a Gators or NFL game", "why": "The current /specials Sunday card uses a promo graphic where it should show atmosphere. A wide candid of the bar room mid-game replaces marketing with proof.", "ref": "/specials § Sunday Football card · /sports § \"On the Screens\"" },
+      { "rank": 3, "subject": "Exterior storefront at golden hour", "why": "/visit has no exterior shot — Google Maps embed is the only sense-of-place. A storefront photo anchors the find-us moment and doubles for Google Business Profile.", "ref": "/visit § Address card" },
+      { "rank": 4, "subject": "Wide dining-room interior at service time", "why": "Replaces the current Home hero background (a foreground food shot) with a true room-feel wide. The comp intent for the hero was a wide interior; we don't have one.", "ref": "Home hero background" },
+      { "rank": 5, "subject": "Cocktail / bar program flight (3–5 drinks, behind-the-bar lighting)", "why": "The bar program differentiator on the existing site is invisible. One bar-craft shot validates the \"fully stocked liquor selection\" copy.", "ref": "/menu § Drinks & Bar · About story row 2 · future Bar callout" },
+      { "rank": 6, "subject": "Trivia night candid (Tuesday) and karaoke night candid (Friday)", "why": "Events grid promotes both weekly; build has no atmosphere photo for either. One photo per program would carry these cards visually for weeks.", "ref": "Home § This Week · /specials" },
+      { "rank": 7, "subject": "Half-pound burger overhead, single-flavor wings overhead — pro food photography", "why": "Current food photos are diner-quality candids. For the home food strip and menu hero, replacement-grade hero food shots would lift the whole brand register.", "ref": "Home § What You Came For · /menu hero" }
+    ],
+    "filenameContentNote": "Mid-build the design-handoff package shipped 7 photos with names that didn't match contents (e.g., photo-staff-group.jpg actually contained the Sunday Football promo graphic; photo-staff-burger-wings.jpg was an AI-generated illustration). Code renamed each file to match its actual content; the AI-illustration was dropped (no real-photo slot fits it). Going forward: every Facebook pull will need the same audit before it goes into the bundle. Building a check into the next photo-fetch script is recommended."
+  },
+
+  "contentStatus": {
+    "_note": "Single table of every blocked / placeholder / analogous-fill content item. The point: Eli's review is a checklist, not a scavenger hunt.",
+    "items": [
+      { "route": "/about", "section": "family[]", "field": "name (×3)", "currentValue": "Terry Sr. / Terry Jr. / Terry III (\"Tre\")", "source": "Design placeholder (_placeholder: true)", "question": "Confirm the three real generation names — first name + last name acceptable, nicknames optional." },
+      { "route": "/about", "section": "family[]", "field": "photo (×3)", "currentValue": "null (DraftField rendered)", "source": "🔴 missing", "question": "Three portraits — photographed individually or staged together. Half-day shoot wishlist #1." },
+      { "route": "/about", "section": "family[]", "field": "since (year)", "currentValue": "1980 / 2003 / 2020", "source": "Design placeholder", "question": "Confirm the years each generation took over (or remove `since` if it's not a clean handoff date)." },
+      { "route": "/about", "section": "storyRows[].body", "field": "founder + son narrative", "currentValue": "Agency draft (\"Terry Sr. opened the doors with a Frigidaire, a fryer…\")", "source": "Design placeholder lifted from comp", "question": "Confirm or rewrite — the live site never named anyone, so this is invented narrative. 30-min phone call w/ owner per CONTENT-INVENTORY." },
+      { "route": "/contact", "section": "form", "field": "recipient email", "currentValue": "pending@terrys.place (env placeholder, DraftField visible)", "source": "🔴 missing", "question": "Real recipient email for catering / private events / press / general." },
+      { "route": "all", "section": "Header/Footer FB icon", "field": "site.social.facebook", "currentValue": "null (icon hidden when null)", "source": "🔴 missing or n/a", "question": "Real Facebook page URL, OR confirm \"no Facebook\" decision (icon stays hidden)." },
+      { "route": "all", "section": "site.social", "field": "instagram / tiktok", "currentValue": "null", "source": "non-blocking", "question": "Any other socials worth linking? Post-launch chase-able." },
+      { "route": "/visit · footer · schema", "section": "hours.6 (Saturday)", "field": "open / close", "currentValue": "11:00 / 24:00", "source": "Design analogous-fill (live site missing Saturday)", "question": "Confirm Saturday hours — closed, or 11am–12am as Design assumed?" },
+      { "route": "all", "section": "hours.kitchenClosesBeforeBar", "field": "offset", "currentValue": "30min", "source": "Design analogous-fill (live site silent)", "question": "Real kitchen-close offset (e.g., 30min before bar close, or different per day)?" },
+      { "route": "Home § This Week", "section": "events.weekly", "field": "Tuesday Trivia host", "currentValue": "Big Mike", "source": "Design placeholder", "question": "Real trivia host name + frequency + cover policy." },
+      { "route": "Home § This Week", "section": "events.weekly", "field": "Friday Karaoke / Sat Live Music host", "currentValue": "no host name (Karaoke Night) / \"Acoustic Live Music\"", "source": "Design placeholder", "question": "Real karaoke host, real live-music host(s), real frequency." },
+      { "route": "/specials", "section": "happyHour", "field": "actual specials", "currentValue": "label only (\"Mon–Fri 3–7pm\"), no items", "source": "🔴 missing", "question": "Drink specials, food specials, half-priced apps — actual list per CONTENT-INVENTORY." },
+      { "route": "/sports", "section": "sports.lineup[]", "field": "this week's games", "currentValue": "[] (empty-state card rendered)", "source": "v2 manual / API decision per brief out-of-scope", "question": "v1: do you want to manually populate weekly, or leave empty until v2 sports-API integration?" },
+      { "route": "Home § News · footer", "section": "news.recent", "field": "3 news cards", "currentValue": "Agency-drafted entries (Best Wings / Ladies' Night / Pool Hall)", "source": "Design placeholder", "question": "Replace at v1 with real entries, or carry the agency drafts and migrate WP posts at v2?" },
+      { "route": "/about", "section": "stats", "field": "45 / 3 / 7-day", "currentValue": "literal", "source": "comp lift", "question": "Confirm the 45 (years) is correct as of 2026 — comp said 45. If launch slips into 2026 and we're now at 46, update." },
+      { "route": "n/a", "section": "site.address.geo", "field": "lat/lng", "currentValue": "29.2417, -82.0719 (approximate)", "source": "Design analogous-fill", "question": "Confirm exact coordinates for Restaurant schema and Google Maps deep-link. Easy to verify against the actual address." },
+      { "route": "n/a", "section": "logo", "field": "SVG wordmark", "currentValue": "PNG only (1× and 2×)", "source": "🔴 per CONTENT-INVENTORY", "question": "Original AI/EPS source — or confirm we ship retina PNGs only. Affects scaling at very large sizes (e.g. printable promos)." }
+    ]
+  },
+
+  "technical": {
+    "lighthouse": {
+      "_note": "Mobile form-factor, simulated throttling, single run per route. Targets per brief: Perf ≥90 / A11y ≥95 / Best Practices ≥95 / SEO 100.",
+      "results": [
+        { "route": "/",         "performance": 75, "accessibility": 94, "bestPractices": 100, "seo": 100, "lcp": "6.5 s", "cls": "0", "tbt": "30 ms", "verdict": "FAIL — Perf < 90, A11y 94 (below 95)" },
+        { "route": "/menu",     "performance": 93, "accessibility": 92, "bestPractices": 100, "seo": 100, "lcp": "3.1 s", "cls": "0", "tbt": "0 ms",  "verdict": "PARTIAL — A11y 92 (below 95)" },
+        { "route": "/about",    "performance": 94, "accessibility": 94, "bestPractices": 100, "seo": 100, "lcp": "3.0 s", "cls": "0", "tbt": "0 ms",  "verdict": "PARTIAL — A11y 94 (below 95)" },
+        { "route": "/specials", "performance": 95, "accessibility": 96, "bestPractices": 100, "seo": 100, "lcp": "2.8 s", "cls": "0", "tbt": "0 ms",  "verdict": "PASS" },
+        { "route": "/sports",   "performance": 94, "accessibility": 96, "bestPractices": 100, "seo": 100, "lcp": "3.0 s", "cls": "0", "tbt": "0 ms",  "verdict": "PASS" },
+        { "route": "/visit",    "performance": 92, "accessibility": 97, "bestPractices": 100, "seo": 100, "lcp": "2.9 s", "cls": "0", "tbt": "0 ms",  "verdict": "PASS" },
+        { "route": "/contact",  "performance": 95, "accessibility": 97, "bestPractices": 100, "seo": 100, "lcp": "2.9 s", "cls": "0", "tbt": "0 ms",  "verdict": "PASS" }
+      ],
+      "worstRoute": "/",
+      "summary": "Best Practices and SEO clean across all 7 routes. Performance is healthy except / (75), driven by hero-background LCP at 6.5s — the photo-room-hero.jpg renders as a CSS background-image without preload. Fix: add a <link rel=\"preload\" as=\"image\"> for the hero, or convert to a real <Image> with priority. Accessibility ≥92 everywhere; gaps likely color-contrast on the on-dark-3 secondary text and possibly missing form-label associations. Investigate post-review."
+    },
+    "schemaOrg": {
+      "emitted": [
+        { "route": "/",     "types": ["Restaurant"], "validates": "Run https://search.google.com/test/rich-results manually with the URL — automated validation not run", "note": "Includes OpeningHoursSpecification (×7), GeoCoordinates, PostalAddress, hasMenu, foundingDate, paymentAccepted." },
+        { "route": "/menu", "types": ["Menu"],       "validates": "Run https://search.google.com/test/rich-results manually with the URL — automated validation not run", "note": "Includes 8 MenuSection blocks; each MenuItem has Offer with USD price (or array of Offers for tiered pricing)." }
+      ],
+      "missing": [
+        { "type": "Event", "route": "Home § This Week or /specials", "rationale": "Trivia / karaoke / live-music / Sunday football could be modeled as Event schema. Helps AI citations on \"trivia night Ocala\" / \"karaoke Friday near me\" queries. Out of v1 scope but cheap to add at v1.1." },
+        { "type": "FAQPage", "route": "/visit or /contact", "rationale": "Q&A like \"Do you take reservations?\" / \"Is there a kids' menu?\" / \"Do you have parking?\" — strong candidate for SGE / AI-citation surfaces." },
+        { "type": "AggregateRating", "route": "/", "rationale": "Once Google reviews are wired (post Google Business Profile claim), the Restaurant schema can include aggregateRating to surface star counts in SERPs." },
+        { "type": "BreadcrumbList", "route": "all inner routes", "rationale": "Inner routes don't emit BreadcrumbList. Marginal value; ship in a polish pass." }
+      ]
+    },
+    "consoleErrors": {
+      "_note": "Captured during desktop-viewport playwright run. 0 errors / 0 warnings unless noted.",
+      "perRoute": [
+        { "route": "/",         "errors": 0, "warnings": 0, "details": "clean" },
+        { "route": "/menu",     "errors": 0, "warnings": 0, "details": "clean" },
+        { "route": "/about",    "errors": 0, "warnings": 0, "details": "clean" },
+        { "route": "/specials", "errors": 0, "warnings": 0, "details": "clean" },
+        { "route": "/sports",   "errors": 0, "warnings": 0, "details": "clean" },
+        { "route": "/visit",    "errors": 0, "warnings": 1, "details": "One Google Maps iframe console warning (third-party). Non-fatal." },
+        { "route": "/contact",  "errors": 0, "warnings": 0, "details": "clean" }
+      ]
+    },
+    "linkCrawl": {
+      "_note": "All internal hrefs across the 7 routes hit live; non-200 codes flagged here.",
+      "totalChecked": 18,
+      "non200": [],
+      "verdict": "PASS — all 7 site routes return 200. Static asset paths (/_next/...) and the menu PDF (/assets/menu-2025.pdf) all 200. tel: links not HTTP-checked."
+    },
+    "contactFormTest": {
+      "submittedAt": "2026-05-01T18:38:00Z",
+      "payload": "[AUDIT TEST] message body, name=AUDIT TEST, replyTo=audit-test@grm-internal.test, recipient=pending@terrys.place",
+      "response": "{ \"success\": true, \"message\": \"Form submitted successfully\" }",
+      "verdict": "PASS — Static Forms accepted the submission. Eli must confirm the recipient placeholder mailbox (`pending@terrys.place`) is being monitored OR replace it with a real address before client review."
+    }
+  },
+
+  "seo": {
+    "perRoute": [
+      { "route": "/",         "title": "Terry's Place · Ocala's Sports Bar & Grill Since 1980", "description": "Family-run sports bar and grill in Ocala, FL since 1980. Half-pound burgers, hand-cut steaks, daily-baked bread. Wall-to-wall TVs, NFL Sunday Ticket, three generations.", "ogImage": "/assets/photo-room-hero.jpg", "canonical": null, "h1": "Ocala's Sports Bar & Grill", "jsonLd": ["Restaurant"] },
+      { "route": "/menu",     "title": "Menu · Terry's Place", "description": "Hand-cut steaks, half-pound burgers, jumbo wings, daily-baked subs. Daily $10.50 lunch Mon–Fri.", "ogImage": "/assets/photo-staff-burger-wings.jpg", "canonical": null, "h1": "King-Size Portions. Cooked to Order.", "jsonLd": ["Menu"] },
+      { "route": "/about",    "title": "Three Generations · Terry's Place", "description": "Family-run since 1980. Three generations behind the bar in Ocala, FL.", "ogImage": "/assets/photo-staff-group.jpg", "canonical": null, "h1": "Three Generations Strong.", "jsonLd": [] },
+      { "route": "/specials", "title": "Specials & Lunch · Terry's Place", "description": "$10.50 daily lunch Mon–Fri. Sunday Football wings + pitcher special. Happy Hour weekday afternoons.", "ogImage": "/assets/photo-sunday-football.jpg", "canonical": null, "h1": "(none — uses h2.inner-display)", "jsonLd": [] },
+      { "route": "/sports",   "title": "22 TVs · Sports · Terry's Place", "description": "NFL Sunday Ticket, Florida Gators, college football. 22 wall-to-wall screens across four rooms.", "ogImage": "/assets/photo-sunday-football.jpg", "canonical": null, "h1": "(none — uses h2.inner-display)", "jsonLd": [] },
+      { "route": "/visit",    "title": "Visit · 4121 NE 36th Ave, Ocala FL · Terry's Place", "description": "4121 NE 36th Ave, Ocala FL 34479. Open seven days. Free parking. (352) 732-3820.", "ogImage": "/assets/photo-room-hero.jpg", "canonical": null, "h1": "(none — uses h2.inner-display)", "jsonLd": [] },
+      { "route": "/contact",  "title": "Contact · Terry's Place", "description": "Catering, private events, press, or just a question — we'll get back to you.", "ogImage": "/assets/photo-room-hero.jpg", "canonical": null, "h1": "(none — uses h2.inner-display)", "jsonLd": [] }
+    ],
+    "fixesNeeded": [
+      "Add `alternates: { canonical: ... }` to every route's metadata so each page emits a self-canonical URL. Currently zero canonicals emitted.",
+      "Inner pages (/specials, /sports, /visit, /contact) use h2 for the page title — there's no h1 at all. Hurts SEO and a11y. Promote each `inner-display` to h1, or add an h1.sr-only above it."
+    ],
+    "aiCitationPosture": {
+      "thesis": "GRM's ranking-from-day-one thesis works for contractor sites (Page 1 = thin Yellow-Pages aggregators) but applies only partially to restaurants. AI-citation surfaces for restaurants are dominated by Yelp, Google Business Profile, TripAdvisor, OpenTable. terrys.place will not displace those — but it can be a strong supporting citation, especially for hyperlocal niche queries.",
+      "winnableQueries": [
+        { "q": "best sports bar Ocala FL", "rationale": "Local intent + qualifier the GBP listing alone won't dominate. Restaurant schema + Menu schema + an emitted Event schema for game days = strong SGE/AI-citation candidate." },
+        { "q": "where to watch the Gators in Ocala", "rationale": "Niche, sport-specific, conversational query. The 'sound on the Gators · 22 TVs · NFL Sunday Ticket' content directly answers it. Yelp + GBP weakly answer this; the site can win on specificity." },
+        { "q": "Ocala restaurant with karaoke / trivia night", "rationale": "Event-specific niche. v1.1 Event schema for trivia (Tuesday) and karaoke (Friday) materially improves citation odds." },
+        { "q": "$10 lunch Ocala / cheap lunch near me Marion County", "rationale": "Daily Lunch program at $10.50 is unusually concrete. Page is already structured around this value-prop." },
+        { "q": "kid-friendly sports bar Ocala", "rationale": "If site adds a Kids/Family copy section + FAQ schema (\"Do you have a kids' menu?\" \"Is the patio family-friendly?\"), this becomes winnable. Currently no Kids content." }
+      ],
+      "needsClientWork": [
+        "Google Business Profile — claim, update hours, post weekly events, add the new menu PDF. This is the single highest-leverage hour Eli can spend post-launch.",
+        "Yelp listing — claim, update hours, replace photos with the new shoot's output.",
+        "TripAdvisor — optional but free. Most travelers checking 'sports bar Ocala' see TA results before SERP.",
+        "Apple Maps / Bing Places — quick wins, often unclaimed.",
+        "Google Reviews — actively solicit during the launch window. AggregateRating in Restaurant schema requires real reviews."
+      ],
+      "v1_1_recommendations": [
+        "Add Event schema for the recurring weekly programs (trivia, karaoke, Sunday football) — generated from events.weekly.",
+        "Add FAQPage schema on /visit (parking, kids, dress code, age policy at events) and /contact (private events, catering, large parties).",
+        "Add LocalBusiness reviews aggregateRating to Restaurant schema once Google Reviews count crosses ~10 ratings.",
+        "Self-host a /reviews route that pulls a Google Reviews widget (or static cache of top 5) — gives crawlers something to index that backs the aggregateRating."
+      ],
+      "wpSiteDiff": "The existing WordPress terrys.place currently ranks for hyperlocal queries (\"Terry's Place Ocala\", \"Terry's Sports Bar Ocala\"). At cutover, replacing the WP install with the new build means: (a) the existing page slugs change (e.g., /our-establishment vs /sports — the latter is canonical in the new IA but loses the legacy URL's authority); (b) any backlinks pointing at /our-menu, /about-us, /contact-terrys-sports-bar-and-grill etc. need 301 redirects in vercel.json or via rewrites in next.config.ts. Recommendation: implement a redirect map at cutover for the 7 legacy WP URLs to their new equivalents."
+    }
+  },
+
+  "editorialDrift": [
+    { "what": "menu.items[].price relaxed from integer to number", "compSpec": "CMS_SCHEMA originally specified `\"type\": \"integer\", \"description\": \"USD, no $. Whole dollars only.\"`", "shipped": "Schema relaxed to `number` (decimal). All prices in menu.json are decimals (e.g. 9.29, 14.99).", "why": "The actual menu PDF has cents on every item ($10.29, $9.29, $11.99). Integer-only would have required dropping the cents column or rounding everything. SLOTS.md's example item also showed `9.29`. Treated this as a transcription error in the schema rather than design intent." },
+    { "what": "menu.items[].pricing[] tier shape added", "compSpec": "Not specified in CMS_SCHEMA; SLOTS.md showed a single `price` per item.", "shipped": "Added optional `pricing: [{size, price}]` array for sized/tiered items (wings 10/20/30/50, subs Sm/Lg, fish dinner 2-piece/3-piece). MenuRow component renders these as a single line.", "why": "Several real menu items have tiered pricing that doesn't fit a single number. Reverse-compatible with existing single-price items." },
+    { "what": "tonightStrip uses the CMS_SCHEMA shape, not the SLOTS.md heroCard shape", "compSpec": "SLOTS.md described an old `heroCard` shape with label / leadLine / supportLine / rows[]. CMS_SCHEMA defined `tonightStrip` as 4 cells of {tag, title, meta}.", "shipped": "tonightStrip with 4 cells per CMS_SCHEMA. Home renders these as a vertical strip in the hero aside.", "why": "SLOT_RECONCILIATION.md was explicit: `heroCard → tonightStrip` and CMS_SCHEMA wins for naming. The visual treatment is similar (right-rail dark card with content), just modeled as a uniform array." },
+    { "what": "about.storyRows[] added to schema", "compSpec": "CMS_SCHEMA only had `lede` / `story` / `timeline` / `family` for /about.", "shipped": "Added `storyRows[]` with `{kicker, title, body[], image, imageAlt, pullQuote, flip}` matching the comp's two-row beginning/today layout.", "why": "The Inner Pages /about comp clearly intended structured story rows. Without this in schema, the body would have been free-text markdown — losing the per-row image + pull-quote affordances. Adding the slot was cheaper than abandoning the comp's structure." },
+    { "what": "Saturday hours filled in (live site missing)", "compSpec": "Live site terrys.place doesn't show Saturday at all; CMS_SCHEMA default is null.", "shipped": "hours.6 = {open: 11:00, close: 24:00}, matching the comp footer and SLOTS.md.", "why": "Sports bar with empty Saturday is implausible. Comp + SLOTS both implied Saturday is open. Flagged as a 🟡 placeholder for client confirmation. If client confirms closed, swap to null." },
+    { "what": "7 missing CMS_SCHEMA top-level namespaces added", "compSpec": "CMS_SCHEMA original had: site / hours / tonightStrip / menu / about / events. SLOT_RECONCILIATION referenced: + specials / sports / news / forms / seo / theme / legal.", "shipped": "Added all 7 namespaces with shapes inferred from Inner Pages comp + SLOTS.md mappings.", "why": "Schema-completion was an agreed-upon Code task (option (a) from intake). Original CMS_SCHEMA was incomplete relative to SLOT_RECONCILIATION; completion was a prereq for content-driven rendering of /specials, /sports, /news, /contact." },
+    { "what": "AI-illustration photo dropped (photo-staff-burger-wings.jpg original content)", "compSpec": "Per IMAGE-USAGE the file should have been 'Server holding loaded burger + wings basket'.", "shipped": "Renamed the real server-with-burger-wings file (which was at photo-sunday-football.jpg) to photo-staff-burger-wings.jpg. The AI-illustrated bar scene that was sitting at this name is dropped from the bundle.", "why": "AI-generated image doesn't fit the brand register and shouldn't ship. No real-photo slot exists for it." },
+    { "what": "Facebook icon hidden when site.social.facebook is null", "compSpec": "Comp showed an `<a href=\"#\" class=\"icon-fb\">f</a>` literal — a placeholder link.", "shipped": "Header conditionally renders the icon: `{site.social.facebook && <a ...>}`. Empty = no icon.", "why": "Per the brief: \"hide the social icon if empty rather than DraftField — cleaner.\" Live site's broken `href=\"#\"` was the bug we're avoiding repeating." },
+    { "what": "News source decision: JSON-in-repo, no /news/[slug]", "compSpec": "Brief: news.recent in content/news.json, 3 entries, no detail pages in v1.", "shipped": "content/news.json with 3 agency-drafted entries; cards have `url: null` (no detail link).", "why": "Settled at brief intake (option (a)). Reduces v1 surface area; can light up at v2 when client writes real posts or migrates WP." },
+    { "what": "/sports adds a 'Pick the Room' 4-card section not in the comp", "compSpec": "Inner Pages /sports comp had hero copy + TV list. No rooms grid.", "shipped": "Build adds a 4-card 'Pick the Room' grid (Bar / Dining / Billiards / Patio) below the TV list.", "why": "Establishment copy on the live site emphasizes the four rooms. Promoting them to /sports felt aligned. Editorial add — Design rules on whether to keep." },
+    { "what": "/visit adds 'Get Directions / Open in Maps' CTAs below the embedded map", "compSpec": "Inner Pages /visit comp had only the map placeholder.", "shipped": "Build adds two t-btn buttons below the iframe.", "why": "Mobile users routinely want to launch the directions in Maps app, not zoom an embedded iframe. UX add — Design rules on whether to keep." },
+    { "what": "Contact form: single Name field instead of First/Last split", "compSpec": "Inner Pages /contact comp had First Name + Last Name as separate fields.", "shipped": "Single Name field.", "why": "Cleaner form on mobile, fewer fields to fill. Static Forms doesn't care about the split. Design rules on whether to revise." },
+    { "what": "/specials weekday descriptions inline in page.tsx (not in JSON)", "compSpec": "Comp had per-day descriptions inline in HTML; specials.json doesn't model them.", "shipped": "WEEKDAY_DESC dict in src/app/specials/page.tsx — five strings hard-coded.", "why": "Schema doesn't currently carry per-day desc, and the strings are agency copy not strictly client-editable. Promote to specials.weekday.days[].desc if Eli wants to own these." }
+  ]
+}
