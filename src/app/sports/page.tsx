@@ -51,15 +51,22 @@ export default function SportsPage() {
           </div>
 
           <div className="tv-list">
-            <h4>This Week&rsquo;s Lineup</h4>
+            <h4>{sports.lineupHeadline ?? "This Week's Lineup"}</h4>
             {sports.lineup.length > 0 ? (
-              sports.lineup.map((g, i) => (
-                <div key={i} className="tv-row">
-                  <span className="time">{g.time}</span>
-                  <span className="matchup">{g.matchup}</span>
-                  <span className="channel">{g.league}</span>
-                </div>
-              ))
+              <>
+                {sports.lineup.map((g, i) => (
+                  <div key={i} className="tv-row">
+                    <span className="time">{g.time}</span>
+                    <span className="matchup">{g.matchup}</span>
+                    <span className="channel">{g.league}</span>
+                  </div>
+                ))}
+                {sports.lineup.some((g) => g._placeholder) && (
+                  <p className="empty" style={{ marginTop: "var(--space-4)" }}>
+                    Sample lineup — actual schedule posted weekly during football season. Call ahead to confirm what&rsquo;s on the big screens.
+                  </p>
+                )}
+              </>
             ) : (
               <p className="empty">
                 Lineup posted weekly during football season. Call ahead to confirm what&rsquo;s on the big screens tonight.

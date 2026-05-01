@@ -155,7 +155,8 @@ export type Sports = {
   tvCount: number;
   highlights: string[];
   rooms: { name: string; note: string }[];
-  lineup: { time: string; matchup: string; league: string }[];
+  lineup: { time: string; matchup: string; league: string; _placeholder?: boolean }[];
+  lineupHeadline?: string;
 };
 
 export type NewsItem = {

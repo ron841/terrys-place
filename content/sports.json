@@ -14,6 +14,14 @@
     { "name": "Billiard Room", "note": "Two pool tables, jukebox, and TVs." },
     { "name": "Patio",         "note": "Outdoor screens, smoking-friendly, buckets of beer." }
   ],
-  "lineup": [],
-  "_pendingFromClient": ["which weekend / weekday game broadcasts to feature in the lineup"]
+  "lineup": [
+    { "time": "12:00 PM", "matchup": "Florida vs. Long Island",       "league": "SEC",  "_placeholder": true },
+    { "time": "3:30 PM",  "matchup": "Alabama vs. Georgia",           "league": "CBS",  "_placeholder": true },
+    { "time": "3:30 PM",  "matchup": "LSU vs. Texas A&M",             "league": "CBS",  "_placeholder": true },
+    { "time": "7:00 PM",  "matchup": "Ohio State vs. Texas",          "league": "FOX",  "_placeholder": true },
+    { "time": "7:30 PM",  "matchup": "Tennessee vs. Auburn",          "league": "ABC",  "_placeholder": true }
+  ],
+  "lineupHeadline": "Saturday · Sept 5",
+  "_lineupNote": "Opening-weekend college football placeholder. Headline games use real SEC matchups likely to be on the air; Gators game is realistic for opening week. _placeholder: true on every entry — treat as fake-but-plausible until real schedule lands.",
+  "_pendingFromClient": ["confirm weekly lineup refresh cadence — manual at v1, sports-API at v2 per brief out-of-scope"]
 }

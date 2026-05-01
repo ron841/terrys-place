@@ -159,8 +159,8 @@
     "price": 10.50,
     "window": "Mon–Fri · 11am–3pm",
     "days": [
-      { "day": "Monday",    "item": "Cheeseburger & French Fries" },
-      { "day": "Tuesday",   "item": "Chicken Sandwich & French Fries" },
+      { "day": "Monday",    "item": "Cheeseburger & Fries" },
+      { "day": "Tuesday",   "item": "Chicken Sandwich & Fries" },
       { "day": "Wednesday", "item": "Any Small Sub & Fries" },
       { "day": "Thursday",  "item": "Chicken Tenders & Fries" },
       { "day": "Friday",    "item": "Fish or Shrimp Po Boy & Fries" }
