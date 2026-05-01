@@ -1,0 +1,227 @@
+/* ===========================================================================
+   Site chrome — topbar / nav / footer / contact-form / draftfield.
+   Shared on every route. Imported once from globals.css.
+   Classnames lifted 1:1 from Home.html and Inner Pages.html comp <style>
+   blocks; see design-handoff/ for reference.
+   =========================================================================== */
+
+/* --- Top utility bar --------------------------------------------------- */
+.topbar {
+  background: var(--navy-2);
+  color: var(--on-dark-2);
+  padding: 10px var(--gutter);
+  font-family: var(--font-cond);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.topbar a { text-decoration: none; color: var(--on-dark); }
+.topbar a:hover { color: var(--green); }
+.topbar .sep { opacity: 0.3; margin: 0 14px; }
+.topbar .phone { color: var(--green); }
+.topbar .icon-fb {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  background: var(--green); color: var(--ink);
+  border-radius: 3px; margin-left: 14px;
+  font-size: 12px; font-weight: 800; vertical-align: middle;
+  text-decoration: none;
+}
+
+/* --- Header / nav ------------------------------------------------------ */
+.nav {
+  background: var(--on-dark);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-6);
+  padding: 14px var(--gutter);
+}
+.nav-logo { display: block; height: 56px; width: auto; }
+.nav-links {
+  display: flex;
+  gap: var(--space-7);
+  justify-self: end;
+}
+.nav-links a {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 3px solid transparent;
+}
+.nav-links a:hover, .nav-links a[aria-current="page"] {
+  border-bottom-color: var(--green);
+  color: var(--ink);
+}
+.nav-cta {
+  background: var(--green);
+  color: var(--ink);
+  padding: 14px 24px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.nav-cta:hover { background: var(--green-2); }
+.nav-status-mobile {
+  display: none;
+}
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-status-mobile { display: inline-flex; justify-self: end; }
+}
+
+/* --- Footer ------------------------------------------------------------ */
+.footer {
+  background: var(--navy-2);
+  padding: var(--space-12) 0 var(--space-8);
+  border-top: 4px solid var(--green);
+  margin-top: auto;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: var(--space-8);
+}
+@media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+.footer h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin: 0 0 var(--space-4);
+  letter-spacing: 0.04em;
+}
+.footer ul { list-style: none; padding: 0; margin: 0; }
+.footer li { font-size: 14px; color: var(--on-dark-2); margin-bottom: var(--space-2); }
+.footer a { color: var(--on-dark-2); text-decoration: none; }
+.footer a:hover { color: var(--green); }
+.footer-mark { display: block; height: 64px; width: auto; margin-bottom: var(--space-4); }
+.footer-bottom {
+  border-top: 1px solid var(--navy-line);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-dark-3);
+}
+
+/* --- Contact form ------------------------------------------------------ */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+@media (max-width: 600px) {
+  .contact-form-row { grid-template-columns: 1fr; }
+}
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.contact-form label span {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-dark-2);
+}
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  background: var(--navy-3);
+  color: var(--on-dark);
+  border: 1px solid var(--navy-line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  width: 100%;
+}
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+.contact-form textarea { resize: vertical; }
+.contact-form-message { width: 100%; }
+.contact-form-actions {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* --- DraftField -------------------------------------------------------- */
+.t-draftfield {
+  display: inline-block;
+  border: 2px dashed var(--red);
+  background: rgba(224, 64, 64, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red-soft);
+}
+.t-draftfield--block {
+  display: block;
+  padding: var(--space-5);
+  position: relative;
+  min-height: 120px;
+}
+.t-draftfield-label {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red-soft);
+}
+
+/* --- Designer notes (kept from comp; purely diagnostic) ---------------- */
+.note {
+  max-width: var(--max-w);
+  margin: 0 auto var(--space-4);
+  padding: var(--space-3) var(--gutter) 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+  display: none; /* hide in production; flip to block to debug */
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Terry's Place",
+  "tagline": "Sports Bar & Grill",
+  "footerTagline": "Ocala's sports bar & grill since 1980. Three generations of king-size portions and homegrown hospitality.",
+  "estYear": 1980,
+  "phone": "+13527323820",
+  "phoneDisplay": "(352) 732-3820",
+  "address": {
+    "street": "4121 NE 36th Ave",
+    "city": "Ocala",
+    "region": "FL",
+    "postal": "34479",
+    "geo": { "lat": 29.2417, "lng": -82.0719 }
+  },
+  "email": {
+    "general": null,
+    "events": null,
+    "press": null
+  },
+  "social": {
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null
+  },
+  "timezone": "America/New_York",
+  "menuPdf": "/assets/menu-2025.pdf",
+  "logo": {
+    "primary": "/assets/logo-wordmark.png",
+    "mobile": "/assets/logo-wordmark-mobile.png",
+    "favicon": "/assets/favicon-32.png"
+  },
+  "_pendingFromClient": [
+    "email.general (contact-form recipient)",
+    "social.facebook (live site has href=#)",
+    "geo coordinates (verify lat/lng — currently approximate)"
+  ]
+}

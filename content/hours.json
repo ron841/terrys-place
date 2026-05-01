@@ -1,0 +1,18 @@
+{
+  "_note": "Per-day hours, keyed by JS Date.getDay() integer. 0=Sun ... 6=Sat. close > 24:00 means past midnight (e.g. '25:00' = 1am next day). null = closed all day. Live site is missing Saturday entirely — Design seat filled in 11–24 from analogous Tue/Sat patterns; confirm with client.",
+  "0": { "open": "11:00", "close": "21:00" },
+  "1": { "open": "11:00", "close": "21:00" },
+  "2": { "open": "11:00", "close": "24:00" },
+  "3": { "open": "11:00", "close": "22:00" },
+  "4": { "open": "11:00", "close": "22:00" },
+  "5": { "open": "11:00", "close": "25:00" },
+  "6": { "open": "11:00", "close": "24:00" },
+  "happyHour": {
+    "days": [1, 2, 3, 4, 5],
+    "label": "Mon–Fri 3–7pm",
+    "open": "15:00",
+    "close": "19:00"
+  },
+  "kitchenClosesBeforeBar": "30min",
+  "_pendingFromClient": ["confirm Saturday hours", "confirm kitchen-close offset"]
+}

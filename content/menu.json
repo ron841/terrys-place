@@ -1,0 +1,184 @@
+{
+  "lastUpdated": "2025-04-01",
+  "source": "Parsed from public/assets/menu-2025.pdf (April 2025 print).",
+  "note": "Confirm prices are still current with client. Items with size or quantity tiers use a `pricing` array; single-price items use `price`.",
+  "sections": [
+    {
+      "id": "appetizers",
+      "title": "Appetizers",
+      "intro": "Start the meal off right with one of our delicious appetizers.",
+      "items": [
+        { "name": "Fried Mushrooms", "note": "Fresh whole button mushrooms battered and fried golden brown, served with ranch dressing or horsey sauce.", "price": 9.29 },
+        { "name": "Onion Rings", "note": "Sweet Spanish onions dipped in a light batter, deep fried golden brown.", "price": 8.49 },
+        { "name": "Fried Okra", "note": "Fresh tender okra lightly breaded and deep fried golden brown, served with ranch dressing or horsey sauce.", "price": 7.29 },
+        { "name": "Jalapeño Cheese Poppers", "note": "Half a jalapeño pepper topped with real Wisconsin cream cheese or cheddar, breaded and deep fried golden brown. Served with marinara or ranch.", "price": 10.99 },
+        { "name": "Tater Puffs", "note": "Tater Tots done seashore-style with sea salt, black pepper and garlic seasoning. Fried golden brown.", "price": 7.25, "tags": ["new"] },
+        { "name": "Sampler Platter", "note": "Cheese stix, cream cheese poppers, cheddar cheese poppers, plus your choice of fried mushrooms or onion rings. Served with marinara and ranch.", "price": 14.49 },
+        { "name": "Fried Shrimp Platter", "note": "Medium Gulf Stream shrimp lightly hand breaded and deep fried golden brown. Served with boom boom or cocktail sauce.", "price": 11.99 },
+        { "name": "Cheese Stix", "note": "Fresh Wisconsin mozzarella battered then deep fried to seal in the cheese and flavor. Served with marinara.", "price": 10.50 },
+        { "name": "Basket of Fries", "note": "Skin-on straight cut French fries — 5.79. Lightly seasoned curly fries — 6.79.", "price": 5.79 }
+      ]
+    },
+    {
+      "id": "salads",
+      "title": "Salads",
+      "intro": "All salads come with your choice of two cups of dressing on the side. Each additional dressing is $.75 extra. Choose from ranch, blue cheese, Italian, honey mustard, French, 1000 Island, raspberry vinaigrette, balsamic vinaigrette or oil & vinegar.",
+      "items": [
+        { "name": "House Salad", "note": "Fresh garden greens with tomatoes, onions, and toasted croutons.", "price": 6.79 },
+        { "name": "Chef Salad", "note": "Our House Salad topped with smoked ham, roast beef, turkey, American and Swiss cheese.", "price": 13.49 },
+        { "name": "Grilled Chicken Toss Salad", "note": "Our original House Salad topped with our delicious grilled chicken breast.", "price": 14.50 },
+        { "name": "Fried Chicken Tender Toss Salad", "note": "Our fresh House Salad topped with fried tender strips of chicken.", "price": 14.50 },
+        { "name": "Romaine Caesar Salad", "note": "Fresh crisp Romaine lettuce topped with toasted croutons and Caesar dressing.", "price": 7.75 },
+        { "name": "Grilled Chicken Caesar Salad", "note": "Our original Romaine Caesar topped with our grilled chicken breast.", "price": 14.99 },
+        { "name": "Spicy Buffalo Style Chicken Toss Salad", "note": "Our fresh House Salad topped with tender strips of chicken tossed in a mild wing sauce for extra flavor.", "price": 14.50, "tags": ["spicy"] },
+        { "name": "Beef Tip Toss Salad", "note": "Sirloin tips seasoned and grilled to perfection, served on our fresh House Salad.", "price": 14.50 }
+      ]
+    },
+    {
+      "id": "burgers",
+      "title": "Burgers",
+      "intro": "All burgers are 1/2 lb. USDA Angus ground chuck patties topped with ketchup, mustard, mayo, lettuce, tomato and onions — or made just the way you like it. Cooked fresh when ordered. Never pre-cooked.",
+      "items": [
+        { "name": "Hamburger", "note": "A 1/2 lb. USDA Angus ground chuck patty grilled to perfection.", "price": 7.99 },
+        { "name": "Cheeseburger", "note": "Our original 1/2 lb. burger topped with American cheese.", "price": 8.49 },
+        { "name": "Bacon Cheeseburger", "note": "Our original 1/2 lb. burger grilled to perfection then topped with crisp bacon and American cheese.", "price": 9.25 },
+        { "name": "Mushroom Swiss Burger", "note": "Our 1/2 lb. hamburger smothered with grilled mushrooms and Swiss cheese.", "price": 8.99 },
+        { "name": "Jalapeño Burger", "note": "A 1/2 lb. USDA Angus ground chuck patty topped with American & Swiss cheese, smothered with grilled onions and grilled jalapeños.", "price": 8.99, "tags": ["spicy"] },
+        { "name": "The Belly Buster", "note": "A 1 lb. USDA Angus ground chuck patty grilled to your liking, topped with crisp bacon, Swiss and American cheese.", "price": 12.99, "tags": ["house-favorite"], "featured": true },
+        { "name": "South West Burger", "note": "Our original 1/2 lb. USDA Angus ground chuck burger smothered in American cheese, crisp bacon, chipotle BBQ sauce and topped with our famous fried O-rings.", "price": 10.29 },
+        { "name": "Hot Dog", "note": "A 1/2 lb. all-beef frank grilled and served on a homemade hot dog bun. Add cheese for $.75.", "price": 8.99 }
+      ]
+    },
+    {
+      "id": "chicken",
+      "title": "Chicken",
+      "intro": "Terry's flavors and sauces — choose from: Mild, Medium, Hot, Homemade XHot, Teriyaki, Bourbon Molasses, Garlic Parmesan, Buffalo Garlic Parmesan, Sriracha, Citrus Chipotle and Honey BBQ.",
+      "items": [
+        {
+          "name": "Terry's Original Chicken Wings",
+          "note": "Our traditional jumbo chicken wings lightly breaded in our own mix of flour and specialty seasonings, then deep fried to perfection. Served tossed in your choice of flavor with ranch or blue cheese.",
+          "pricing": [
+            { "size": "10", "price": 14.00 },
+            { "size": "20", "price": 28.00 },
+            { "size": "30", "price": 42.00 },
+            { "size": "50", "price": 70.00 }
+          ],
+          "tags": ["house-favorite"],
+          "featured": true
+        },
+        {
+          "name": "Naked Chicken Wings",
+          "note": "Our original jumbo chicken wings without the breading — fried to perfection and topped with your favorite flavor (or sauce on the side). Served with ranch or blue cheese.",
+          "pricing": [
+            { "size": "10", "price": 14.00 },
+            { "size": "20", "price": 28.00 },
+            { "size": "30", "price": 42.00 },
+            { "size": "50", "price": 70.00 }
+          ]
+        },
+        { "name": "Boneless Chicken Wings", "note": "1 lb. of all white meat chicken, lightly hand breaded and fried golden brown. Served tossed in your favorite flavor or with sauce on the side. Each additional sauce is $.75.", "price": 12.50, "tags": ["new"] },
+        { "name": "Terry's Jumbo Chicken Strips", "note": "Marinated chicken breast strips, lightly hand breaded and deep fried golden brown. Served with one flavor sauce and one dipping sauce.", "price": 13.99 },
+        { "name": "Chicken Sampler Platter", "note": "Five original wings, five naked wings and five fried chicken strips. Served tossed in your choice of flavor (or on the side) with two dipping sauces.", "price": 21.99 }
+      ]
+    },
+    {
+      "id": "sandwiches",
+      "title": "Sandwiches",
+      "intro": "All specialty sandwiches are served on a fresh homemade hamburger bun or homemade sub roll.",
+      "items": [
+        { "name": "Beefeaters Delight", "note": "Sliced roast beef marinated in onion soup, topped with Swiss cheese, horseradish, BBQ sauce and a slice of raw onion.", "price": 10.49 },
+        { "name": "Beef Tip Sandwich", "note": "Marinated sirloin steak tips grilled with mushrooms and onions, topped with Swiss cheese on a Terry's homemade sub roll.", "price": 11.29 },
+        { "name": "Lindy Jo", "note": "Grilled ham, bacon and grilled onions topped with Swiss cheese. Jalapeño peppers optional.", "price": 10.25 },
+        { "name": "Fish Sandwich", "note": "Two boneless fillets, hand battered and deep fried. Topped with tartar sauce, lettuce and tomato.", "price": 11.50 },
+        { "name": "Shrimp Po Boy", "note": "Hand breaded Gulf Stream shrimp fried golden brown and served on a homemade sub roll, topped with lettuce and tomato.", "price": 12.99 },
+        { "name": "Chicken Cordon Blue Sandwich", "note": "Two boneless skinless chicken breasts lightly breaded and deep fried, topped with Swiss cheese, honey ham and honey Dijon sauce.", "price": 12.99 },
+        { "name": "Chicken Parmesan Sandwich", "note": "Two boneless skinless chicken breasts hand breaded and fried golden brown, smothered with mozzarella and marinara, sprinkled with Parmesan. Served on a homemade sub roll.", "price": 12.99 },
+        { "name": "Grilled Chicken Sandwich", "note": "Boneless skinless chicken breast marinated and grilled to perfection. Topped with lettuce, tomato and mayo.", "price": 12.49 },
+        { "name": "Chicken Bacon Ranch Sandwich", "note": "Our grilled chicken sandwich with the added flavor of bacon, Swiss cheese and ranch dressing.", "price": 12.99 },
+        { "name": "Grilled Chicken Mushroom Melt", "note": "Our grilled chicken sandwich smothered with grilled mushrooms and Swiss cheese.", "price": 12.99 },
+        { "name": "Buffalo Chicken Sandwich", "note": "Boneless skinless chicken tenders marinated, hand breaded and fried golden brown. Smothered in mild wing sauce, topped with lettuce and tomato.", "price": 12.49 },
+        { "name": "Country Rib Sandwich", "note": "Hand cut boneless country ribs grilled and smothered in our sweet BBQ sauce, topped with raw onion.", "price": 12.49 },
+        { "name": "Sausage Sandwich", "note": "Mild Italian sausage grilled on a char-broiler, topped with grilled onions, grilled mushrooms and Swiss cheese on a homemade sub roll.", "price": 12.99 },
+        { "name": "Nikkie Teriyaki Chicken Sandwich", "note": "Two boneless skinless chicken breasts marinated in teriyaki and grilled to perfection. Topped with Swiss cheese, mayo, lettuce and tomato.", "price": 12.49 },
+        { "name": "Sriracha Grilled Chicken Sandwich", "note": "Two boneless skinless chicken breasts grilled and tossed in sriracha sauce, topped with Swiss cheese, lettuce, tomato and onion. Served on a homemade sub roll.", "price": 12.99, "tags": ["spicy"] }
+      ]
+    },
+    {
+      "id": "subs",
+      "title": "Subs",
+      "intro": "All bread is homemade on premises and served fresh daily. Subs are made to order and served hot from the oven, prepared with cheese, lettuce, tomato, onions, mayo, and Italian dressing — unless otherwise specified. Add Swiss, mozzarella, or American cheese to any sandwich for $.75 extra.",
+      "items": [
+        { "name": "Ham Sub", "pricing": [{ "size": "Sm", "price": 9.29 }, { "size": "Lg", "price": 14.99 }] },
+        { "name": "Turkey Sub", "pricing": [{ "size": "Sm", "price": 9.29 }, { "size": "Lg", "price": 14.99 }] },
+        { "name": "Roast Beef Sub", "pricing": [{ "size": "Sm", "price": 10.49 }, { "size": "Lg", "price": 16.99 }] },
+        { "name": "Combo Sub", "pricing": [{ "size": "Sm", "price": 10.49 }, { "size": "Lg", "price": 16.99 }] },
+        { "name": "Meatball Sub", "note": "Topped with mozzarella and marinara.", "pricing": [{ "size": "Sm", "price": 9.29 }, { "size": "Lg", "price": 14.99 }] },
+        { "name": "Philly Steak Sub", "note": "Topped with American cheese and grilled onions.", "pricing": [{ "size": "Sm", "price": 10.49 }, { "size": "Lg", "price": 16.99 }] },
+        { "name": "Vegetarian Sub", "note": "All the garden favorites smothered with American, Swiss and Parmesan cheese.", "pricing": [{ "size": "Sm", "price": 7.99 }, { "size": "Lg", "price": 11.99 }] },
+        { "name": "Italian Sausage Sub", "note": "Mild Italian sausage grilled to seal in the flavor, topped with marinara and smothered in mozzarella, then baked hot and toasty.", "price": 12.49 },
+        { "name": "Fried Chicken Tender Sub", "note": "Our white meat chicken tenders, marinated and deep fried in a light breading, topped with mayo, lettuce and tomato. Served on a homemade sub roll.", "price": 12.49 }
+      ]
+    },
+    {
+      "id": "dinners",
+      "title": "Dinners",
+      "intro": "All dinners are served with a choice of one hot side (baked potato, French fries, or onion rings) and one cold side (southern potato salad, cottage cheese, macaroni salad, coleslaw, or side salad).",
+      "items": [
+        { "name": "Ribeye Steak", "note": "16+ oz. balance of tenderness and hearty flavor — a steak lover's favorite.", "price": 24.99, "tags": ["house-favorite"] },
+        { "name": "Pub Sirloin", "note": "For smaller appetites: a hand cut 9+ oz. sirloin, seasoned and charbroiled to perfection.", "price": 16.99 },
+        { "name": "Beef Tips Dinner", "note": "9+ oz. of tender, bite-sized beef tips seared to perfection and topped with sautéed onions and mushrooms.", "price": 16.99 },
+        { "name": "Large Beef Tips Dinner", "note": "For heartier appetites: an extra-large 18+ oz. portion of marinated steak tips with grilled mushrooms and onions.", "price": 22.99 },
+        { "name": "NY Strip", "note": "A 14+ oz. hand cut, choice NY Strip steak grilled to your liking.", "price": 22.99 },
+        { "name": "Grilled Chicken Dinner", "note": "Boneless skinless breast grilled to perfection. Plain or with mesquite, BBQ or Italian marinade.", "price": 16.49 },
+        { "name": "Grilled Chicken Mushroom Melt Dinner", "note": "Our grilled chicken dinner smothered in grilled mushrooms and Swiss cheese.", "price": 17.99 },
+        { "name": "Filet Mignon", "note": "Our most tender steak — 8 oz. of center cut tenderloin seasoned and seared to perfection, just how you like it.", "price": 24.99 },
+        { "name": "Boneless Country Ribs", "note": "A 1 lb. portion of hand cut boneless pork ribs, grilled and smothered in sweet BBQ sauce.", "price": 17.99 },
+        { "name": "Boneless Ribs & Grilled Chicken Combo", "note": "A hearty combo platter of ribs and chicken, smothered in our special sweet BBQ sauce and grilled to seal in the flavor.", "price": 19.25 },
+        { "name": "Grilled Pork Chops", "note": "Two 8 oz. boneless center cut chops hand trimmed right off the loin, seasoned and grilled till tender and juicy.", "price": 17.50 },
+        { "name": "Fried Shrimp", "note": "Medium Gulf Stream shrimp lightly hand breaded in our blend of seasoning and spices, deep fried golden brown.", "price": 18.99 },
+        { "name": "Fish & Shrimp Combo", "note": "The perfect combination of our fish and shrimp dinner.", "price": 21.49 },
+        {
+          "name": "Fried Fish Dinner",
+          "note": "Two pieces of tender, boneless, flaky whitefish fillets, lightly hand battered in Terry's secret recipe of spices and seasonings, deep fried golden brown.",
+          "pricing": [
+            { "size": "2 piece", "price": 16.49 },
+            { "size": "3 piece", "price": 18.99 }
+          ]
+        }
+      ],
+      "addons": [
+        { "name": "Sautéed Mushrooms", "note": "The perfect way to top off your steak.", "price": 3.49 },
+        { "name": "Sautéed Onions", "note": "Adds a rich flavor to any steak.", "price": 2.50 },
+        { "name": "Half & Half", "note": "Combination of mushrooms and onions.", "price": 4.49 },
+        { "name": "Add Fried Shrimp to Any Dinner", "price": 9.99 },
+        { "name": "Add a Piece of Fish to Any Dinner", "price": 4.99 }
+      ]
+    }
+  ],
+  "lunchSpecial": {
+    "price": 10.50,
+    "window": "Mon–Fri · 11am–3pm",
+    "days": [
+      { "day": "Monday",    "item": "Cheeseburger & French Fries" },
+      { "day": "Tuesday",   "item": "Chicken Sandwich & French Fries" },
+      { "day": "Wednesday", "item": "Any Small Sub & Fries" },
+      { "day": "Thursday",  "item": "Chicken Tenders & Fries" },
+      { "day": "Friday",    "item": "Fish or Shrimp Po Boy & Fries" }
+    ]
+  },
+  "drinks": {
+    "draft": "Bud, Bud Light, Coors, Coors Light, Miller Lite, Yuengling Lager, Stella Artois, Michelob Amber Bock, Michelob Ultra and rotating seasonal favorites. Plus a wide selection of domestic, imported and craft beers — ask your server.",
+    "wine": "Merlot, Burgundy, White Zinfandel, Moscato, Pinot Grigio, and Chardonnay.",
+    "liquor": "Fully stocked bar — ask your server for your favorite cocktail, served nice and cool.",
+    "non_alcoholic": "Homemade sweet tea and unsweet tea, fresh brewed coffee, and Coca-Cola products: Coca Cola, Diet Coke, Coke Zero, Sprite, Mr. Pibb, Seagram's Ginger Ale, Mello Yello, Barq's Root Beer, Lipton Iced Tea, Lemonade."
+  },
+  "footnote": "We offer an instant 3.0% cash discount for cash-paying customers. The pricing on our menu reflects the cash discount. Other forms of payment will have the difference added as a service charge. Use cash and save.",
+  "consumerNotice": "Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness, especially if you have a medical condition.",
+  "steakTemperatures": [
+    { "label": "Rare",        "desc": "Red, cool center" },
+    { "label": "Medium Rare", "desc": "Warm red center" },
+    { "label": "Medium",      "desc": "Bright pink throughout" },
+    { "label": "Med. Well",   "desc": "Warm, pink almost gone" },
+    { "label": "Well",        "desc": "Very warm, brown throughout" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "_note": "Sports page. v1 ships static — TV count + Sunday Ticket + the rooms. Game lineup is a v2 manual-then-API thing; render section only when lineup[] is non-empty.",
+  "tagline": "22 TVs · sound on the Gators",
+  "tvCount": 22,
+  "highlights": [
+    "NFL Sunday Ticket on every screen",
+    "Wall-to-wall big screens — bar room, dining room, billiards",
+    "Sound switches to Florida Gators on Saturdays",
+    "Patio TVs covered for outdoor watching"
+  ],
+  "rooms": [
+    { "name": "Bar Room",      "note": "The fullest sound, the biggest screens, the loudest crowd." },
+    { "name": "Dining Room",   "note": "Family-friendly, multiple screens, value-priced meals." },
+    { "name": "Billiard Room", "note": "Two pool tables, jukebox, and TVs." },
+    { "name": "Patio",         "note": "Outdoor screens, smoking-friendly, buckets of beer." }
+  ],
+  "lineup": [],
+  "_pendingFromClient": ["which weekend / weekday game broadcasts to feature in the lineup"]
+}

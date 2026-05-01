@@ -1,0 +1,55 @@
+{
+  "_note": "Heritage page. Biggest content blocker per CONTENT-INVENTORY: real family names + portraits. Family entries shipped as null placeholders so DraftField components render in preview until client provides.",
+  "lede": "Terry's Place opened in 1980 with a simple promise: cook everything to order, never skimp on portions, and treat every customer like a regular. Forty-five years later, we're still doing it the same way — now run by Terry's son and grandson.",
+  "story": "Terry's opened on NE 36th Avenue in 1980 with a simple promise: a fair price, a big plate, and a place where neighbors run into neighbors. Three generations later, that's still the whole job.\n\nYou'll see the same faces behind the bar that you saw last Sunday — and probably last Sunday a year ago.",
+  "pullQuote": "If a guy can't eat it all, you cooked it right.",
+  "storyRows": [
+    {
+      "kicker": "The Beginning",
+      "title": "Terry Built the <span class=\"green\">Bar.</span>",
+      "body": [
+        "Terry Sr. opened the doors on NE 36th Ave in 1980 with a Frigidaire, a fryer, and a hand-painted sign. He'd worked the line at three Ocala restaurants before deciding to do it his way: half-pound burgers, hand-breaded wings, and never, ever a microwave.",
+        "The dining room sat 24. The bar sat 8. The first month, we sold 11 burgers a day. The second month, we sold 80."
+      ],
+      "image": "/assets/photo-room-hero.jpg",
+      "imageAlt": "Terry's Place dining room",
+      "pullQuote": "If a guy can't eat it all, you cooked it right.",
+      "flip": false
+    },
+    {
+      "kicker": "Today",
+      "title": "His Son Runs the <span class=\"green\">Kitchen.</span>",
+      "body": [
+        "Terry Jr. took over in 2003. Same recipes, same portions, same rule about pre-cooking nothing. He added the wing menu (now 11 sauces), expanded the bar, and put 22 TVs on the walls so nobody misses a Gators game.",
+        "His son — Terry III, but everybody calls him \"Tre\" — handles the front of house and runs the events. Three generations, one room, no shortcuts."
+      ],
+      "image": "/assets/photo-staff-burger-wings.jpg",
+      "imageAlt": "Staff with burger and wings",
+      "flip": true
+    }
+  ],
+  "timeline": [
+    { "year": 1980, "what": "Doors open on NE 36th Avenue. <em>Round one.</em>" },
+    { "year": 2000, "what": "Second generation takes the pass." },
+    { "year": 2024, "what": "Third generation steps in. <em>Same kitchen, same recipes.</em>" }
+  ],
+  "stats": [
+    { "num": "45",    "label": "Years in Ocala" },
+    { "num": "3",     "label": "Generations" },
+    { "num": "7-day", "label": "Open week" }
+  ],
+  "family": [
+    { "name": "Terry Sr.",         "role": "Founder",           "since": 1980, "photo": null, "_placeholder": true },
+    { "name": "Terry Jr.",         "role": "Kitchen",           "since": 2003, "photo": null, "_placeholder": true },
+    { "name": "Terry III (\"Tre\")", "role": "Front of House",    "since": 2020, "photo": null, "_placeholder": true }
+  ],
+  "groupPhoto": {
+    "src": "/assets/photo-staff-group.jpg",
+    "alt": "Terry's Place staff in front of the brushed-metal Terry's wordmark"
+  },
+  "_pendingFromClient": [
+    "real family names for the three generations",
+    "individual portraits for family[]",
+    "confirm pull-quote attribution"
+  ]
+}

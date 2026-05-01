@@ -1,0 +1,32 @@
+{
+  "_note": "Latest 3 news/blog cards on Home. v1 ships agency-drafted entries (matching Home.html comp). No /news/[slug] detail pages in v1 — link `url` to anchor or external. Client writes real posts at v2; migrate WP posts then.",
+  "recent": [
+    {
+      "id": "best-wings-marion-county",
+      "title": "The Best Wings in Marion County",
+      "excerpt": "Why we hand-toss our wings and why Buffalo isn't the only flavor that matters. (Spoiler: Honey BBQ.)",
+      "image": "/assets/photo-staff-poboy.jpg",
+      "date": "2026-04-22",
+      "readMins": 3,
+      "url": null
+    },
+    {
+      "id": "ladies-night-out",
+      "title": "Looking for a Ladies' Night Out?",
+      "excerpt": "Wednesdays are quietly becoming the best night of the week. Here's what's on the bar program.",
+      "image": "/assets/photo-camo-hats.jpg",
+      "date": "2026-04-14",
+      "readMins": 2,
+      "url": null
+    },
+    {
+      "id": "pool-hall-ocala",
+      "title": "Looking for a Pool Hall in Ocala?",
+      "excerpt": "Two tables in the back. Cold beer. No cover. The most underrated room in the building.",
+      "image": "/assets/photo-pool-room.jpg",
+      "date": "2026-04-03",
+      "readMins": 4,
+      "url": null
+    }
+  ]
+}

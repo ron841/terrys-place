@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Terry's Place — CMS content model",
-  "description": "What Eli (or admin) can edit without a deploy. Maps cleanly to Sanity, Prismic, or any headless CMS. Field names are stable contracts — Code: do not rename without coordinating.",
+  "description": "What Eli (or admin) can edit without a deploy. Maps cleanly to Sanity, Prismic, or any headless CMS. Field names are stable contracts — Code: do not rename without coordinating. Code completed the schema during scaffolding 2026-05-01 — added specials, sports, news, forms, seo, theme, legal namespaces and a few inline fields per SLOT_RECONCILIATION.md. Original Design-authored namespaces (site, hours, tonightStrip, menu, about, events) are unchanged in shape.",
   "type": "object",
   "properties": {
     "site": {
@@ -9,7 +9,9 @@
       "description": "Site-wide constants. Edited rarely.",
       "properties": {
         "name":    { "type": "string", "default": "Terry's Place" },
-        "tagline": { "type": "string", "default": "A neighborhood roadhouse · Ocala, since 1980" },
+        "tagline": { "type": "string", "default": "Sports Bar & Grill" },
+        "footerTagline": { "type": "string", "description": "Longer-form line repeated in footer + OG description.", "default": "Ocala's sports bar & grill since 1980. Three generations of king-size portions and homegrown hospitality." },
+        "estYear": { "type": "integer", "minimum": 1900, "maximum": 2100, "default": 1980 },
         "phone":   { "type": "string", "pattern": "^\\+1\\d{10}$", "default": "+13527323820" },
         "phoneDisplay": { "type": "string", "default": "(352) 732-3820" },
         "address": {
@@ -18,34 +20,53 @@
             "street": { "type": "string", "default": "4121 NE 36th Ave" },
             "city":   { "type": "string", "default": "Ocala" },
             "region": { "type": "string", "default": "FL" },
-            "postal": { "type": "string", "default": "34479" }
+            "postal": { "type": "string", "default": "34479" },
+            "geo": {
+              "type": "object",
+              "properties": {
+                "lat": { "type": "number" },
+                "lng": { "type": "number" }
+              },
+              "required": ["lat", "lng"]
+            }
           },
           "required": ["street", "city", "region", "postal"]
         },
         "email": {
           "type": "object",
+          "description": "Per-purpose addresses. null until client provides.",
           "properties": {
-            "general": { "type": "string", "format": "email", "default": "hello@terrys.place" },
-            "events":  { "type": "string", "format": "email", "default": "events@terrys.place" },
-            "press":   { "type": "string", "format": "email", "default": "press@terrys.place" }
+            "general": { "type": ["string", "null"], "format": "email" },
+            "events":  { "type": ["string", "null"], "format": "email" },
+            "press":   { "type": ["string", "null"], "format": "email" }
           }
         },
         "social": {
           "type": "object",
-          "description": "Confirm with Eli. Audit flagged FB on live site links to '#'. Empty string = hide.",
+          "description": "Confirm with client. Audit flagged FB on live site links to '#'. null = hide the icon.",
           "properties": {
-            "instagram": { "type": "string", "default": "" },
-            "facebook":  { "type": "string", "default": "" }
+            "instagram": { "type": ["string", "null"] },
+            "facebook":  { "type": ["string", "null"] },
+            "tiktok":    { "type": ["string", "null"] }
           }
         },
-        "timezone": { "type": "string", "const": "America/New_York" }
+        "timezone": { "type": "string", "const": "America/New_York" },
+        "menuPdf":  { "type": "string", "default": "/assets/menu-2025.pdf" },
+        "logo": {
+          "type": "object",
+          "properties": {
+            "primary":  { "type": "string" },
+            "mobile":   { "type": "string" },
+            "favicon":  { "type": "string" }
+          }
+        }
       },
       "required": ["name", "phone", "address", "timezone"]
     },
 
     "hours": {
       "type": "object",
-      "description": "Per-day hours. 24h, HH:MM. null = closed that day. Drives both display and live-status logic. Saturday MUST be set before launch.",
+      "description": "Per-day hours, keyed by JS Date.getDay() integer (0=Sun..6=Sat). Close > 24:00 means past midnight (e.g. '25:00' = 1am next day). null = closed all day. Drives both display and live-status logic. Saturday MUST be set before launch.",
       "properties": {
         "0": { "$ref": "#/$defs/dayHours", "title": "Sunday" },
         "1": { "$ref": "#/$defs/dayHours", "title": "Monday" },
@@ -53,36 +74,38 @@
         "3": { "$ref": "#/$defs/dayHours", "title": "Wednesday" },
         "4": { "$ref": "#/$defs/dayHours", "title": "Thursday" },
         "5": { "$ref": "#/$defs/dayHours", "title": "Friday" },
-        "6": { "$ref": "#/$defs/dayHours", "title": "Saturday" }
-      },
-      "default": {
-        "0": { "open": "11:00", "close": "21:00" },
-        "1": { "open": "11:00", "close": "21:00" },
-        "2": { "open": "11:00", "close": "24:00" },
-        "3": { "open": "11:00", "close": "22:00" },
-        "4": { "open": "11:00", "close": "22:00" },
-        "5": { "open": "11:00", "close": "25:00" },
-        "6": null
-      },
-      "happyHour": {
-        "type": "object",
-        "default": { "days": "Mon–Fri", "label": "3–7pm" }
+        "6": { "$ref": "#/$defs/dayHours", "title": "Saturday" },
+        "happyHour": {
+          "type": "object",
+          "properties": {
+            "days":  { "type": "array", "items": { "type": "integer", "minimum": 0, "maximum": 6 } },
+            "label": { "type": "string", "default": "Mon–Fri 3–7pm" },
+            "open":  { "type": "string", "pattern": "^([01]\\d|2[0-4]):[0-5]\\d$" },
+            "close": { "type": "string", "pattern": "^([01]\\d|2[0-5]):[0-5]\\d$" }
+          }
+        },
+        "kitchenClosesBeforeBar": { "type": "string", "description": "Free-form, e.g. '30min'." }
       }
     },
 
     "tonightStrip": {
-      "type": "array",
-      "description": "Home §02. 4 cells. Eli edits weekly. Order matters.",
-      "minItems": 1,
-      "maxItems": 4,
-      "items": {
-        "type": "object",
-        "properties": {
-          "tag":   { "type": "string", "enum": ["Tonight", "This Week", "Kitchen", "Bar"] },
-          "title": { "type": "string", "description": "Two short lines max. <br> allowed.", "maxLength": 80 },
-          "meta":  { "type": "string", "description": "One mono line.", "maxLength": 60 }
-        },
-        "required": ["tag", "title"]
+      "type": "object",
+      "description": "Home § hero aside. Up to 4 cells. Eli edits weekly. Order matters.",
+      "properties": {
+        "cells": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "tag":   { "type": "string", "enum": ["Tonight", "This Week", "Kitchen", "Bar"] },
+              "title": { "type": "string", "description": "Short headline. <br> allowed.", "maxLength": 80 },
+              "meta":  { "type": "string", "description": "One mono line.", "maxLength": 60 }
+            },
+            "required": ["tag", "title"]
+          }
+        }
       }
     },
 
@@ -91,6 +114,7 @@
       "description": "Single source — used on /menu, on the home short-menu, and in Restaurant schema.",
       "properties": {
         "lastUpdated": { "type": "string", "format": "date" },
+        "source":      { "type": "string", "description": "Provenance note." },
         "sections": {
           "type": "array",
           "items": {
@@ -99,22 +123,49 @@
               "id":       { "type": "string", "pattern": "^[a-z-]+$", "description": "URL fragment, e.g. 'steaks-and-chops'." },
               "title":    { "type": "string", "description": "Display title. Italic 'em' allowed via <em> tags." },
               "intro":    { "type": "string", "description": "1–2 sentence section intro. Optional." },
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name":  { "type": "string" },
-                    "note":  { "type": "string", "description": "Italic. Brief — under 12 words.", "maxLength": 90 },
-                    "price": { "type": "integer", "description": "USD, no $. Whole dollars only.", "minimum": 0 },
-                    "tags":  { "type": "array", "items": { "type": "string", "enum": ["GF", "VG", "V", "spicy", "house-favorite"] } },
-                    "featured": { "type": "boolean", "default": false, "description": "Surface in home short menu (max 8)." }
-                  },
-                  "required": ["name", "price"]
-                }
-              }
+              "items":    { "type": "array", "items": { "$ref": "#/$defs/menuItem" } },
+              "addons":   { "type": "array", "items": { "$ref": "#/$defs/menuItem" }, "description": "Optional extras for the section (e.g. dinner enhancements)." }
             },
             "required": ["id", "title", "items"]
+          }
+        },
+        "lunchSpecial": {
+          "type": "object",
+          "properties": {
+            "price":  { "type": "number" },
+            "window": { "type": "string" },
+            "days": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "day":  { "type": "string" },
+                  "item": { "type": "string" }
+                },
+                "required": ["day", "item"]
+              }
+            }
+          }
+        },
+        "drinks": {
+          "type": "object",
+          "properties": {
+            "draft":          { "type": "string" },
+            "wine":           { "type": "string" },
+            "liquor":         { "type": "string" },
+            "non_alcoholic":  { "type": "string" }
+          }
+        },
+        "footnote":         { "type": "string" },
+        "consumerNotice":   { "type": "string" },
+        "steakTemperatures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": { "type": "string" },
+              "desc":  { "type": "string" }
+            }
           }
         }
       },
@@ -125,8 +176,26 @@
       "type": "object",
       "description": "About page — the audit identified this as the thinnest page on the live site. Names matter here.",
       "properties": {
-        "lede":    { "type": "string", "description": "20–35 words, sets the scene." },
-        "story":   { "type": "string", "description": "Long-form, multi-paragraph. Markdown supported." },
+        "lede":      { "type": "string", "description": "20–35 words, sets the scene." },
+        "story":     { "type": "string", "description": "Long-form, multi-paragraph. Markdown supported." },
+        "pullQuote": { "type": "string" },
+        "storyRows": {
+          "type": "array",
+          "description": "Two-row 'beginning + today' narrative. Lifted from Inner Pages.html § /about.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kicker":    { "type": "string" },
+              "title":     { "type": "string", "description": "Inline HTML allowed (e.g. <span class='green'>...</span>)." },
+              "body":      { "type": "array", "items": { "type": "string" } },
+              "image":     { "type": "string" },
+              "imageAlt":  { "type": "string" },
+              "pullQuote": { "type": "string" },
+              "flip":      { "type": "boolean", "default": false }
+            },
+            "required": ["kicker", "title", "body", "image", "imageAlt"]
+          }
+        },
         "timeline": {
           "type": "array",
           "items": {
@@ -138,18 +207,37 @@
             "required": ["year", "what"]
           }
         },
+        "stats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "num":   { "type": "string" },
+              "label": { "type": "string" }
+            },
+            "required": ["num", "label"]
+          }
+        },
         "family": {
           "type": "array",
           "description": "Three portraits. Names + role + photo. Required for launch.",
           "items": {
             "type": "object",
             "properties": {
-              "name":  { "type": "string" },
-              "role":  { "type": "string" },
-              "photo": { "type": "string", "format": "uri-reference" },
-              "since": { "type": "integer" }
+              "name":         { "type": ["string", "null"] },
+              "role":         { "type": "string" },
+              "photo":        { "type": ["string", "null"], "format": "uri-reference" },
+              "since":        { "type": "integer" },
+              "_placeholder": { "type": "boolean", "description": "True when the name was Design-drafted as a placeholder pending client confirmation." }
             },
-            "required": ["name", "role"]
+            "required": ["role"]
+          }
+        },
+        "groupPhoto": {
+          "type": "object",
+          "properties": {
+            "src": { "type": "string" },
+            "alt": { "type": "string" }
           }
         }
       }
@@ -157,7 +245,7 @@
 
     "events": {
       "type": "object",
-      "description": "Per spec §09 — deferred from v1, but field present so it can light up later. Hide section when empty.",
+      "description": "Per spec § This Week — recurring weekly events, plus one-off specialDates overrides.",
       "properties": {
         "weekly": {
           "type": "array",
@@ -166,9 +254,12 @@
             "properties": {
               "day":   { "type": "string", "enum": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"] },
               "title": { "type": "string" },
+              "kind":  { "type": "string" },
               "time":  { "type": "string" },
-              "note":  { "type": "string" }
-            }
+              "note":  { "type": "string" },
+              "hot":   { "type": "boolean", "default": false }
+            },
+            "required": ["day", "title"]
           }
         },
         "specialDates": {
@@ -181,7 +272,182 @@
               "note":  { "type": "string" }
             }
           }
+        },
+        "marquee": {
+          "type": "array",
+          "description": "Free-form short strings for the green ticker. Up to 8.",
+          "maxItems": 8,
+          "items": { "type": "string" }
         }
+      }
+    },
+
+    "specials": {
+      "type": "object",
+      "description": "Promotional programs. weekday: $10.50 lunch (also mirrored in menu.lunchSpecial). weekend: Sunday football. happyHour: descriptor only — actual hours live in hours.happyHour.",
+      "properties": {
+        "weekday": {
+          "type": "object",
+          "properties": {
+            "label":  { "type": "string" },
+            "window": { "type": "string" },
+            "days": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "day":  { "type": "string" },
+                  "item": { "type": "string" }
+                },
+                "required": ["day", "item"]
+              }
+            }
+          }
+        },
+        "weekend": {
+          "type": "object",
+          "properties": {
+            "label":  { "type": "string" },
+            "window": { "type": "string" },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name":  { "type": "string" },
+                  "price": { "type": "number" },
+                  "note":  { "type": "string" }
+                },
+                "required": ["name"]
+              }
+            },
+            "image": { "type": "string" }
+          }
+        },
+        "happyHour": {
+          "type": "object",
+          "properties": {
+            "label":  { "type": "string" },
+            "window": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "sports": {
+      "type": "object",
+      "description": "Sports page. v1 ships static rooms + tagline; lineup is empty by default and renders only when populated.",
+      "properties": {
+        "tagline":    { "type": "string" },
+        "tvCount":    { "type": "integer" },
+        "highlights": { "type": "array", "items": { "type": "string" } },
+        "rooms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "note": { "type": "string" }
+            },
+            "required": ["name"]
+          }
+        },
+        "lineup": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "time":    { "type": "string" },
+              "matchup": { "type": "string" },
+              "league":  { "type": "string" }
+            },
+            "required": ["time", "matchup"]
+          }
+        }
+      }
+    },
+
+    "news": {
+      "type": "object",
+      "description": "Latest news cards on Home. v1 ships agency-drafted entries; v2 migrates from WP. No /news/[slug] in v1 — `url` may be null or external.",
+      "properties": {
+        "recent": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id":       { "type": "string" },
+              "title":    { "type": "string" },
+              "excerpt":  { "type": "string" },
+              "image":    { "type": "string" },
+              "date":     { "type": "string", "format": "date" },
+              "readMins": { "type": "integer" },
+              "url":      { "type": ["string", "null"] }
+            },
+            "required": ["id", "title", "excerpt", "image", "date"]
+          }
+        }
+      }
+    },
+
+    "forms": {
+      "type": "object",
+      "description": "Contact form config. Static Forms key + recipient pulled from env at runtime.",
+      "properties": {
+        "contact": {
+          "type": "object",
+          "properties": {
+            "endpoint":         { "type": "string", "format": "uri" },
+            "recipientEnvVar":  { "type": "string" },
+            "accessKeyEnvVar":  { "type": "string" },
+            "topics":           { "type": "array", "items": { "type": "string" } },
+            "fields":           { "type": "array", "items": { "type": "string" } },
+            "successRedirect":  { "type": "string" },
+            "errorRedirect":    { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "seo": {
+      "type": "object",
+      "description": "Per-route metadata. routes is keyed by route path.",
+      "properties": {
+        "_defaults": {
+          "type": "object",
+          "properties": {
+            "ogImage":     { "type": "string" },
+            "twitterCard": { "type": "string" },
+            "siteName":    { "type": "string" }
+          }
+        },
+        "routes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "title":       { "type": "string" },
+              "description": { "type": "string", "maxLength": 200 },
+              "ogImage":     { "type": "string" }
+            },
+            "required": ["title", "description"]
+          }
+        }
+      }
+    },
+
+    "theme": {
+      "type": "object",
+      "description": "Token overrides — intentionally empty in v1. terrys.css owns the design tokens. Slot exists so a future client-facing CMS can expose minor color/typography overrides without a deploy."
+    },
+
+    "legal": {
+      "type": "object",
+      "properties": {
+        "copyright": { "type": "string" },
+        "credit":    { "type": "string" },
+        "creditUrl": { "type": "string", "format": "uri" }
       }
     }
   },
@@ -199,6 +465,29 @@
         },
         { "type": "null", "description": "Closed all day." }
       ]
+    },
+    "menuItem": {
+      "type": "object",
+      "description": "A menu item. Use `price` for single-price items; use `pricing` for size/quantity tiers (e.g. wings 10/20/30/50, subs Sm/Lg).",
+      "properties": {
+        "name":  { "type": "string" },
+        "note":  { "type": "string", "description": "Brief description; <em> allowed.", "maxLength": 280 },
+        "price": { "type": "number", "minimum": 0, "description": "USD with cents allowed (e.g. 10.50)." },
+        "pricing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "size":  { "type": "string", "description": "Tier label, e.g. 'Sm', 'Lg', '10', '20'." },
+              "price": { "type": "number", "minimum": 0 }
+            },
+            "required": ["size", "price"]
+          }
+        },
+        "tags":     { "type": "array", "items": { "type": "string", "enum": ["GF", "VG", "V", "spicy", "house-favorite", "new"] } },
+        "featured": { "type": "boolean", "default": false, "description": "Surface in home short-menu (max 3-4)." }
+      },
+      "required": ["name"]
     }
   }
 }

@@ -1,0 +1,185 @@
+/* ===========================================================================
+   /menu page-only styles. Lifted from design-handoff/Menu.html § <style>.
+   =========================================================================== */
+
+.menu-hero { background: var(--navy); padding: var(--space-12) 0 var(--space-8); }
+.menu-hero-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-10);
+  align-items: end;
+}
+@media (max-width: 800px) { .menu-hero-grid { grid-template-columns: 1fr; } }
+.menu-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 130px);
+  line-height: 0.92;
+  color: var(--on-dark);
+  text-transform: uppercase;
+  margin: 0 0 var(--space-5);
+}
+.menu-hero h1 .green {
+  color: var(--green);
+  text-shadow:
+    3px 3px 0 var(--red),
+    4px 4px 0 var(--red),
+    5px 5px 0 var(--red);
+  display: inline-block;
+}
+.menu-hero .lede {
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--on-dark-2);
+  max-width: 50ch;
+}
+.menu-hero-aside {
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-6);
+}
+.menu-hero-aside h3 {
+  font-family: var(--font-display);
+  color: var(--green);
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-3);
+}
+.menu-hero-aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--on-dark-2);
+}
+.menu-hero-aside li {
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.15);
+}
+.menu-hero-aside li:last-child { border: 0; }
+.menu-hero-aside .day { color: var(--on-dark); font-weight: 700; }
+.menu-hero-aside .price-flag {
+  display: inline-block;
+  background: var(--green);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  line-height: 1;
+  margin-bottom: var(--space-3);
+}
+
+.anchor-nav {
+  background: var(--navy-2);
+  border-block: 1px solid var(--navy-line);
+  padding: var(--space-4) 0;
+  position: sticky;
+  top: 84px;
+  z-index: 40;
+}
+.anchor-nav-inner {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.anchor-nav a {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-dark-2);
+  text-decoration: none;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+.anchor-nav a:hover { color: var(--green); border-bottom-color: var(--green); }
+
+.menu-section { padding: var(--space-12) 0 var(--space-8); }
+.menu-section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: var(--space-7);
+  flex-wrap: wrap;
+}
+.menu-section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  color: var(--on-dark);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 0.95;
+}
+.menu-section-head h2 .green { color: var(--green); }
+.menu-section-head .intro {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--on-dark-2);
+  max-width: 40ch;
+}
+.menu-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+}
+@media (max-width: 800px) { .menu-cols { grid-template-columns: 1fr; gap: var(--space-6); } }
+
+.cta-strip {
+  background: var(--green);
+  color: var(--ink);
+  padding: var(--space-10) 0;
+}
+.cta-strip-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+.cta-strip h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 64px);
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.cta-strip .actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.cta-strip .t-btn {
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.menu-drinks-card {
+  background: var(--navy-3);
+  padding: var(--space-7);
+  border-radius: 6px;
+}
+.menu-sauce-callout {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--navy-3);
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  font-family: var(--font-cond);
+  font-size: 13px;
+  color: var(--on-dark-2);
+}
+.menu-sauce-callout strong {
+  color: var(--green);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}

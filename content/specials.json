@@ -1,0 +1,31 @@
+{
+  "_note": "Promotional programs. weekday: $10.50 lunch (mirrors menu.lunchSpecial — single source of truth there). weekend: Sunday football. happyHour: derived from hours.json but echoed here for the /specials page.",
+  "weekday": {
+    "label": "Daily Lunch · $10.50",
+    "window": "Mon–Fri · 11am–3pm",
+    "days": [
+      { "day": "Monday",    "item": "Cheeseburger & French Fries" },
+      { "day": "Tuesday",   "item": "Chicken Sandwich & French Fries" },
+      { "day": "Wednesday", "item": "Any Small Sub & Fries" },
+      { "day": "Thursday",  "item": "Chicken Tenders & Fries" },
+      { "day": "Friday",    "item": "Fish or Shrimp Po Boy & Fries" }
+    ]
+  },
+  "weekend": {
+    "label": "Sunday Football Special",
+    "window": "Sunday · all day",
+    "items": [
+      { "name": "Wings & pitcher",    "price": 29.99, "note": "All NFL games on every screen." },
+      { "name": "Game-day appetizers","note": "Half-priced apps during select windows — ask your server." }
+    ],
+    "image": "/assets/photo-sunday-football.jpg"
+  },
+  "happyHour": {
+    "label": "Happy Hour · Mon–Fri 3–7pm",
+    "window": "Weekday afternoons",
+    "_pending": "Client supplies actual happy-hour drink + food specials list."
+  },
+  "_pendingFromClient": [
+    "happy-hour pour list and food half-prices"
+  ]
+}

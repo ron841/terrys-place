@@ -1,0 +1,345 @@
+/* ===========================================================================
+   Inner-page styles — shared across /about, /specials, /sports, /visit,
+   /contact. Lifted from design-handoff/Inner Pages.html § <style>.
+   Imported by each inner route's page.tsx.
+   =========================================================================== */
+
+/* About hero */
+.about-hero { background: var(--navy); padding: var(--space-12) 0; }
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+@media (max-width: 800px) { .about-hero-grid { grid-template-columns: 1fr; } }
+.about-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 110px);
+  line-height: 0.92;
+  color: var(--on-dark);
+  text-transform: uppercase;
+  margin: 0 0 var(--space-5);
+}
+.about-hero h1 .green {
+  color: var(--green);
+  text-shadow: 3px 3px 0 var(--red), 4px 4px 0 var(--red);
+  display: inline-block;
+}
+.about-hero img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.about-hero .est {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--red);
+  letter-spacing: 0.04em;
+}
+
+/* Story rows */
+.story-section { padding-block: var(--space-12); }
+.story-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+.story-row + .story-row { margin-top: var(--space-12); }
+.story-row.flip > :first-child { order: 2; }
+@media (max-width: 800px) {
+  .story-row, .story-row.flip { grid-template-columns: 1fr; }
+  .story-row.flip > :first-child { order: 0; }
+}
+.story-row h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  color: var(--on-dark);
+  text-transform: uppercase;
+  margin: 0 0 var(--space-5);
+  line-height: 0.95;
+}
+.story-row h2 .green { color: var(--green); }
+.story-row .body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--on-dark-2);
+}
+.story-row .body p + p { margin-top: var(--space-4); }
+.story-row img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.story-pull {
+  font-family: var(--font-hand);
+  font-size: 28px;
+  color: var(--green);
+  border-left: 4px solid var(--green);
+  padding-left: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+/* Family row — three generations */
+.family-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+@media (max-width: 700px) { .family-row { grid-template-columns: 1fr; } }
+.family-card {
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-6);
+  text-align: center;
+}
+.family-card .photo {
+  aspect-ratio: 4 / 5;
+  background: var(--navy);
+  border-radius: 4px;
+  margin-bottom: var(--space-4);
+  background-size: cover;
+  background-position: center;
+}
+.family-card .role {
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin: 0 0 var(--space-2);
+}
+.family-card .name {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--on-dark);
+  text-transform: uppercase;
+  margin: 0 0 var(--space-2);
+  line-height: 1;
+}
+.family-card .since {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--on-dark-3);
+  letter-spacing: 0.1em;
+}
+
+/* Specials grid */
+.specials-bg { background: var(--navy-2); }
+.specials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+@media (max-width: 800px) { .specials-grid { grid-template-columns: 1fr; } }
+.special-card {
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-6);
+  border-top: 4px solid var(--green);
+  position: relative;
+}
+.special-card.hot { border-top-color: var(--red); }
+.special-card .day {
+  font-family: var(--font-display);
+  color: var(--green);
+  font-size: 28px;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-2);
+}
+.special-card.hot .day { color: var(--red); }
+.special-card h3 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0 0 var(--space-2);
+  color: var(--on-dark);
+}
+.special-card .price {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--green);
+  margin: 0 0 var(--space-3);
+}
+.special-card .desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--on-dark-2);
+  margin: 0;
+}
+.special-card .when {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-3);
+}
+
+/* Sports / TV schedule */
+.sports-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+@media (max-width: 800px) { .sports-row { grid-template-columns: 1fr; } }
+.tv-list {
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-6);
+}
+.tv-list h4 {
+  font-family: var(--font-display);
+  color: var(--green);
+  font-size: 24px;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-4);
+}
+.tv-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.15);
+  font-family: var(--font-mono);
+}
+.tv-row:last-child { border: 0; }
+.tv-row .time { font-size: 13px; font-weight: 700; color: var(--green); width: 90px; }
+.tv-row .matchup { font-family: var(--font-body); font-weight: 600; font-size: 15px; color: var(--on-dark); }
+.tv-row .channel { font-size: 11px; color: var(--on-dark-3); letter-spacing: 0.08em; text-transform: uppercase; }
+.tv-list .empty {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--on-dark-3);
+  font-style: italic;
+}
+
+/* Rooms list */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+}
+@media (max-width: 700px) { .rooms-grid { grid-template-columns: 1fr; } }
+.room-card {
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-6);
+}
+.room-card h4 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin: 0 0 var(--space-3);
+}
+.room-card p {
+  margin: 0;
+  color: var(--on-dark-2);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Visit / contact */
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-10);
+}
+@media (max-width: 800px) { .visit-grid { grid-template-columns: 1fr; } }
+.map-embed {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  border: 0;
+}
+.info-list { display: grid; gap: var(--space-5); }
+.info-block {
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-6);
+}
+.info-block h4 {
+  font-family: var(--font-display);
+  color: var(--green);
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-3);
+}
+.info-block .big {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--on-dark);
+  line-height: 1.05;
+  margin: 0 0 var(--space-2);
+}
+.info-block p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--on-dark-2);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Hours table */
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+.hours-table tr {
+  border-bottom: 1px dashed rgba(255,255,255,0.15);
+}
+.hours-table tr:last-child { border: 0; }
+.hours-table td { padding: 10px 0; }
+.hours-table .day {
+  color: var(--on-dark);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hours-table .hrs {
+  color: var(--green);
+  text-align: right;
+  font-weight: 600;
+}
+.hours-table .today { background: rgba(73,226,109,0.08); }
+.hours-table .today .hrs::after {
+  content: " ← TODAY";
+  color: var(--red);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+/* Contact section uses the contact-form classes from site-chrome.css */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+@media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* Generic inner-page hero / display */
+.inner-display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 88px);
+  color: var(--on-dark);
+  text-transform: uppercase;
+  margin: 0 0 var(--space-5);
+  line-height: 0.95;
+}
+.inner-display .green { color: var(--green); }

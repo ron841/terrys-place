@@ -1,0 +1,26 @@
+{
+  "_note": "Weekly recurring programs (the 'always on' baseline). Special-date events override. Marquee derives from this if marquee.items is empty.",
+  "weekly": [
+    { "day": "Mon", "title": "Cheeseburger & Fries Lunch",       "kind": "Lunch Special", "time": "11am–3pm",  "note": "$10.50",            "hot": false },
+    { "day": "Tue", "title": "Pub Trivia w/ Big Mike",            "kind": "Trivia Night",  "time": "7:00 PM",   "note": "Free to play",      "hot": true  },
+    { "day": "Wed", "title": "Any Small Sub & Fries Lunch",       "kind": "Lunch Special", "time": "11am–3pm",  "note": "$10.50",            "hot": false },
+    { "day": "Thu", "title": "Chicken Tenders & Fries Lunch",     "kind": "Lunch Special", "time": "11am–3pm",  "note": "$10.50",            "hot": false },
+    { "day": "Fri", "title": "Karaoke Night",                     "kind": "Karaoke",       "time": "8:00 PM",   "note": "No cover",          "hot": true  },
+    { "day": "Sat", "title": "Acoustic Live Music",               "kind": "Live Music",    "time": "8:00 PM",   "note": "No cover",          "hot": false, "_pending": "host name + frequency from client" },
+    { "day": "Sun", "title": "Sunday Football Special",           "kind": "Football",      "time": "All day",   "note": "$29.99 wings + pitcher", "hot": true  }
+  ],
+  "specialDates": [],
+  "marquee": [
+    "Sunday Football Special",
+    "$10.50 lunch Mon–Fri",
+    "Happy Hour 3–7 daily",
+    "Karaoke Friday Night",
+    "Trivia Tuesday 7pm",
+    "King-size portions since 1980"
+  ],
+  "_pendingFromClient": [
+    "trivia host (currently 'Big Mike' — placeholder)",
+    "karaoke host + frequency",
+    "live music host + frequency"
+  ]
+}

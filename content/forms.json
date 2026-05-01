@@ -1,0 +1,15 @@
+{
+  "_note": "Contact-form config. recipient is null at scaffold; client provides real address. Falls back to NEXT_PUBLIC_CONTACT_RECIPIENT env (placeholder pending@terrys.place). Static Forms key is in NEXT_PUBLIC_STATIC_FORMS_KEY env. Topics are fixed dropdown values per CMS_SCHEMA.",
+  "contact": {
+    "endpoint": "https://api.staticforms.xyz/submit",
+    "recipientEnvVar": "NEXT_PUBLIC_CONTACT_RECIPIENT",
+    "accessKeyEnvVar": "NEXT_PUBLIC_STATIC_FORMS_KEY",
+    "topics": ["General", "Catering", "Private Event", "Press"],
+    "fields": ["name", "email", "phone", "topic", "message"],
+    "successRedirect": "/contact?sent=1",
+    "errorRedirect": "/contact?error=1"
+  },
+  "_pendingFromClient": [
+    "real recipient email (currently pending@terrys.place placeholder)"
+  ]
+}

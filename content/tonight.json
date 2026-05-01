@@ -1,0 +1,9 @@
+{
+  "_note": "Home §02 — up to 4 cells. Eli edits weekly. Order matters. Tag enum: Tonight | This Week | Kitchen | Bar.",
+  "cells": [
+    { "tag": "Tonight",   "title": "NFL Sunday Ticket on every screen", "meta": "Wings & pitcher · $29.99" },
+    { "tag": "This Week", "title": "Trivia Tuesday with Big Mike",      "meta": "Tue · 7pm · free to play" },
+    { "tag": "Kitchen",   "title": "Half-pound burgers, hand-cut steaks", "meta": "Cooked to order, never pre-cooked" },
+    { "tag": "Bar",       "title": "Happy Hour weekday afternoons",     "meta": "Mon–Fri · 3–7pm" }
+  ]
+}

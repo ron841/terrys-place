@@ -1,0 +1,45 @@
+{
+  "_note": "Per-route metadata. Title format: '{pageTitle} · Terry\\'s Place'. Description ≤160 chars. og.image defaults to /assets/photo-room-hero.jpg unless overridden.",
+  "_defaults": {
+    "ogImage": "/assets/photo-room-hero.jpg",
+    "twitterCard": "summary_large_image",
+    "siteName": "Terry's Place"
+  },
+  "routes": {
+    "/": {
+      "title": "Terry's Place · Ocala's Sports Bar & Grill Since 1980",
+      "description": "Family-run sports bar and grill in Ocala, FL since 1980. Half-pound burgers, hand-cut steaks, daily-baked bread. Wall-to-wall TVs, NFL Sunday Ticket, three generations.",
+      "ogImage": "/assets/photo-room-hero.jpg"
+    },
+    "/menu": {
+      "title": "Menu · Terry's Place",
+      "description": "Hand-cut steaks, half-pound burgers, jumbo wings, daily-baked subs. Daily $10.50 lunch Mon–Fri.",
+      "ogImage": "/assets/photo-staff-burger-wings.jpg"
+    },
+    "/about": {
+      "title": "Three Generations · Terry's Place",
+      "description": "Family-run since 1980. Three generations behind the bar in Ocala, FL.",
+      "ogImage": "/assets/photo-staff-group.jpg"
+    },
+    "/specials": {
+      "title": "Specials & Lunch · Terry's Place",
+      "description": "$10.50 daily lunch Mon–Fri. Sunday Football wings + pitcher special. Happy Hour weekday afternoons.",
+      "ogImage": "/assets/photo-sunday-football.jpg"
+    },
+    "/sports": {
+      "title": "22 TVs · Sports · Terry's Place",
+      "description": "NFL Sunday Ticket, Florida Gators, college football. 22 wall-to-wall screens across four rooms.",
+      "ogImage": "/assets/photo-sunday-football.jpg"
+    },
+    "/visit": {
+      "title": "Visit · 4121 NE 36th Ave, Ocala FL · Terry's Place",
+      "description": "4121 NE 36th Ave, Ocala FL 34479. Open seven days. Free parking. (352) 732-3820.",
+      "ogImage": "/assets/photo-room-hero.jpg"
+    },
+    "/contact": {
+      "title": "Contact · Terry's Place",
+      "description": "Catering, private events, press, or just a question — we'll get back to you.",
+      "ogImage": "/assets/photo-room-hero.jpg"
+    }
+  }
+}
