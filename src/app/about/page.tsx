@@ -77,6 +77,13 @@ export default function AboutPage() {
         ))}
       </section>
 
+      {/*
+        Per Design feedback §4 + Ron call: render the family row only when at
+        least one entry has both name AND photo confirmed. In the current
+        all-pending state, the section hides entirely — Eli's preview drops
+        to two story rows + heritage + footer, no pending-box grid.
+      */}
+      {about.family.some((m) => m.name && m.photo) && (
       <section className="t-container" style={{ paddingBlock: "var(--space-12)" }}>
         <p className="t-eyebrow t-eyebrow--red">The Three Terrys</p>
         <h2 className="inner-display">
@@ -105,6 +112,7 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+      )}
 
       <Footer />
     </>

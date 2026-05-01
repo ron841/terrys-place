@@ -50,9 +50,13 @@
 }
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(56px, 9vw, 130px);
+  /* §8 fix: bumped column-room and tightened letter-spacing so "SPORTS BAR"
+     stays on one line at desktop. Original clamp(56px, 9vw, 130px) +
+     letter-spacing 0.005em wrapped to 4 lines on the build because the
+     next/font Luckiest Guy renders ~3% wider than the CDN-served font. */
+  font-size: clamp(56px, 8.4vw, 116px);
   line-height: 0.92;
-  letter-spacing: 0.005em;
+  letter-spacing: -0.005em;
   color: var(--on-dark);
   text-transform: uppercase;
   text-wrap: balance;
@@ -398,10 +402,17 @@
 .heritage-stat {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--space-4);
+  gap: var(--space-3);
   margin-top: var(--space-8);
-  border-top: 1px solid var(--navy-line);
-  padding-top: var(--space-6);
+}
+.heritage-stat > div {
+  /* §9 fix: each stat tile is now a carded container instead of a flat row
+     separated by a top border. Reads as three discrete numbers, not one
+     run-on row. Keeps the tokens (display font + green num + cond lbl). */
+  background: var(--navy-3);
+  border-radius: 6px;
+  padding: var(--space-5) var(--space-4);
+  border-top: 3px solid var(--green);
 }
 .heritage-stat .num {
   font-family: var(--font-display);

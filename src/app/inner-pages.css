@@ -317,11 +317,22 @@
   font-weight: 600;
 }
 .hours-table .today { background: rgba(73,226,109,0.08); }
-.hours-table .today .hrs::after {
-  content: " ← TODAY";
-  color: var(--red);
-  font-size: 11px;
-  letter-spacing: 0.1em;
+.hours-table .today .day::after {
+  /* §13 fix: small green pill on the day cell instead of red text suffix
+     on the hours cell. Matches the comp's treatment. */
+  content: "TODAY";
+  display: inline-block;
+  margin-left: var(--space-3);
+  background: var(--green);
+  color: var(--ink);
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  vertical-align: 2px;
 }
 
 /* Contact section uses the contact-form classes from site-chrome.css */
