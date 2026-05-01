@@ -64,7 +64,7 @@ export default function ContactPage() {
 
             {recipientPending && (
               <p style={{ marginTop: "var(--space-6)" }}>
-                <DraftField item="Real contact recipient email" />
+                <DraftField item="[CONTACT RECIPIENT EMAIL PENDING]" />
               </p>
             )}
           </div>

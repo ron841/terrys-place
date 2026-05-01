@@ -156,6 +156,19 @@ export default function VisitPage() {
             </div>
           </div>
         </div>
+
+        <figure className="visit-banner-bottom">
+          <Image
+            src="/assets/photo-exterior-banner.jpg"
+            alt="The new Terry's Sports Bar & Grill banner — green wordmark on a black painted panel with red border, 'EST. 1980' arched at the top, on the front of the building."
+            width={2048}
+            height={1330}
+            sizes="(max-width: 800px) 100vw, 1136px"
+          />
+          <figcaption>
+            <span className="t-mono t-mono--caps">Front of the house · {site.address.street}</span>
+          </figcaption>
+        </figure>
       </section>
 
       </main>

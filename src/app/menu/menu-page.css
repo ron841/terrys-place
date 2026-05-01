@@ -51,6 +51,21 @@
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
+@media (max-width: 800px) {
+  /* 7 anchor links wrap to 2-3 lines at 375px and push the page down.
+     Switch to horizontal scroll so the nav stays one line. */
+  .anchor-nav-inner {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .anchor-nav-inner::-webkit-scrollbar { display: none; }
+  .anchor-nav-inner a {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
 .anchor-nav a {
   font-family: var(--font-cond);
   font-weight: 700;

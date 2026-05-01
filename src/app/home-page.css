@@ -389,7 +389,10 @@
 }
 .heritage-photo {
   aspect-ratio: 4 / 5;
-  background-image: url("/assets/photo-staff-group.jpg");
+  /* Fresh team shot (5 staff in green Terry's tees against the mural wall).
+     /about hero keeps the broader 8-staff group photo per Design's ratified
+     call; home heritage section gets the energy shot. */
+  background-image: url("/assets/photo-team.jpg");
   background-size: cover;
   background-position: center;
   border-radius: 6px;

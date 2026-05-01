@@ -52,14 +52,10 @@ function pickFeatured() {
 
   const burger = menu.sections.find((s) => s.id === "burgers")?.items.find((i) => i.name === "The Belly Buster");
   if (burger) {
-    // Per Design feedback §1: the Belly Buster slot should hold a clean burger
-    // product shot, not the staff-with-burger-wings photo. We don't have one
-    // yet — render a placeholder until the half-day shoot lands.
     out.push({
       name: "The Belly\nBuster",
       kicker: "★ Terry's Favorite",
-      image: null,
-      pendingLabel: "Belly Buster product shot pending",
+      image: "/assets/photo-belly-buster.jpg",
       price: `1lb USDA Angus chuck · crisp bacon · Swiss + American · $${burger.price?.toFixed(2)}`,
     });
   }

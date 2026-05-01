@@ -289,6 +289,42 @@
   .visit-exterior figcaption { font-size: 10px; padding: 5px 10px; }
 }
 
+/* Front-of-building banner shot, sits below the map+info grid as the
+   closing visual moment for /visit. Mural-side at the top + storefront
+   banner at the bottom = both faces of the building bookending the
+   functional find-us details. */
+.visit-banner-bottom {
+  margin: var(--space-10) 0 0 0;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.4);
+}
+.visit-banner-bottom img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+  object-position: center 50%;
+}
+.visit-banner-bottom figcaption {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-5);
+  background: rgba(15, 14, 18, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--green);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+@media (max-width: 700px) {
+  .visit-banner-bottom img { max-height: 320px; }
+  .visit-banner-bottom figcaption { font-size: 10px; padding: 5px 10px; }
+}
+
 /* Visit / contact */
 .visit-grid {
   display: grid;
