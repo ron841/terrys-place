@@ -102,6 +102,8 @@ export default function HomePage() {
       />
       <Header />
 
+      <main>
+
       <section className="hero" aria-label="Welcome">
         {/* §LCP fix: real <Image priority> with fill so Next can serve a
             responsive AVIF/WebP and emit a preload hint. The .hero-bg div
@@ -321,6 +323,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

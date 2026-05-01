@@ -61,7 +61,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4>Visit</h4>
+            <h3>Visit</h3>
             <ul>
               <li>{site.address.street}</li>
               <li>{site.address.city}, {site.address.region} {site.address.postal}</li>
@@ -71,7 +71,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4>Hours</h4>
+            <h3>Hours</h3>
             <ul>
               {hoursLines().map((l, i) => (
                 <li key={i}>{l.label} · {l.value}</li>
@@ -83,7 +83,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4>Menu &amp; More</h4>
+            <h3>Menu &amp; More</h3>
             <ul>
               <li><Link href="/menu">Full Menu</Link></li>
               <li><a href={site.menuPdf} target="_blank" rel="noopener noreferrer">PDF Menu</a></li>

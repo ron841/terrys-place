@@ -102,7 +102,9 @@
 }
 @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
-.footer h4 {
+.footer h3 {
+  /* Was h4 in the comp; bumped to h3 for sequential heading order (a11y).
+     Visual treatment unchanged. */
   font-family: var(--font-display);
   font-size: 16px;
   text-transform: uppercase;

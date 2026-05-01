@@ -33,6 +33,8 @@ export default function AboutPage() {
     <>
       <Header />
 
+      <main>
+
       <section className="about-hero">
         <div className="t-container">
           <div className="about-hero-grid">
@@ -114,6 +116,8 @@ export default function AboutPage() {
         </div>
       </section>
       )}
+
+      </main>
 
       <Footer />
     </>

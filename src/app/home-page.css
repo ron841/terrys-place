@@ -221,7 +221,9 @@
   color: var(--green);
   margin-bottom: 4px;
 }
-.day .event .kind.is-hot { color: var(--red); }
+.day .event .kind.is-hot { color: var(--red-soft); }
+  /* Was --red — contrast 3.37 on .navy-3 (today's cell). --red-soft passes
+     WCAG AA on both .navy and .navy-3 backgrounds. */
 .day .event .name {
   font-family: var(--font-body);
   font-weight: 700;

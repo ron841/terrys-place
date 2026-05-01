@@ -46,6 +46,8 @@ export default function VisitPage() {
     <>
       <Header />
 
+      <main>
+
       <section className="t-container" style={{ paddingBlock: "var(--space-12)" }}>
         <p className="t-eyebrow">Find us</p>
         <h1 className="inner-display" style={{ marginBottom: "var(--space-8)" }}>
@@ -140,6 +142,8 @@ export default function VisitPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

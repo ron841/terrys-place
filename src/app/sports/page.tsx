@@ -30,6 +30,8 @@ export default function SportsPage() {
     <>
       <Header />
 
+      <main>
+
       <section className="t-container" style={{ paddingBlock: "var(--space-12)" }}>
         <div className="sports-row">
           <div>
@@ -91,6 +93,8 @@ export default function SportsPage() {
           ))}
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

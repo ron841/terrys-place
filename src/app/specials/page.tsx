@@ -39,6 +39,8 @@ export default function SpecialsPage() {
     <>
       <Header />
 
+      <main>
+
       <section className="specials-bg">
         <div className="t-container" style={{ paddingBlock: "var(--space-12)" }}>
           <div style={{ display: "flex", alignItems: "end", justifyContent: "space-between", gap: "var(--space-6)", marginBottom: "var(--space-8)", flexWrap: "wrap" }}>
@@ -94,6 +96,8 @@ export default function SpecialsPage() {
           <Link href="/contact?topic=Catering" className="t-btn t-btn--ghost">Catering &amp; Parties</Link>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

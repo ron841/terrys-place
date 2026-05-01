@@ -39,6 +39,8 @@ export default function ContactPage() {
     <>
       <Header />
 
+      <main>
+
       <section className="t-container" style={{ paddingBlock: "var(--space-12)" }}>
         <div className="contact-grid">
           <div>
@@ -72,6 +74,8 @@ export default function ContactPage() {
           </Suspense>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

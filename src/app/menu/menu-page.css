@@ -38,7 +38,9 @@
   border-radius: 6px;
   padding: var(--space-6);
 }
-.menu-hero-aside h3 {
+.menu-hero-aside h2 {
+  /* Was h3; bumped to h2 for sequential heading order (a11y).
+     Visual treatment unchanged. */
   font-family: var(--font-display);
   color: var(--green);
   font-size: 22px;

@@ -64,6 +64,8 @@ export default function MenuPage() {
       />
       <Header />
 
+      <main>
+
       <section className="menu-hero">
         <div className="t-container">
           <div className="menu-hero-grid">
@@ -89,7 +91,7 @@ export default function MenuPage() {
             </div>
             <aside className="menu-hero-aside">
               <span className="price-flag">${menu.lunchSpecial.price.toFixed(2)}</span>
-              <h3>Daily Lunch</h3>
+              <h2>Daily Lunch</h2>
               <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--on-dark-3)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 var(--space-4)" }}>
                 {menu.lunchSpecial.window}
               </p>
@@ -175,6 +177,8 @@ export default function MenuPage() {
           {menu.footnote}
         </p>
       </section>
+
+      </main>
 
       <Footer />
     </>

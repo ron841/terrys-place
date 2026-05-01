@@ -163,7 +163,9 @@ a { color: inherit; }
   text-transform: uppercase;
   color: var(--green);
 }
-.t-eyebrow--red { color: var(--red); }
+.t-eyebrow--red { color: var(--red-soft); }
+  /* Was --red (#E04040, contrast 3.94 vs navy — fails WCAG AA).
+     --red-soft (#F26060) lifts contrast above 4.5 on navy. */
 .t-eyebrow--ink { color: var(--ink-2); }
 
 .t-mono { font-family: var(--font-mono); font-size: var(--fs-mono); letter-spacing: var(--tracking-mono-tight); }
@@ -292,7 +294,9 @@ a { color: inherit; }
 .t-menu-row .badge {
   font-family: var(--font-cond); font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.1em;
-  background: var(--red); color: var(--on-dark);
+  /* Was --red (#E04040 vs white = 4.21, fails AA at 4.5). --red-2 (#C43030)
+     passes AA. Visual register unchanged — same hot-red category. */
+  background: var(--red-2); color: var(--on-dark);
   padding: 3px 7px; border-radius: 3px; margin-left: 8px;
 }
 
