@@ -22,8 +22,9 @@ export const metadata: Metadata = (() => {
  *
  * Lifts: about-hero (right-rail group photo), story-section (two flipped rows
  * with body + pull quote on row 1), and a family row showing the three
- * generations. Family names ship as Design-drafted placeholders (Terry Sr.,
- * Jr., Tre) with a DraftField indicator until client confirms.
+ * generations. Family names render as DraftField pending pills until client
+ * confirms (Design retracted the agency-drafted placeholder names 2026-05-01;
+ * the storyRow bodies were rewritten to remove fabricated personal references).
  */
 
 export default function AboutPage() {
@@ -90,24 +91,16 @@ export default function AboutPage() {
             <article key={i} className="family-card">
               <DraftField
                 as="block"
-                item={`Portrait of ${member.name ?? `family[${i}]`}`}
+                item={`Portrait — ${member.role}`}
                 value={member.photo ? <div className="photo" style={{ backgroundImage: `url('${member.photo}')` }} /> : undefined}
               >
                 <div className="photo" />
               </DraftField>
               <p className="role">{member.role}</p>
               <h3 className="name">
-                {member.name ? (
-                  member._placeholder ? (
-                    <DraftField item={`Confirm name: ${member.name}`} value={member.name} />
-                  ) : (
-                    member.name
-                  )
-                ) : (
-                  <DraftField item={`Family member ${i + 1} name`} />
-                )}
+                {member.name ?? <DraftField item={member._pendingLabel ?? `Family member ${i + 1} name`} />}
               </h3>
-              <p className="since">Since {member.since}</p>
+              <p className="since">{member.since != null ? `Since ${member.since}` : <DraftField item="Year pending" />}</p>
             </article>
           ))}
         </div>

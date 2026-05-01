@@ -6,10 +6,10 @@
   "storyRows": [
     {
       "kicker": "The Beginning",
-      "title": "Terry Built the <span class=\"green\">Bar.</span>",
+      "title": "How It <span class=\"green\">Started.</span>",
       "body": [
-        "Terry Sr. opened the doors on NE 36th Ave in 1980 with a Frigidaire, a fryer, and a hand-painted sign. He'd worked the line at three Ocala restaurants before deciding to do it his way: half-pound burgers, hand-breaded wings, and never, ever a microwave.",
-        "The dining room sat 24. The bar sat 8. The first month, we sold 11 burgers a day. The second month, we sold 80."
+        "Terry's Place opened on NE 36th Ave in 1980. The kitchen ran on a fryer, a Frigidaire, and a hand-painted sign — and a rule that's never moved: half-pound burgers, hand-breaded wings, and never, ever a microwave.",
+        "[Founder's name and full origin story pending client interview — agency-drafted narrative retracted because it named a real family member without confirmation.]"
       ],
       "image": "/assets/photo-room-hero.jpg",
       "imageAlt": "Terry's Place dining room",
@@ -18,10 +18,10 @@
     },
     {
       "kicker": "Today",
-      "title": "His Son Runs the <span class=\"green\">Kitchen.</span>",
+      "title": "Now in <span class=\"green\">Round Three.</span>",
       "body": [
-        "Terry Jr. took over in 2003. Same recipes, same portions, same rule about pre-cooking nothing. He added the wing menu (now 11 sauces), expanded the bar, and put 22 TVs on the walls so nobody misses a Gators game.",
-        "His son — Terry III, but everybody calls him \"Tre\" — handles the front of house and runs the events. Three generations, one room, no shortcuts."
+        "The kitchen and front of house are now run by the second and third generations. Same recipes, same portions, same rule about pre-cooking nothing. Wing menu grew to 11 sauces, the bar expanded, 22 TVs went up so nobody misses a Gators game.",
+        "[Names and full story pending — agency-drafted narrative retracted.]"
       ],
       "image": "/assets/photo-staff-burger-wings.jpg",
       "imageAlt": "Staff with burger and wings",
@@ -39,17 +39,19 @@
     { "num": "7-day", "label": "Open week" }
   ],
   "family": [
-    { "name": "Terry Sr.",         "role": "Founder",           "since": 1980, "photo": null, "_placeholder": true },
-    { "name": "Terry Jr.",         "role": "Kitchen",           "since": 2003, "photo": null, "_placeholder": true },
-    { "name": "Terry III (\"Tre\")", "role": "Front of House",    "since": 2020, "photo": null, "_placeholder": true }
+    { "name": null, "role": "Founder",        "since": 1980, "photo": null, "_placeholder": true, "_pendingLabel": "[OWNER NAME PENDING]" },
+    { "name": null, "role": "Kitchen",        "since": null, "photo": null, "_placeholder": true, "_pendingLabel": "[2ND GEN NAME PENDING]" },
+    { "name": null, "role": "Front of House", "since": null, "photo": null, "_placeholder": true, "_pendingLabel": "[3RD GEN NAME PENDING]" }
   ],
   "groupPhoto": {
     "src": "/assets/photo-staff-group.jpg",
     "alt": "Terry's Place staff in front of the brushed-metal Terry's wordmark"
   },
   "_pendingFromClient": [
-    "real family names for the three generations",
+    "real family names for the three generations (Design retracted the agency-drafted placeholders 2026-05-01)",
     "individual portraits for family[]",
-    "confirm pull-quote attribution"
+    "confirm pull-quote attribution",
+    "confirm second- and third-generation handover years (originally 2003 and 2020 in the agency draft, retracted with the names)",
+    "founder + son full narrative for the storyRows on /about — currently shipping a placeholder retraction line where named individuals appeared"
   ]
 }

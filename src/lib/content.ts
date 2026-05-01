@@ -95,9 +95,11 @@ export type FamilyMember = {
   name: string | null;
   role: string;
   photo: string | null;
-  since: number;
-  /** True when the name was Design-drafted as a placeholder pending client confirmation. */
+  since: number | null;
+  /** True when the name + meta are placeholders pending client confirmation. */
   _placeholder?: boolean;
+  /** Label used inside the DraftField pill when name is null, e.g. "[OWNER NAME PENDING]". */
+  _pendingLabel?: string;
 };
 
 export type StoryRow = {
