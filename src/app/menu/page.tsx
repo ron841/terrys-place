@@ -68,41 +68,25 @@ export default function MenuPage() {
 
       <section className="menu-hero">
         <div className="t-container">
-          <div className="menu-hero-grid">
-            <div>
-              <p className="t-eyebrow">
-                The Menu · Updated {new Date(menu.lastUpdated).toLocaleString("en-US", { month: "long", year: "numeric" })}
-              </p>
-              <h1>
-                King-Size <span className="green">Portions</span>.<br />
-                Cooked to Order.
-              </h1>
-              <p className="lede">
-                All burgers are 1/2 lb USDA Angus, ground fresh daily. Wings hand-tossed in your choice of 11 flavors. Nothing pre-cooked — ever.
-              </p>
-              <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap", marginTop: "var(--space-6)" }}>
-                <a href={site.menuPdf} className="t-btn t-btn--primary" target="_blank" rel="noopener noreferrer">
-                  Download PDF Menu
-                </a>
-                <a href={`tel:${site.phone}`} className="t-btn t-btn--ghost">
-                  Call to Order · {site.phoneDisplay}
-                </a>
-              </div>
+          <div className="menu-hero-single">
+            <p className="t-eyebrow">
+              The Menu · Updated {new Date(menu.lastUpdated).toLocaleString("en-US", { month: "long", year: "numeric" })}
+            </p>
+            <h1>
+              King-Size <span className="green">Portions</span>.<br />
+              Cooked to Order.
+            </h1>
+            <p className="lede">
+              All burgers are 1/2 lb USDA Angus, ground fresh daily. Wings hand-tossed in your choice of 11 flavors. Nothing pre-cooked — ever.
+            </p>
+            <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap", marginTop: "var(--space-6)" }}>
+              <a href={site.menuPdf} className="t-btn t-btn--primary" target="_blank" rel="noopener noreferrer">
+                Download PDF Menu
+              </a>
+              <a href={`tel:${site.phone}`} className="t-btn t-btn--ghost">
+                Call to Order · {site.phoneDisplay}
+              </a>
             </div>
-            <aside className="menu-hero-aside">
-              <span className="price-flag">${menu.lunchSpecial.price.toFixed(2)}</span>
-              <h2>Daily Lunch</h2>
-              <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--on-dark-3)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 var(--space-4)" }}>
-                {menu.lunchSpecial.window}
-              </p>
-              <ul>
-                {menu.lunchSpecial.days.map((d) => (
-                  <li key={d.day}>
-                    <span className="day">{d.day.slice(0, 3).toUpperCase()}</span> · {d.item}
-                  </li>
-                ))}
-              </ul>
-            </aside>
           </div>
         </div>
       </section>

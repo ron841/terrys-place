@@ -256,14 +256,23 @@ a { color: inherit; }
 .t-sticker--green { background: var(--green); color: var(--ink); }
 .t-sticker--solid-dark { background: var(--navy-2); color: var(--green); }
 
-/* --- Menu row with dot leader --------------------------------------- */
+/* --- Menu row with dot leader ---------------------------------------
+   Two-row pattern (Code, 2026-05-01 — Ron rendering pass):
+   - .t-menu-row-head: [Name (auto)] [...dots (1fr)...] [Price (auto)]
+   - .t-menu-row-tiers: tier pairs in mono, wrapping (only for tier-priced)
+   - .t-menu-row-desc: italic description hangs full-width below.
+   The previous single-row "1fr auto auto" pattern made the dots look like
+   orphan ticks when descriptions filled the 1fr column, and squeezed the
+   name into ~15ch on mobile when the tier-pricing string was long. */
 .t-menu-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 16px;
-  align-items: baseline;
   padding: 14px 0;
   border-bottom: 1px dashed rgba(255,255,255,0.18);
+}
+.t-menu-row-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: baseline;
 }
 .t-menu-row .name {
   font-family: var(--font-body);
@@ -271,44 +280,78 @@ a { color: inherit; }
   font-size: 17px;
   color: var(--on-dark);
 }
-.t-menu-row .name em {
-  font-style: normal;
-  font-weight: 400;
-  color: var(--on-dark-2);
-  margin-left: 8px;
-  font-size: 14px;
-}
 .t-menu-row .dots {
   border-bottom: 2px dotted rgba(255,255,255,0.22);
   align-self: end;
   margin-bottom: 6px;
-  min-width: 40px;
+  min-width: 24px;
 }
 .t-menu-row .price {
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 17px;
   color: var(--green);
+  white-space: nowrap;
 }
 .t-menu-row .price::before { content: "$"; color: var(--green); margin-right: 1px; opacity: 0.6; }
 .t-menu-row .badge {
   font-family: var(--font-cond); font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.1em;
-  /* Was --red (#E04040 vs white = 4.21, fails AA at 4.5). --red-2 (#C43030)
-     passes AA. Visual register unchanged — same hot-red category. */
+  /* --red (4.21 contrast vs white) → --red-2 (5.67) for WCAG AA. */
   background: var(--red-2); color: var(--on-dark);
   padding: 3px 7px; border-radius: 3px; margin-left: 8px;
+  vertical-align: 2px;
+}
+.t-menu-row .badge--fav {
+  background: var(--green); color: var(--ink);
+  font-size: 13px; padding: 1px 6px;
+}
+
+.t-menu-row-tiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+.t-menu-row-tiers .tier {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--on-dark-2);
+}
+.t-menu-row-tiers .tier-size {
+  font-weight: 700;
+  color: var(--on-dark);
+  letter-spacing: 0.04em;
+}
+.t-menu-row-tiers .tier-price {
+  font-weight: 700;
+  color: var(--green);
+}
+.t-menu-row-tiers .tier-price::before { content: "$"; opacity: 0.7; margin-right: 1px; }
+
+.t-menu-row-desc {
+  display: block;
+  margin-top: 6px;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--on-dark-2);
+  max-width: 60ch;
 }
 
 /* Menu row variant on paper surface (for the printable menu) */
-.t-menu-row--paper {
-  border-bottom-color: var(--paper-line);
-}
+.t-menu-row--paper { border-bottom-color: var(--paper-line); }
 .t-menu-row--paper .name { color: var(--ink); }
-.t-menu-row--paper .name em { color: var(--ink-2); }
 .t-menu-row--paper .price { color: var(--ink); }
 .t-menu-row--paper .price::before { color: var(--green-deep); opacity: 1; }
 .t-menu-row--paper .dots { border-bottom-color: var(--paper-line); }
+.t-menu-row--paper .t-menu-row-tiers .tier { color: var(--ink-2); }
+.t-menu-row--paper .t-menu-row-tiers .tier-size { color: var(--ink); }
+.t-menu-row--paper .t-menu-row-desc { color: var(--ink-2); }
 
 /* --- Photo placeholder (for missing imagery) ------------------------- */
 .t-photo-placeholder {
