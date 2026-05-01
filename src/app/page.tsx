@@ -129,8 +129,7 @@ export default function HomePage() {
               &amp; Grill
             </h1>
             <p className="hero-lede">
-              For more than forty years, {site.name} has been Ocala&rsquo;s sports bar &amp; grill —
-              king-size portions, a lively room, and three generations of homegrown hospitality.
+              {`For more than forty years, ${site.name} has been Ocala’s sports bar & grill — king-size portions, a lively room, and three generations of homegrown hospitality.`}
             </p>
             <div className="hero-cta-row">
               <Link href="/menu" className="t-btn t-btn--primary">See the Menu</Link>

@@ -136,7 +136,7 @@ export default function VisitPage() {
                 }}
               />
               <p style={{ marginTop: "var(--space-4)", color: "var(--green)", fontFamily: "var(--font-cond)", fontWeight: 700, fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                {hours.happyHour.label}
+                Happy Hour · {hours.happyHour.label}
               </p>
             </div>
           </div>
