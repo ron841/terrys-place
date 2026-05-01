@@ -46,14 +46,18 @@ export const metadata: Metadata = (() => {
  */
 
 function pickFeatured() {
-  const out: { name: string; price?: string; image: string; kicker: string }[] = [];
+  const out: { name: string; price?: string; image: string | null; kicker: string; pendingLabel?: string }[] = [];
 
   const burger = menu.sections.find((s) => s.id === "burgers")?.items.find((i) => i.name === "The Belly Buster");
   if (burger) {
+    // Per Design feedback §1: the Belly Buster slot should hold a clean burger
+    // product shot, not the staff-with-burger-wings photo. We don't have one
+    // yet — render a placeholder until the half-day shoot lands.
     out.push({
       name: "The Belly\nBuster",
       kicker: "★ Terry's Favorite",
-      image: "/assets/photo-staff-burger-wings.jpg",
+      image: null,
+      pendingLabel: "Belly Buster product shot pending",
       price: `1lb USDA Angus chuck · crisp bacon · Swiss + American · $${burger.price?.toFixed(2)}`,
     });
   }
@@ -178,7 +182,13 @@ export default function HomePage() {
         <div className="food-grid">
           {featured.map((f, i) => (
             <article className={`food-card ${i === 0 ? "tall" : ""}`} key={f.kicker}>
-              <div className="img" style={{ backgroundImage: `url('${f.image}')` }}></div>
+              {f.image ? (
+                <div className="img" style={{ backgroundImage: `url('${f.image}')` }} />
+              ) : (
+                <div className="img img--pending" role="img" aria-label={f.pendingLabel ?? "Photo pending"}>
+                  <span className="pending-label">{f.pendingLabel ?? "Photo pending"}</span>
+                </div>
+              )}
               <div className="body">
                 <div className="kicker">{f.kicker}</div>
                 <h3 className="name">
@@ -198,6 +208,34 @@ export default function HomePage() {
           <span className="t-mono t-mono--caps" style={{ color: "var(--on-dark-3)" }}>
             Updated {new Date(menu.lastUpdated).toLocaleString("en-US", { month: "long", year: "numeric" })}
           </span>
+        </div>
+      </section>
+
+      <div className="t-container" style={{ paddingBlock: "var(--space-8)" }}>
+        <div className="t-squiggle" role="presentation"></div>
+      </div>
+
+      {/* SUNDAY FOOTBALL PROMO (Design §2 — added per consolidated fix pass) */}
+      <section className="sunday-promo t-container" aria-label="Sunday football special">
+        <div className="sunday-promo-grid">
+          <a href="/specials" className="sunday-promo-card">
+            <div className="sunday-promo-card-img" role="img" aria-label="Sunday Football Special: 20 jumbo naked wings + pitcher of beer for $29.99" />
+          </a>
+          <div className="sunday-promo-body">
+            <p className="t-eyebrow t-eyebrow--red">Every Sunday in Season</p>
+            <h2 className="t-display">
+              Sunday Football,<br />
+              <span style={{ color: "var(--green)" }}>Served Loud.</span>
+            </h2>
+            <p className="t-body t-body--lg" style={{ color: "var(--on-dark-2)", maxWidth: "44ch" }}>
+              Pitcher + 20 jumbo wings, <strong style={{ color: "var(--green)" }}>$29.99</strong>, all day.
+              Sound on the Gators. NFL Sunday Ticket on every screen. Bring the crew.
+            </p>
+            <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap", marginTop: "var(--space-5)" }}>
+              <Link href="/specials" className="t-btn t-btn--primary">See the Special</Link>
+              <a href={`tel:${site.phone}`} className="t-btn t-btn--ghost">Reserve a Booth</a>
+            </div>
+          </div>
         </div>
       </section>
 

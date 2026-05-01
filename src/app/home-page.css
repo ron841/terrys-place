@@ -299,6 +299,75 @@
   font-weight: 700;
 }
 
+/* Pending-photo placeholder for food cards (e.g. Belly Buster product shot) */
+.food-card .img--pending {
+  position: absolute;
+  inset: 8px;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0px, transparent 22px,
+      rgba(255, 255, 255, 0.05) 22px, rgba(255, 255, 255, 0.05) 23px
+    ),
+    var(--navy-3);
+  border: 2px dashed var(--red);
+  border-radius: 4px;
+}
+.food-card .img--pending .pending-label {
+  position: absolute;
+  top: 12px; left: 14px; right: 14px;
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red-soft);
+  z-index: 3;
+}
+
+/* --- Sunday Football promo (Design §2 — added in consolidated fix pass) -- */
+.sunday-promo { padding: var(--space-10) 0 var(--space-12); }
+.sunday-promo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+@media (max-width: 800px) {
+  .sunday-promo-grid { grid-template-columns: 1fr; gap: var(--space-7); }
+}
+.sunday-promo-card {
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.sunday-promo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 44px rgba(73, 226, 109, 0.18);
+}
+.sunday-promo-card-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-image: url("/assets/photo-sunday-football.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.sunday-promo-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.sunday-promo-body .t-display {
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0;
+}
+
 /* --- Heritage ---------------------------------------------------------- */
 .heritage { padding: var(--space-12) 0; }
 .heritage-grid {
