@@ -7,8 +7,8 @@ The site is at **https://terrys-place.vercel.app** if you can reach it. If not, 
 | | |
 |---|---|
 | **Live preview** | https://terrys-place.vercel.app |
-| **Captured** | 2026-05-01 |
-| **State** | post all rounds: comp lift → Design feedback pass → menu rework → exterior banner → final review fixes |
+| **Captured** | 2026-05-01 (refresh) |
+| **State** | final pass — all rounds closed: comp lift → Design feedback → menu rework → exterior banners → real photos in (burger / team / front-of-house banner) → Design polish round 2 |
 
 ---
 
@@ -31,9 +31,9 @@ The screenshots are full-page captures, so a long scroll within each cell is the
 - **Hero** — wordmark photo behind the navy/green wash, the live-status pill animating top-left ("OPEN NOW · CLOSES 1:00 AM" right now because it's Friday past 11am and Friday closes at 1am Saturday), Tonight at Terry's strip on the right pulling four cells from the CMS.
 - **Marquee** — "$10.50 LUNCH MON–FRI · HAPPY HOUR 3–7 DAILY · KARAOKE FRIDAY · TRIVIA TUESDAY 7PM..." running across in the green band with red ★ separators. Auto-loops via CSS.
 - **This Week grid** — seven day-cells, today (Friday) highlighted with the green TODAY chip top-right. Each cell pulls the recurring weekly event from `events.json` so client edits roll through.
-- **What You Came For** — three signature dishes. **First card is a `<DraftField>` placeholder** ("Belly Buster product shot pending") because we don't have a clean burger product shot yet — the rest of the staff/wings/steak photos are real Terry's content.
+- **What You Came For** — three signature dishes. **The Belly Buster card now ships the real burger** — tall stacked patty with bacon + lettuce + tomato, plated with fries and pickles. (Earlier passes used a red-dashed `<DraftField>` placeholder; Ron sourced the real menu-grade product shot.)
 - **Sunday Football promo** — the dedicated two-up section restored after your feedback pass: pink promo on the left (links to `/specials`), "SUNDAY FOOTBALL, SERVED LOUD." headline on the right with the pitcher + 20 wings $29.99 line and a tel-CTA. This was missing in the first build because the comp's HTML didn't have it as a separate section — it was carried by a mis-labeled photo file. Fixed by giving it its own slot.
-- **Three Generations** — staff group photo on the left, `FAMILY-RUN SINCE 1980.` on the right with the 45 / 3 / 7-day stat tiles in carded green-top-bordered containers.
+- **Three Generations** — fresh team shot on the left (5 staff in green Terry's tees against the mural wall), `FAMILY-RUN SINCE 1980.` on the right with the 45 / 3 / **7 days** stat tiles in carded green-top-bordered containers. (`/about` keeps the broader 8-staff portrait at hero per your round-1 ratified call; home heritage section gets the energy shot.)
 - **News strip** — three cards. Agency-drafted entries for v1; Eli writes real ones at v1.5.
 
 ---
@@ -47,7 +47,7 @@ The screenshots are full-page captures, so a long scroll within each cell is the
 **What to look at:**
 
 - **Hero** — single-column now (the Daily Lunch aside that originally lived on the right was dropped per Ron's call; lunch already shouts on the green CTA strip below and on `/specials`). No more purple gap; headline starts at the top.
-- **Anchor nav** — sticky, jumps to each section. Click APPETIZERS / SALADS / BURGERS / etc. and the section title lands cleanly below the sticky bars (`scroll-margin-top` reserved 150px so titles aren't buried).
+- **Anchor nav** — sticky, jumps to each section. Click APPETIZERS / SALADS / BURGERS / etc. and the section title lands cleanly below the sticky bars (`scroll-margin-top` reserved 150px so titles aren't buried). On mobile (375px), the anchor row **horizontal-scrolls** instead of wrapping to multiple lines (Design polish round 2).
 - **Menu rows — the leader pattern.** Single-priced items: `[Bold Name] [.....dots fill.....] [$9.29]` with the italic description hanging full-width below. Tier-priced items (wings 10/20/30/50, subs Sm/Lg, fish 2pc/3pc): name + dots on row 1, tier pairs in mono on row 2 (`10 $14   20 $28   30 $42   50 $70`), description below. This restructured the original `t-menu-row` so descriptions don't squeeze the dots into orphan ticks at the right edge.
 - **Section count** — the comp had 4 sections; we lifted **all 7** from the actual PDF (Sandwiches, Subs, Dinners added — about 50 items total, all parsed from `Terrys-Place-MENU-2025.pdf`).
 - **Daily Lunch CTA strip** — green band with the $10.50 callout halfway through the page, anchored as `#lunch`.
@@ -64,7 +64,7 @@ The screenshots are full-page captures, so a long scroll within each cell is the
 **What to look at:**
 
 - **Hero** — `THREE GENERATIONS STRONG.` with the green/red wordmark stack treatment, real staff group photo on the right (the 8-staff portrait with the brushed-metal `Terry's` wall sign behind them).
-- **Story rows.** Two flipped rows — `HOW IT STARTED.` and `NOW IN ROUND THREE.` Per Ron's pre-walk ruling, the agency-drafted **fabricated family names were retracted** ("Terry Sr.", "Jr.", "III (Tre)") because inventing names for a real family business reads worse than blank. The story rows now end with `[pending]` retraction lines where a named anecdote would have been; the pull quote "If a guy can't eat it all, you cooked it right." stays (no name attached).
+- **Story rows.** Two flipped rows — `HOW IT STARTED.` and `NOW IN ROUND THREE.` Per Ron's pre-walk ruling, the agency-drafted fabricated family names were retracted (inventing names for a real family business reads worse than blank). Each row now **ends at the verified factual claims** — the earlier `[retraction]` self-flagellation lines are dropped per Design's round-2 polish ask. The pull quote "If a guy can't eat it all, you cooked it right." stays (no name attached).
 - **Family row hidden.** The "ONE FAMILY ONE RECIPE BOX" three-portrait section was added during build but **renders only when at least one family member has both name AND photo confirmed** — currently all three are pending, so the section hides entirely. Eli's preview drops to the two story rows + footer, no red-dashed grid below the fold. Once Eli supplies a name + portrait, the section lights up automatically.
 
 ---
@@ -105,8 +105,8 @@ The screenshots are full-page captures, so a long scroll within each cell is the
 **What to look at:**
 
 - **`COME THROUGH.`** with the green stack treatment.
-- **Real exterior photo** as the hero banner above the map+address grid. Mural-side of the building — yellow stucco with the hand-painted `Terry's` wordmark in green/red graffiti, tropical cocktail with `5 5 5` clock face, palm trees, "It's 5 o'clock here!" in teal. The mural's color palette literally matches the site's brand colors — feels like the brand walked off the wall onto the page.
-- **Functional stack below.** Real Google Maps embed with a pin on Terry's, Get Directions / Open in Maps CTAs underneath. Address card · Phone card · Hours card on the right, with the **green TODAY pill** chipping out today's row (Friday at capture time).
+- **Two exterior photos bookending the find-us details.** Mural-side hero banner at the top (yellow stucco with hand-painted `Terry's` wordmark, tropical cocktail clock face, palm trees, "It's 5 o'clock here!" in teal) — the brand walking off the wall. **Front-of-house banner at the bottom** (the new EST. 1980 wall sign — green Terry's wordmark on black, red border, staff member presenting it) — closes the page on the actual storefront. Both real, both Terry's.
+- **Functional stack between.** Real Google Maps embed with a pin on Terry's, Get Directions / Open in Maps CTAs underneath. Address card · Phone card · Hours card on the right, with the **green TODAY pill** chipping out today's row (Friday at capture time).
 
 ---
 
@@ -120,7 +120,7 @@ The screenshots are full-page captures, so a long scroll within each cell is the
 
 - **`GOT A QUESTION?`** + the warm-and-direct copy + the hand-drawn green line ("Or just walk in. We're not hard to find.") preserved exactly from the comp.
 - **OR CALL US** CTA — green pill with the phone number, build add per your feedback. The phone is the fastest path for most questions; the form covers catering / private events / press / general.
-- **Pending DraftField.** Below the call CTA, the red-dashed `REAL CONTACT RECIPIENT EMAIL` pill flags that the form currently posts to a placeholder address — Eli replaces with the real catering email before launch.
+- **Pending DraftField.** Below the call CTA, the red-dashed `[CONTACT RECIPIENT EMAIL PENDING]` pill flags that the form currently posts to a placeholder address. (Bracketed style now matches the family-row pattern; the inconsistent "Pending:" prefix dropped per Design polish round 2.)
 - **Form** — Name, Email, Phone (optional), Topic dropdown (General / Catering / Private Event / Press), Message, Send. Honeypot + Static Forms on the wire.
 
 ---
